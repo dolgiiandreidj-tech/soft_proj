@@ -11,5 +11,10 @@ namespace Software_Project_team2
         {
             MessageBox.Show("Hello, World!");
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Goodbye, World!");
+        }
     }
 }
