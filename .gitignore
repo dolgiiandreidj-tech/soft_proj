@@ -9,3 +9,6 @@ obj/
 
 # Logs
 *.log
+
+Backup/
+UpgradeLog.htm
