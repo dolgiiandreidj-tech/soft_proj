@@ -24,19 +24,35 @@ namespace Software_Project_team2
             string userId = textBoxId.Text;
             string password = textBoxPassword.Text;
 
-            using var playwright = await Playwright.CreateAsync();
-            var browser = await playwright.Chromium.LaunchAsync(new()
+            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(password))
             {
-                Headless = false // set true later
-            });
+                MessageBox.Show("ID와 비밀번호를 입력하세요.");
+                return;
+            }
 
-            var sessionManager = new SessionManager(browser);
+            buttonLogin.Enabled = false;
+            try
+            {
+                using var playwright = await Playwright.CreateAsync();
+                var browser = await playwright.Chromium.LaunchAsync(new()
+                {
+                    Headless = false
+                });
 
-            await sessionManager.SaveSessionAsync(userId, password);
+                var sessionManager = new SessionManager(browser);
+                await sessionManager.SaveSessionAsync(userId, password);
+                await browser.CloseAsync();
 
-            MessageBox.Show("Login successful & session saved");
-
-            await browser.CloseAsync();
+                var main = new MainForm();
+                main.FormClosed += (_, _) => Close();
+                Hide();
+                main.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"로그인 실패: {ex.Message}");
+                buttonLogin.Enabled = true;
+            }
         }
     }
 }

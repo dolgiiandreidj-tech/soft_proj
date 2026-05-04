@@ -36,11 +36,29 @@ namespace EvertimeScraper.Scrappers
             var context = await _browser.NewContextAsync();
             var page = await context.NewPageAsync();
 
-            await page.GotoAsync(LoginUrl);
-            await page.FillAsync("[name='id']", userId);
-            await page.FillAsync("[name='password']", password);
-            await page.ClickAsync("[type='submit']");
+            await page.GotoAsync(LoginUrl, new PageGotoOptions { WaitUntil = WaitUntilState.DOMContentLoaded });
+
+            // wait until the login form actually renders (everytime sometimes shows a splash/redirect first)
+            var idLocator = page.Locator("input[name='id']");
+            await idLocator.WaitForAsync(new LocatorWaitForOptions { Timeout = 60000 });
+
+            await idLocator.FillAsync(userId);
+            await page.Locator("input[name='password']").FillAsync(password);
+
+            // submit + wait for the redirect chain (account.everytime.kr -> everytime.kr) to settle
+            await Task.WhenAll(
+                page.WaitForURLAsync(u => !u.Contains("/login"), new PageWaitForURLOptions { Timeout = 30000 }),
+                page.Locator("[type='submit']").ClickAsync()
+            );
             await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+
+            // make sure cookies for the main everytime.kr domain are actually set before saving
+            await page.GotoAsync("https://everytime.kr/", new PageGotoOptions { WaitUntil = WaitUntilState.DOMContentLoaded });
+            await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+
+            // sanity check: if we are still on a login page, the credentials were rejected
+            if (page.Url.Contains("/login"))
+                throw new Exception("로그인 실패: 아이디 또는 비밀번호가 올바르지 않습니다.");
 
             await context.StorageStateAsync(new BrowserContextStorageStateOptions
             {
@@ -53,13 +71,22 @@ namespace EvertimeScraper.Scrappers
 
         /// <summary>
         /// Loads saved session from file and returns a ready context.
+        /// Overrides user-agent so headless Chromium isn't fingerprinted as a bot.
         /// </summary>
         public async Task<IBrowserContext> LoadSessionAsync()
         {
-            return await _browser.NewContextAsync(new BrowserNewContextOptions
+            var context = await _browser.NewContextAsync(new BrowserNewContextOptions
             {
-                StorageStatePath = SessionFile
+                StorageStatePath = SessionFile,
+                UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+                ViewportSize = new ViewportSize { Width = 1280, Height = 800 },
+                Locale = "ko-KR"
             });
+
+            // hide webdriver flag before any page script runs
+            await context.AddInitScriptAsync(@"Object.defineProperty(navigator, 'webdriver', { get: () => undefined });");
+
+            return context;
         }
     }
 }
