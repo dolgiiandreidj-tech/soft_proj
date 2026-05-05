@@ -156,7 +156,7 @@
             panelGPA.Controls.Add(label3);
             panelGPA.Controls.Add(label2);
             panelGPA.Location = new Point(268, 86);
-            panelGPA.Margin = new Padding(2, 2, 2, 2);
+            panelGPA.Margin = new Padding(2);
             panelGPA.Name = "panelGPA";
             panelGPA.Size = new Size(384, 192);
             panelGPA.TabIndex = 1;
@@ -178,7 +178,7 @@
             progressBG.BackColor = Color.FromArgb(55, 58, 70);
             progressBG.Controls.Add(panelProgressBG);
             progressBG.Location = new Point(24, 154);
-            progressBG.Margin = new Padding(2, 2, 2, 2);
+            progressBG.Margin = new Padding(2);
             progressBG.Name = "progressBG";
             progressBG.Size = new Size(272, 10);
             progressBG.TabIndex = 2;
@@ -187,7 +187,7 @@
             // 
             panelProgressBG.BackColor = Color.FromArgb(98, 120, 255);
             panelProgressBG.Location = new Point(0, 0);
-            panelProgressBG.Margin = new Padding(2, 2, 2, 2);
+            panelProgressBG.Margin = new Padding(2);
             panelProgressBG.Name = "panelProgressBG";
             panelProgressBG.Size = new Size(272, 10);
             panelProgressBG.TabIndex = 4;
@@ -251,7 +251,7 @@
             panelGraduate.Controls.Add(label10);
             panelGraduate.Controls.Add(label11);
             panelGraduate.Location = new Point(680, 86);
-            panelGraduate.Margin = new Padding(2, 2, 2, 2);
+            panelGraduate.Margin = new Padding(2);
             panelGraduate.Name = "panelGraduate";
             panelGraduate.Size = new Size(384, 192);
             panelGraduate.TabIndex = 2;
@@ -261,7 +261,7 @@
             panel3.BackColor = Color.FromArgb(55, 58, 70);
             panel3.Controls.Add(panel2);
             panel3.Location = new Point(24, 154);
-            panel3.Margin = new Padding(2, 2, 2, 2);
+            panel3.Margin = new Padding(2);
             panel3.Name = "panel3";
             panel3.Size = new Size(272, 10);
             panel3.TabIndex = 5;
@@ -270,7 +270,7 @@
             // 
             panel2.BackColor = Color.FromArgb(45, 210, 160);
             panel2.Location = new Point(0, 0);
-            panel2.Margin = new Padding(2, 2, 2, 2);
+            panel2.Margin = new Padding(2);
             panel2.Name = "panel2";
             panel2.Size = new Size(272, 10);
             panel2.TabIndex = 6;
@@ -346,7 +346,7 @@
             panelCourses.Controls.Add(flowLayoutPanel1);
             panelCourses.Controls.Add(label12);
             panelCourses.Location = new Point(268, 293);
-            panelCourses.Margin = new Padding(2, 2, 2, 2);
+            panelCourses.Margin = new Padding(2);
             panelCourses.Name = "panelCourses";
             panelCourses.Size = new Size(796, 446);
             panelCourses.TabIndex = 0;
@@ -387,7 +387,7 @@
             button1.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
             button1.Location = new Point(632, 21);
-            button1.Margin = new Padding(2, 2, 2, 2);
+            button1.Margin = new Padding(2);
             button1.Name = "button1";
             button1.Size = new Size(72, 32);
             button1.TabIndex = 7;
@@ -513,7 +513,7 @@
             button4.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button4.ForeColor = Color.White;
             button4.Location = new Point(632, 12);
-            button4.Margin = new Padding(2, 2, 2, 2);
+            button4.Margin = new Padding(2);
             button4.Name = "button4";
             button4.Size = new Size(72, 32);
             button4.TabIndex = 8;
@@ -592,7 +592,7 @@
             button2.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button2.ForeColor = Color.White;
             button2.Location = new Point(632, 21);
-            button2.Margin = new Padding(2, 2, 2, 2);
+            button2.Margin = new Padding(2);
             button2.Name = "button2";
             button2.Size = new Size(72, 32);
             button2.TabIndex = 8;
@@ -671,7 +671,7 @@
             button3.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button3.ForeColor = Color.White;
             button3.Location = new Point(632, 15);
-            button3.Margin = new Padding(2, 2, 2, 2);
+            button3.Margin = new Padding(2);
             button3.Name = "button3";
             button3.Size = new Size(72, 32);
             button3.TabIndex = 8;
@@ -685,7 +685,7 @@
             flowLayoutPanel1.BackColor = Color.Transparent;
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel1.Location = new Point(24, 64);
-            flowLayoutPanel1.Margin = new Padding(2, 2, 2, 2);
+            flowLayoutPanel1.Margin = new Padding(2);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(758, 326);
             flowLayoutPanel1.TabIndex = 1;
@@ -716,7 +716,7 @@
             panelNotice.Controls.Add(label30);
             panelNotice.Controls.Add(label29);
             panelNotice.Location = new Point(1078, 86);
-            panelNotice.Margin = new Padding(2, 2, 2, 2);
+            panelNotice.Margin = new Padding(2);
             panelNotice.Name = "panelNotice";
             panelNotice.Size = new Size(330, 654);
             panelNotice.TabIndex = 2;
@@ -742,7 +742,7 @@
             button5.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button5.ForeColor = Color.FromArgb(180, 185, 200);
             button5.Location = new Point(40, 557);
-            button5.Margin = new Padding(2, 2, 2, 2);
+            button5.Margin = new Padding(2);
             button5.Name = "button5";
             button5.Size = new Size(256, 40);
             button5.TabIndex = 5;
@@ -755,7 +755,7 @@
             panel11.Controls.Add(label45);
             panel11.Controls.Add(label46);
             panel11.Location = new Point(12, 461);
-            panel11.Margin = new Padding(2, 2, 2, 2);
+            panel11.Margin = new Padding(2);
             panel11.Name = "panel11";
             panel11.Size = new Size(305, 72);
             panel11.TabIndex = 6;
@@ -802,7 +802,7 @@
             panel10.Controls.Add(label42);
             panel10.Controls.Add(label43);
             panel10.Location = new Point(12, 367);
-            panel10.Margin = new Padding(2, 2, 2, 2);
+            panel10.Margin = new Padding(2);
             panel10.Name = "panel10";
             panel10.Size = new Size(305, 72);
             panel10.TabIndex = 5;
@@ -849,7 +849,7 @@
             panel9.Controls.Add(label39);
             panel9.Controls.Add(label40);
             panel9.Location = new Point(12, 273);
-            panel9.Margin = new Padding(2, 2, 2, 2);
+            panel9.Margin = new Padding(2);
             panel9.Name = "panel9";
             panel9.Size = new Size(305, 72);
             panel9.TabIndex = 4;
@@ -896,7 +896,7 @@
             panel8.Controls.Add(label36);
             panel8.Controls.Add(label37);
             panel8.Location = new Point(12, 184);
-            panel8.Margin = new Padding(2, 2, 2, 2);
+            panel8.Margin = new Padding(2);
             panel8.Name = "panel8";
             panel8.Size = new Size(305, 72);
             panel8.TabIndex = 3;
@@ -943,7 +943,7 @@
             panelNotice1.Controls.Add(label33);
             panelNotice1.Controls.Add(label32);
             panelNotice1.Location = new Point(12, 98);
-            panelNotice1.Margin = new Padding(2, 2, 2, 2);
+            panelNotice1.Margin = new Padding(2);
             panelNotice1.Name = "panelNotice1";
             panelNotice1.Size = new Size(305, 72);
             panelNotice1.TabIndex = 2;
@@ -1021,7 +1021,7 @@
             panelSidebar.Controls.Add(label48);
             panelSidebar.Controls.Add(pictureBoxKWULogo);
             panelSidebar.Location = new Point(0, 0);
-            panelSidebar.Margin = new Padding(2, 2, 2, 2);
+            panelSidebar.Margin = new Padding(2);
             panelSidebar.Name = "panelSidebar";
             panelSidebar.Size = new Size(250, 760);
             panelSidebar.TabIndex = 3;
@@ -1033,7 +1033,7 @@
             buttonLogOut.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonLogOut.ForeColor = Color.FromArgb(130, 130, 130);
             buttonLogOut.Location = new Point(19, 656);
-            buttonLogOut.Margin = new Padding(2, 2, 2, 2);
+            buttonLogOut.Margin = new Padding(2);
             buttonLogOut.Name = "buttonLogOut";
             buttonLogOut.Size = new Size(144, 40);
             buttonLogOut.TabIndex = 8;
@@ -1050,7 +1050,7 @@
             buttonLectureManagement.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonLectureManagement.ForeColor = Color.FromArgb(160, 165, 180);
             buttonLectureManagement.Location = new Point(36, 269);
-            buttonLectureManagement.Margin = new Padding(2, 2, 2, 2);
+            buttonLectureManagement.Margin = new Padding(2);
             buttonLectureManagement.Name = "buttonLectureManagement";
             buttonLectureManagement.Size = new Size(158, 40);
             buttonLectureManagement.TabIndex = 7;
@@ -1067,7 +1067,7 @@
             buttonSettings.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonSettings.ForeColor = Color.FromArgb(160, 165, 180);
             buttonSettings.Location = new Point(36, 443);
-            buttonSettings.Margin = new Padding(2, 2, 2, 2);
+            buttonSettings.Margin = new Padding(2);
             buttonSettings.Name = "buttonSettings";
             buttonSettings.Size = new Size(158, 40);
             buttonSettings.TabIndex = 6;
@@ -1084,7 +1084,7 @@
             buttonSchedule.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonSchedule.ForeColor = Color.FromArgb(160, 165, 180);
             buttonSchedule.Location = new Point(36, 382);
-            buttonSchedule.Margin = new Padding(2, 2, 2, 2);
+            buttonSchedule.Margin = new Padding(2);
             buttonSchedule.Name = "buttonSchedule";
             buttonSchedule.Size = new Size(158, 40);
             buttonSchedule.TabIndex = 5;
@@ -1101,7 +1101,7 @@
             buttonGrades.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonGrades.ForeColor = Color.FromArgb(160, 165, 180);
             buttonGrades.Location = new Point(36, 325);
-            buttonGrades.Margin = new Padding(2, 2, 2, 2);
+            buttonGrades.Margin = new Padding(2);
             buttonGrades.Name = "buttonGrades";
             buttonGrades.Size = new Size(158, 40);
             buttonGrades.TabIndex = 4;
@@ -1117,7 +1117,7 @@
             buttonDashboard.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonDashboard.ForeColor = Color.White;
             buttonDashboard.Location = new Point(36, 208);
-            buttonDashboard.Margin = new Padding(2, 2, 2, 2);
+            buttonDashboard.Margin = new Padding(2);
             buttonDashboard.Name = "buttonDashboard";
             buttonDashboard.Size = new Size(158, 40);
             buttonDashboard.TabIndex = 3;
@@ -1154,7 +1154,7 @@
             pictureBoxKWULogo.Image = (Image)resources.GetObject("pictureBoxKWULogo.Image");
             pictureBoxKWULogo.InitialImage = (Image)resources.GetObject("pictureBoxKWULogo.InitialImage");
             pictureBoxKWULogo.Location = new Point(91, 49);
-            pictureBoxKWULogo.Margin = new Padding(2, 2, 2, 2);
+            pictureBoxKWULogo.Margin = new Padding(2);
             pictureBoxKWULogo.Name = "pictureBoxKWULogo";
             pictureBoxKWULogo.Size = new Size(72, 72);
             pictureBoxKWULogo.SizeMode = PictureBoxSizeMode.Zoom;
@@ -1218,7 +1218,7 @@
             Controls.Add(panelGraduate);
             Controls.Add(panelGPA);
             Controls.Add(label1);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "DashboardPage";
             Size = new Size(1493, 767);
             panelGPA.ResumeLayout(false);

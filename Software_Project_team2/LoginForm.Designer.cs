@@ -90,7 +90,7 @@
             textBoxPassword.Name = "textBoxPassword";
             textBoxPassword.Size = new Size(272, 27);
             textBoxPassword.TabIndex = 0;
-            textBoxPassword.Text = "비밀번호";
+            textBoxPassword.UseSystemPasswordChar = true;
             // 
             // panel2
             // 
