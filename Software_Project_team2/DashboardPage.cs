@@ -51,14 +51,17 @@ namespace Software_Project_team2
                 // Calculate the sum of all parsing sections
                 int totalAcquiredCredits = credits.Major + credits.General + credits.Other;
 
+                // Fetch GPA (new)
+                string gpa = await klasService.GetGpaAsync();
+
                 // Update UI Labels safely inside the UI Thread
                 if (InvokeRequired)
                 {
-                    Invoke(new Action(() => UpdateUI(totalAcquiredCredits)));
+                    Invoke(new Action(() => UpdateUI(totalAcquiredCredits, gpa)));
                 }
                 else
                 {
-                    UpdateUI(totalAcquiredCredits);
+                    UpdateUI(totalAcquiredCredits, gpa);
                 }
             }
             catch (Exception ex)
@@ -70,13 +73,17 @@ namespace Software_Project_team2
                         label10.Text = "ERR";
                         label7.Text = "0.0%";
                         panel2.Width = 0;
+                        label3.Text = "ERR";
                     }));
                 }
             }
         }
 
-        private void UpdateUI(int totalAcquiredCredits)
+        private void UpdateUI(int totalAcquiredCredits, string gpa)
         {
+            // 0. Update GPA label
+            label3.Text = string.IsNullOrWhiteSpace(gpa) ? "0.0" : gpa;
+
             // 1. Set the aggregated main value
             label10.Text = totalAcquiredCredits.ToString();
 
