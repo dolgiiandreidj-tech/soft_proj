@@ -1,13 +1,5 @@
-﻿using EvertimeScraper.Scrappers;
-using Microsoft.Playwright;
+using Software_Project_team2.Services;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Software_Project_team2
@@ -33,15 +25,7 @@ namespace Software_Project_team2
             buttonLogin.Enabled = false;
             try
             {
-                using var playwright = await Playwright.CreateAsync();
-                var browser = await playwright.Chromium.LaunchAsync(new()
-                {
-                    Headless = false
-                });
-
-                var sessionManager = new SessionManager(browser);
-                await sessionManager.SaveSessionAsync(userId, password);
-                await browser.CloseAsync();
+                await BrowserService.Instance.LoginAsync(userId, password);
 
                 var main = new MainForm();
                 main.FormClosed += (_, _) => Close();

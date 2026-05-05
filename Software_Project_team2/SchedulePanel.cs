@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using EvertimeScraper.Models;
 using EvertimeScraper.Scrappers;
 using EvertimeScraper.Scrapers;
-using Microsoft.Playwright;
+using Software_Project_team2.Services;
 
 namespace Software_Project_team2
 {
@@ -17,7 +17,6 @@ namespace Software_Project_team2
         private int _detailRequest;
         private List<LectureInfo> _byProf = new();
         private List<LectureInfo> _byClass = new();
-        private List<TimetableCourse>? _timetableCache;
 
         public SchedulePanel()
         {
@@ -54,19 +53,17 @@ namespace Software_Project_team2
 
             try
             {
-                using var playwright = await Playwright.CreateAsync();
-                await using var browser = await playwright.Chromium.LaunchAsync(new()
+                var page = await BrowserService.Instance.NewPageAsync();
+                try
                 {
-                    Headless = true,
-                    Args = new[] { "--disable-blink-features=AutomationControlled" }
-                });
-                var sessionManager = new SessionManager(browser);
-                await using var context = await sessionManager.LoadSessionAsync();
-                var page = await context.NewPageAsync();
-                var scraper = new SearchScraper(page);
-
-                _byClass = await scraper.SearchAsync(keyword, "name");
-                _byProf = await scraper.SearchAsync(keyword, "professor");
+                    var scraper = new SearchScraper(page);
+                    _byClass = await scraper.SearchAsync(keyword, "name");
+                    _byProf = await scraper.SearchAsync(keyword, "professor");
+                }
+                finally
+                {
+                    await page.CloseAsync();
+                }
 
                 foreach (var l in _byProf)
                     lstByProf.Items.Add(string.IsNullOrEmpty(l.Professor) ? l.Name : $"{l.Professor} — {l.Name}");
@@ -116,45 +113,28 @@ namespace Software_Project_team2
 
             try
             {
-                using var playwright = await Playwright.CreateAsync();
-                await using var browser = await playwright.Chromium.LaunchAsync(new()
+                var page = await BrowserService.Instance.NewPageAsync();
+                List<ReviewInfo> reviews;
+                try
                 {
-                    Headless = true,
-                    Args = new[] { "--disable-blink-features=AutomationControlled" }
-                });
-                var sessionManager = new SessionManager(browser);
-                await using var context = await sessionManager.LoadSessionAsync();
-                var page = await context.NewPageAsync();
+                    reviews = await new ReviewScraper(page).GetReviewsAsync(info.Url);
+                }
+                finally
+                {
+                    await page.CloseAsync();
+                }
 
-                // pull all reviews — count and average rating both come from this list
-                var reviews = await new ReviewScraper(page).GetReviewsAsync(info.Url);
                 int reviewCount = reviews.Count;
                 double avgRating = reviewCount > 0
                     ? Math.Round(reviews.Average(r => r.Rating), 1)
                     : 0.0;
-
-                // course code: cache the timetable subject list once, then match by name + professor
-                if (_timetableCache == null)
-                {
-                    try
-                    {
-                        var ttPage = await context.NewPageAsync();
-                        _timetableCache = await new TimetableScraper(ttPage).GetCourseListAsync();
-                        await ttPage.CloseAsync();
-                    }
-                    catch
-                    {
-                        _timetableCache = new List<TimetableCourse>();
-                    }
-                }
-                var matchedCode = LookupCourseCode(info.Name, info.Professor, _timetableCache);
 
                 // discard if a newer click superseded this one
                 if (myRequest != Volatile.Read(ref _detailRequest)) return;
 
                 lblDetailName.Text = info.Name;
                 lblDetailProfessor.Text = $"교수: {(string.IsNullOrEmpty(info.Professor) ? "-" : info.Professor)}";
-                lblDetailCode.Text = $"학수번호: {(string.IsNullOrEmpty(matchedCode) ? "-" : matchedCode)}";
+                lblDetailCode.Text = "학수번호: -";
                 lblDetailRating.Text = reviewCount > 0 ? $"★ {avgRating:F1}" : "★ -";
                 lblDetailReviews.Text = $"강의평 {reviewCount}개";
                 lblDetailStatus.Text = "";
@@ -164,21 +144,6 @@ namespace Software_Project_team2
                 if (myRequest != Volatile.Read(ref _detailRequest)) return;
                 lblDetailStatus.Text = $"오류: {ex.Message}";
             }
-        }
-
-        private static string LookupCourseCode(string name, string professor, List<TimetableCourse> courses)
-        {
-            if (courses.Count == 0) return "";
-            var n = (name ?? "").Trim();
-            var p = (professor ?? "").Trim();
-
-            // exact name + professor first
-            var hit = courses.Find(c => c.CourseName.Trim() == n && c.Professor.Trim() == p);
-            if (hit != null) return hit.CourseCode;
-
-            // fall back to name-only match (timetable may show a different prof for the same course)
-            hit = courses.Find(c => c.CourseName.Trim() == n);
-            return hit?.CourseCode ?? "";
         }
 
         private void ClearDetail()

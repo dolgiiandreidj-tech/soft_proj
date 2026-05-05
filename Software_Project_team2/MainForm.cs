@@ -1,3 +1,4 @@
+using Software_Project_team2.Services;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -18,6 +19,9 @@ namespace Software_Project_team2
                 Dock = DockStyle.Fill
             };
             Controls.Add(dashboard);
+
+            // tear the shared Playwright browser down when the dashboard closes
+            FormClosed += async (_, _) => await BrowserService.Instance.DisposeAsync();
         }
     }
 }
