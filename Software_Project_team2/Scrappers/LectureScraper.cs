@@ -35,15 +35,17 @@ namespace EvertimeScraper.Scrappers
 
             foreach (var item in items)
             {
-                var name = await item.QuerySelectorAsync("p.lecturename");
+                var name      = await item.QuerySelectorAsync("p.lecturename");
                 var professor = await item.QuerySelectorAsync("p.professor");
-                var link = await item.QuerySelectorAsync("a.toucharea");
+                var link      = await item.QuerySelectorAsync("a.toucharea");
 
-                var href = await link.GetAttributeAsync("href");
+                if (name == null || link == null) continue;
+
+                var href = await link.GetAttributeAsync("href") ?? "";
 
                 results.Add(new LectureInfo(
-                    Name: await name.InnerTextAsync(),
-                    Professor: await professor.InnerTextAsync(),
+                    Name: (await name.InnerTextAsync()).Trim(),
+                    Professor: professor != null ? (await professor.InnerTextAsync()).Trim() : "",
                     Url: "https://everytime.kr" + href
                 ));
             }

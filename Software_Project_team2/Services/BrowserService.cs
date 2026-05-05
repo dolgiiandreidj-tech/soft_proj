@@ -11,15 +11,19 @@ namespace Software_Project_team2.Services
     {
         public static BrowserService? Instance { get; private set; }
 
+        private IPlaywright? _playwright;
         protected IBrowser browser = null!;
         protected IBrowserContext context = null!;
         protected IPage page = null!;
 
         public async Task InitAsync()
         {
-            var playwright = await Playwright.CreateAsync();
+            // Dispose previous browser if retrying after a failed login
+            await DisposeAsync();
 
-            browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+            _playwright = await Playwright.CreateAsync();
+
+            browser = await _playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
             {
                 Headless = false
             });
@@ -27,6 +31,13 @@ namespace Software_Project_team2.Services
             context = await browser.NewContextAsync();
             page = await context.NewPageAsync();
             Instance = this;
+        }
+
+        public async Task DisposeAsync()
+        {
+            if (browser != null) { await browser.CloseAsync(); browser = null!; }
+            _playwright?.Dispose();
+            _playwright = null;
         }
 
         public async Task<IPage> NewPageAsync() => await context.NewPageAsync();

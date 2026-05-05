@@ -53,6 +53,12 @@ namespace Software_Project_team2
 
             try
             {
+                if (BrowserService.Instance == null)
+                {
+                    lblStatus.Text = "브라우저가 준비되지 않았습니다";
+                    return;
+                }
+
                 var page = await BrowserService.Instance.NewPageAsync();
                 try
                 {
@@ -113,6 +119,12 @@ namespace Software_Project_team2
 
             try
             {
+                if (BrowserService.Instance == null)
+                {
+                    lblDetailStatus.Text = "브라우저가 준비되지 않았습니다";
+                    return;
+                }
+
                 var page = await BrowserService.Instance.NewPageAsync();
                 List<ReviewInfo> reviews;
                 try

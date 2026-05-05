@@ -22,10 +22,9 @@ namespace Software_Project_team2
 
             if (success)
             {
-                this.Hide();
-
                 var form2 = new LoginForm(klasService);
                 form2.Show();
+                this.Hide();
             }
             else
             {

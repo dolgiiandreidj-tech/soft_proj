@@ -12,6 +12,7 @@ namespace Software_Project_team2
             var dashboard = new DashboardPage(klas, every);
             dashboard.Dock = DockStyle.Fill;
             Controls.Add(dashboard);
+            FormClosed += (_, _) => Application.Exit();
         }
     }
 }

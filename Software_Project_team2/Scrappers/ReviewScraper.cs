@@ -51,7 +51,8 @@ public class ReviewScraper
         foreach (var article in articles)
         {
             var rateEl = await article.QuerySelectorAsync("span.on");
-            var text = await article.QuerySelectorAsync("div.text");
+            var text   = await article.QuerySelectorAsync("div.text");
+            if (text == null) continue;
 
             // call ParseRating to get the numeric value
             var rating = rateEl != null

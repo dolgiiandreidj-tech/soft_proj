@@ -29,7 +29,7 @@ namespace Software_Project_team2
             {
                 var main = new MainForm(klasService, everytimeService);
                 main.Show();
-                this.Hide();
+                this.Close();
             }
             else
             {

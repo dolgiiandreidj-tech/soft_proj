@@ -34,9 +34,9 @@ namespace Software_Project_team2.Services
             }
         }
 
-        public async Task<string> GetLectureReviews(string keyword)
+        public Task<string> GetLectureReviews(string keyword)
         {
-            return $"Reviews for {keyword}...";
+            return Task.FromResult($"Reviews for {keyword}...");
         }
     }
 }

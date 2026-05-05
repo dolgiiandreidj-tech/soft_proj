@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HtmlDoc = HtmlAgilityPack.HtmlDocument;
+using Software_Project_team2.Services;
 
 namespace Software_Project_team2
 {
@@ -22,6 +23,23 @@ namespace Software_Project_team2
         public DashboardPage(KlasService klas, EverytimeService every)
         {
             InitializeComponent();
+
+            klasService = klas;
+            everytimeService = every;
+
+            _schedulePanel = new SchedulePanel
+            {
+                Location = new Point(250, 0),
+                Size = new Size(Width - 250, Height),
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
+                Visible = false
+            };
+            Controls.Add(_schedulePanel);
+            _schedulePanel.BringToFront();
+
+            buttonSchedule.Click += (_, _) => ShowSchedule(true);
+            buttonDashboard.Click += (_, _) => ShowSchedule(false);
+
             _ = LoadNoticesAsync();
         }
 
@@ -100,14 +118,16 @@ namespace Software_Project_team2
             return panel;
         }
 
+        private static readonly HttpClient _httpClient = new HttpClient();
+
         private async Task<List<(string Title, DateTime Date, string Url)>> ParseNoticesAsync()
         {
             var result = new List<(string Title, DateTime Date, string Url)>();
             try
             {
-                var client = new HttpClient();
-                client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0");
-                var html = await client.GetStringAsync(
+                if (!_httpClient.DefaultRequestHeaders.Contains("User-Agent"))
+                    _httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0");
+                var html = await _httpClient.GetStringAsync(
                     "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=list&tpage=1&searchKey=1&searchVal=&srCategoryId=");
 
                 var doc = new HtmlDoc();
@@ -148,25 +168,12 @@ namespace Software_Project_team2
                         result.Add((title, date, url));
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[Notices] fetch failed: {ex.Message}");
+            }
 
             return result;
-
-            klasService = klas;
-            everytimeService = every;
-
-            _schedulePanel = new SchedulePanel
-            {
-                Location = new Point(250, 0),
-                Size = new Size(Width - 250, Height),
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
-                Visible = false
-            };
-            Controls.Add(_schedulePanel);
-            _schedulePanel.BringToFront();
-
-            buttonSchedule.Click += (_, _) => ShowSchedule(true);
-            buttonDashboard.Click += (_, _) => ShowSchedule(false);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -199,16 +206,19 @@ namespace Software_Project_team2
             }
             catch (Exception ex)
             {
-                if (!IsDisposed)
+                System.Diagnostics.Debug.WriteLine($"[Progression] load failed: {ex.Message}");
+                try
                 {
-                    Invoke(new Action(() =>
-                    {
-                        label10.Text = "ERR";
-                        label7.Text = "0.0%";
-                        panel2.Width = 0;
-                        label3.Text = "ERR";
-                    }));
+                    if (!IsDisposed)
+                        Invoke(new Action(() =>
+                        {
+                            label10.Text = "ERR";
+                            label7.Text = "0.0%";
+                            panel2.Width = 0;
+                            label3.Text = "ERR";
+                        }));
                 }
+                catch (ObjectDisposedException) { }
             }
         }
 
