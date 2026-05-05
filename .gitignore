@@ -9,13 +9,3 @@ obj/
 
 # Logs
 *.log
-
-Backup/
-UpgradeLog.htm
-
-# Claude Code (local only)
-.claude/
-CLAUDE.md
-
-# Everytime session cookies (generated at runtime)
-session.json
