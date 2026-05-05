@@ -1,3 +1,5 @@
+﻿using EvertimeScraper.Scrappers;
+using Microsoft.Playwright;
 using Software_Project_team2.Services;
 using System;
 using System.Windows.Forms;
@@ -6,36 +8,28 @@ namespace Software_Project_team2
 {
     public partial class LoginForm : Form
     {
-        public LoginForm()
+        private KlasService klasService;
+        private EverytimeService everytimeService = new EverytimeService();
+        public LoginForm(KlasService klas)
         {
             InitializeComponent();
+            klasService = klas;
         }
 
         private async void buttonLogin_Click(object sender, EventArgs e)
         {
-            string userId = textBoxId.Text;
-            string password = textBoxPassword.Text;
+            bool success = await everytimeService.LoginAsync(textBoxId.Text, textBoxPassword.Text);
 
-            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(password))
+            if (success)
             {
-                MessageBox.Show("ID와 비밀번호를 입력하세요.");
-                return;
-            }
+                this.Hide();
 
-            buttonLogin.Enabled = false;
-            try
-            {
-                await BrowserService.Instance.LoginAsync(userId, password);
-
-                var main = new MainForm();
-                main.FormClosed += (_, _) => Close();
-                Hide();
+                var main = new DashboardPage(klasService, everytimeService);
                 main.Show();
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"로그인 실패: {ex.Message}");
-                buttonLogin.Enabled = true;
+                MessageBox.Show("Everytime login failed");
             }
         }
     }
