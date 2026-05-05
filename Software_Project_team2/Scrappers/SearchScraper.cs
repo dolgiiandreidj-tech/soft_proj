@@ -28,8 +28,21 @@ namespace EvertimeScraper.Scrappers
             // build the search URL directly -- no need to click filters
             var url = $"{SearchUrl}?keyword={Uri.EscapeDataString(keyword)}&condition={condition}";
 
-            await _page.GotoAsync(url);
-            await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+            await _page.GotoAsync(url, new PageGotoOptions { WaitUntil = WaitUntilState.DOMContentLoaded });
+
+            // wait for either a result card or an empty-state container, whichever appears first
+            try
+            {
+                await _page.WaitForSelectorAsync("a.lecture, div.lectures, .nothing, .empty",
+                    new PageWaitForSelectorOptions { Timeout = 15000 });
+            }
+            catch (TimeoutException)
+            {
+                // page didn't surface the expected nodes -- continue and let the query return 0
+            }
+
+            // give the list a moment to fully populate after the initial node appears
+            await _page.WaitForTimeoutAsync(500);
 
             var cards = await _page.QuerySelectorAllAsync("a.lecture");
             var results = new List<LectureInfo>();

@@ -90,7 +90,7 @@
             textBoxPassword.Name = "textBoxPassword";
             textBoxPassword.Size = new Size(272, 27);
             textBoxPassword.TabIndex = 0;
-            textBoxPassword.Text = "비밀번호";
+            textBoxPassword.UseSystemPasswordChar = true;
             // 
             // panel2
             // 
@@ -113,7 +113,7 @@
             textBoxId.Name = "textBoxId";
             textBoxId.Size = new Size(272, 27);
             textBoxId.TabIndex = 0;
-            textBoxId.Text = "아이디";
+            textBoxId.PlaceholderText = "아이디";
             // 
             // label1
             // 
