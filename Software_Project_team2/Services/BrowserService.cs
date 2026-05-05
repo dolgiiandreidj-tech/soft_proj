@@ -9,9 +9,11 @@ namespace Software_Project_team2.Services
 {
     public class BrowserService
     {
-        protected IBrowser browser;
-        protected IBrowserContext context;
-        protected IPage page;
+        public static BrowserService? Instance { get; private set; }
+
+        protected IBrowser browser = null!;
+        protected IBrowserContext context = null!;
+        protected IPage page = null!;
 
         public async Task InitAsync()
         {
@@ -24,6 +26,9 @@ namespace Software_Project_team2.Services
 
             context = await browser.NewContextAsync();
             page = await context.NewPageAsync();
+            Instance = this;
         }
+
+        public async Task<IPage> NewPageAsync() => await context.NewPageAsync();
     }
 }

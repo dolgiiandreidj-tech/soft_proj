@@ -28,7 +28,7 @@ namespace Software_Project_team2.Services
 
                 return true;
             }
-            catch
+            catch (TimeoutException)
             {
                 return false;
             }

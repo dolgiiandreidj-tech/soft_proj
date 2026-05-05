@@ -1,6 +1,4 @@
-﻿using EvertimeScraper.Scrappers;
-using Microsoft.Playwright;
-using Software_Project_team2.Services;
+﻿using Software_Project_team2.Services;
 using System;
 using System.Windows.Forms;
 
@@ -10,6 +8,7 @@ namespace Software_Project_team2
     {
         private KlasService klasService;
         private EverytimeService everytimeService = new EverytimeService();
+
         public LoginForm(KlasService klas)
         {
             InitializeComponent();
@@ -18,14 +17,19 @@ namespace Software_Project_team2
 
         private async void buttonLogin_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(textBoxId.Text) || string.IsNullOrWhiteSpace(textBoxPassword.Text))
+            {
+                MessageBox.Show("Please enter your Everytime ID and password.");
+                return;
+            }
+
             bool success = await everytimeService.LoginAsync(textBoxId.Text, textBoxPassword.Text);
 
             if (success)
             {
-                this.Hide();
-
-                var main = new DashboardPage(klasService, everytimeService);
+                var main = new MainForm(klasService, everytimeService);
                 main.Show();
+                this.Hide();
             }
             else
             {

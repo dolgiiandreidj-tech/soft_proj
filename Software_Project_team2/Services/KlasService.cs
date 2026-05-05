@@ -12,6 +12,7 @@ namespace Software_Project_team2.Services
         public async Task<bool> LoginAsync(string id, string password)
         {
             await InitAsync();
+            page.SetDefaultTimeout(15000);
 
             await page.GotoAsync("https://klas.kw.ac.kr");
 
