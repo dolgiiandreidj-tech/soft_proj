@@ -1,5 +1,6 @@
 ﻿using EvertimeScraper.Scrappers;
 using Microsoft.Playwright;
+using Software_Project_team2.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,29 +15,29 @@ namespace Software_Project_team2
 {
     public partial class LoginForm : Form
     {
-        public LoginForm()
+        private KlasService klasService;
+        private EverytimeService everytimeService = new EverytimeService();
+        public LoginForm(KlasService klas)
         {
             InitializeComponent();
+            klasService = klas;
         }
 
         private async void buttonLogin_Click(object sender, EventArgs e)
         {
-            string userId = textBoxId.Text;
-            string password = textBoxPassword.Text;
+            bool success = await everytimeService.LoginAsync(textBoxId.Text, textBoxPassword.Text);
 
-            using var playwright = await Playwright.CreateAsync();
-            var browser = await playwright.Chromium.LaunchAsync(new()
+            if (success)
             {
-                Headless = false // set true later
-            });
+                this.Hide();
 
-            var sessionManager = new SessionManager(browser);
-
-            await sessionManager.SaveSessionAsync(userId, password);
-
-            MessageBox.Show("Login successful & session saved");
-
-            await browser.CloseAsync();
+                var main = new DashboardPage(klasService, everytimeService);
+                main.Show();
+            }
+            else
+            {
+                MessageBox.Show("Everytime login failed");
+            }
         }
     }
 }
