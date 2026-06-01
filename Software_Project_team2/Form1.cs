@@ -22,8 +22,8 @@ namespace Software_Project_team2
 
             if (success)
             {
-                var form2 = new LoginForm(klasService);
-                form2.Show();
+                var main = new MainForm(klasService);
+                main.Show();
                 this.Hide();
             }
             else

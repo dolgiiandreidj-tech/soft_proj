@@ -15,17 +15,15 @@ namespace Software_Project_team2
     {
         private readonly SchedulePanel _schedulePanel;
         private KlasService klasService;
-        private EverytimeService everytimeService;
 
         // Ensure 133 matches the maximum credits defined in the UI
         private const int TotalRequiredCredits = 133;
 
-        public DashboardPage(KlasService klas, EverytimeService every)
+        public DashboardPage(KlasService klas)
         {
             InitializeComponent();
 
             klasService = klas;
-            everytimeService = every;
 
             _schedulePanel = new SchedulePanel
             {
