@@ -1168,7 +1168,7 @@
             Controls.Add(label1);
             Margin = new Padding(2);
             Name = "DashboardPage";
-            Size = new Size(1866, 959);
+            ClientSize = new Size(1866, 959);
             panelGPA.ResumeLayout(false);
             panelGPA.PerformLayout();
             panelGraduate.ResumeLayout(false);
