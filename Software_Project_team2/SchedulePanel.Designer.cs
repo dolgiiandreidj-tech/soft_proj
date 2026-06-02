@@ -37,6 +37,9 @@ namespace Software_Project_team2
         private System.Windows.Forms.Label lblSyllabusHeader;
         private System.Windows.Forms.Label lblSyllabusBody;
         private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Panel panelReviews;
+        private System.Windows.Forms.Label lblReviewsHeader;
+        private System.Windows.Forms.FlowLayoutPanel flowReviews;
 
         private void InitializeComponent()
         {
@@ -64,10 +67,14 @@ namespace Software_Project_team2
             lblSyllabusHeader = new System.Windows.Forms.Label();
             lblSyllabusBody = new System.Windows.Forms.Label();
             lblStatus = new System.Windows.Forms.Label();
+            panelReviews = new System.Windows.Forms.Panel();
+            lblReviewsHeader = new System.Windows.Forms.Label();
+            flowReviews = new System.Windows.Forms.FlowLayoutPanel();
             panelByProf.SuspendLayout();
             panelByClass.SuspendLayout();
             panelDetail.SuspendLayout();
             panelSyllabus.SuspendLayout();
+            panelReviews.SuspendLayout();
             SuspendLayout();
             //
             // lblHeader
@@ -340,16 +347,51 @@ namespace Software_Project_team2
             lblStatus.BackColor = System.Drawing.Color.Transparent;
             lblStatus.Font = new System.Drawing.Font("Segoe UI", 10F);
             lblStatus.ForeColor = System.Drawing.Color.FromArgb(160, 165, 180);
-            lblStatus.Location = new System.Drawing.Point(20, 720);
+            lblStatus.Location = new System.Drawing.Point(20, 1080);
             lblStatus.Name = "lblStatus";
             lblStatus.Text = "";
+            //
+            // panelReviews
+            //
+            panelReviews.BackColor = System.Drawing.Color.FromArgb(30, 32, 40);
+            panelReviews.Controls.Add(flowReviews);
+            panelReviews.Controls.Add(lblReviewsHeader);
+            panelReviews.Location = new System.Drawing.Point(20, 730);
+            panelReviews.Name = "panelReviews";
+            panelReviews.Padding = new System.Windows.Forms.Padding(16);
+            panelReviews.Size = new System.Drawing.Size(1200, 340);
+            panelReviews.TabIndex = 8;
+            //
+            // lblReviewsHeader
+            //
+            lblReviewsHeader.AutoSize = true;
+            lblReviewsHeader.BackColor = System.Drawing.Color.Transparent;
+            lblReviewsHeader.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            lblReviewsHeader.ForeColor = System.Drawing.Color.White;
+            lblReviewsHeader.Location = new System.Drawing.Point(16, 14);
+            lblReviewsHeader.Name = "lblReviewsHeader";
+            lblReviewsHeader.Text = "최근 강의평";
+            //
+            // flowReviews
+            //
+            flowReviews.AutoScroll = true;
+            flowReviews.BackColor = System.Drawing.Color.FromArgb(30, 32, 40);
+            flowReviews.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            flowReviews.Location = new System.Drawing.Point(16, 46);
+            flowReviews.Name = "flowReviews";
+            flowReviews.Size = new System.Drawing.Size(1168, 278);
+            flowReviews.TabIndex = 0;
+            flowReviews.WrapContents = false;
             //
             // SchedulePanel
             //
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoScroll = true;
             BackColor = System.Drawing.Color.FromArgb(20, 22, 28);
+            ClientSize = new System.Drawing.Size(1243, 1120);
             Controls.Add(lblStatus);
+            Controls.Add(panelReviews);
             Controls.Add(panelSyllabus);
             Controls.Add(panelDetail);
             Controls.Add(panelByClass);
@@ -361,7 +403,7 @@ namespace Software_Project_team2
             Controls.Add(lblSearchHint);
             Controls.Add(lblHeader);
             Name = "SchedulePanel";
-            Size = new System.Drawing.Size(1243, 767);
+            Text = "Everytime 강의 검색";
             panelByProf.ResumeLayout(false);
             panelByProf.PerformLayout();
             panelByClass.ResumeLayout(false);
@@ -370,6 +412,8 @@ namespace Software_Project_team2
             panelDetail.PerformLayout();
             panelSyllabus.ResumeLayout(false);
             panelSyllabus.PerformLayout();
+            panelReviews.ResumeLayout(false);
+            panelReviews.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
