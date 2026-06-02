@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace Software_Project_team2
 {
-    public partial class SchedulePanel : UserControl
+    public partial class SchedulePanel : Form
     {
         private bool _searching;
         private int _detailRequest;

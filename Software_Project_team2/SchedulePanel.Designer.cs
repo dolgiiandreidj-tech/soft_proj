@@ -389,6 +389,7 @@ namespace Software_Project_team2
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = System.Drawing.Color.FromArgb(20, 22, 28);
+            ClientSize = new System.Drawing.Size(1243, 1120);
             Controls.Add(lblStatus);
             Controls.Add(panelReviews);
             Controls.Add(panelSyllabus);
@@ -402,7 +403,7 @@ namespace Software_Project_team2
             Controls.Add(lblSearchHint);
             Controls.Add(lblHeader);
             Name = "SchedulePanel";
-            Size = new System.Drawing.Size(1243, 1120);
+            Text = "Everytime 강의 검색";
             panelByProf.ResumeLayout(false);
             panelByProf.PerformLayout();
             panelByClass.ResumeLayout(false);

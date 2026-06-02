@@ -22,8 +22,8 @@ namespace Software_Project_team2
 
             if (success)
             {
-                var main = new MainForm(klasService);
-                main.Show();
+                var dashboard = new DashboardPage(klasService);
+                dashboard.Show();
                 this.Hide();
             }
             else
