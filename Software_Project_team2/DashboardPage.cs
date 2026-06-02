@@ -11,25 +11,34 @@ using Software_Project_team2.Services;
 
 namespace Software_Project_team2
 {
-    public partial class DashboardPage : Form
+    public partial class DashboardPage : UserControl
     {
+        private readonly SchedulePanel _schedulePanel;
         private KlasService klasService;
+        private EverytimeService everytimeService;
 
         // Ensure 133 matches the maximum credits defined in the UI
         private const int TotalRequiredCredits = 133;
 
-        public DashboardPage(KlasService klas)
+        public DashboardPage(KlasService klas, EverytimeService every)
         {
             InitializeComponent();
 
-            WindowState = FormWindowState.Maximized;
-            FormBorderStyle = FormBorderStyle.Sizable;
-            Text = "대시보드";
-            FormClosed += (_, _) => Application.Exit();
-
             klasService = klas;
+            everytimeService = every;
 
-            buttonSchedule.Click += (_, _) => new SchedulePanel().Show();
+            _schedulePanel = new SchedulePanel
+            {
+                Location = new Point(250, 0),
+                Size = new Size(Width - 250, Height),
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
+                Visible = false
+            };
+            Controls.Add(_schedulePanel);
+            _schedulePanel.BringToFront();
+
+            buttonSchedule.Click += (_, _) => ShowSchedule(true);
+            buttonDashboard.Click += (_, _) => ShowSchedule(false);
 
             _ = LoadNoticesAsync();
         }
@@ -233,5 +242,18 @@ namespace Software_Project_team2
             panel2.Width = (int)((percentage / 100.0) * maxProgressBarWidth);
         }
 
+        private void ShowSchedule(bool show)
+        {
+            _schedulePanel.Visible = show;
+            if (show) _schedulePanel.BringToFront();
+
+            foreach (Control c in Controls)
+            {
+                if (c == _schedulePanel || c == panelSidebar) continue;
+                if (c is Label lbl && (lbl.Name == "labelUserName" || lbl.Name == "lblTime" || lbl.Name == "labelCurrentData"))
+                    continue;
+                c.Visible = !show;
+            }
+        }
     }
 }

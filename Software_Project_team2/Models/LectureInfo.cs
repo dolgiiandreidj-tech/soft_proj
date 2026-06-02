@@ -10,10 +10,8 @@ namespace EvertimeScraper.Models
     /// Represents a single lecture from 내 강의.
     /// </summary>
     public record LectureInfo(
-        string Name,
-        string Professor,
-        string Url,
-        int LectureId = 0,
-        string Code = ""
-    );
+    string Name,
+    string Professor,
+    string Url
+);
 }
