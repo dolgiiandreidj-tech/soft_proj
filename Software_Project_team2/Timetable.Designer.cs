@@ -31,11 +31,11 @@
             topPanel = new Panel();
             lblLogo = new Label();
             mainPanel = new Panel();
-            lblTitle = new Label();
             filterPanel = new Panel();
-            cmbYear = new ComboBox();
-            cmbSemester = new ComboBox();
             btnSearch = new Button();
+            cmbSemester = new ComboBox();
+            cmbYear = new ComboBox();
+            lblTitle = new Label();
             topPanel.SuspendLayout();
             mainPanel.SuspendLayout();
             filterPanel.SuspendLayout();
@@ -48,7 +48,7 @@
             topPanel.Dock = DockStyle.Top;
             topPanel.Location = new Point(0, 0);
             topPanel.Name = "topPanel";
-            topPanel.Size = new Size(1378, 54);
+            topPanel.Size = new Size(1866, 54);
             topPanel.TabIndex = 0;
             // 
             // lblLogo
@@ -71,8 +71,49 @@
             mainPanel.Controls.Add(lblTitle);
             mainPanel.Location = new Point(59, 84);
             mainPanel.Name = "mainPanel";
-            mainPanel.Size = new Size(1240, 636);
+            mainPanel.Size = new Size(1741, 825);
             mainPanel.TabIndex = 1;
+            // 
+            // filterPanel
+            // 
+            filterPanel.BorderStyle = BorderStyle.FixedSingle;
+            filterPanel.Controls.Add(btnSearch);
+            filterPanel.Controls.Add(cmbYear);
+            filterPanel.Controls.Add(cmbSemester);
+            filterPanel.Location = new Point(229, 75);
+            filterPanel.Name = "filterPanel";
+            filterPanel.Size = new Size(1215, 60);
+            filterPanel.TabIndex = 1;
+            // 
+            // btnSearch
+            // 
+            btnSearch.BackColor = Color.FromArgb(124, 124, 124);
+            btnSearch.FlatStyle = FlatStyle.Flat;
+            btnSearch.ForeColor = Color.White;
+            btnSearch.Location = new Point(724, 12);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(118, 34);
+            btnSearch.TabIndex = 2;
+            btnSearch.Text = "시간표 조회";
+            btnSearch.UseVisualStyleBackColor = false;
+            // 
+            // cmbSemester
+            // 
+            cmbSemester.FormattingEnabled = true;
+            cmbSemester.Location = new Point(584, 11);
+            cmbSemester.Name = "cmbSemester";
+            cmbSemester.Size = new Size(110, 33);
+            cmbSemester.TabIndex = 2;
+            cmbSemester.Text = "1 학기";
+            // 
+            // cmbYear
+            // 
+            cmbYear.FormattingEnabled = true;
+            cmbYear.Location = new Point(454, 12);
+            cmbYear.Name = "cmbYear";
+            cmbYear.Size = new Size(110, 33);
+            cmbYear.TabIndex = 0;
+            cmbYear.Text = "2026년도";
             // 
             // lblTitle
             // 
@@ -85,53 +126,12 @@
             lblTitle.TabIndex = 0;
             lblTitle.Text = "수업시간표";
             // 
-            // filterPanel
-            // 
-            filterPanel.BorderStyle = BorderStyle.FixedSingle;
-            filterPanel.Controls.Add(btnSearch);
-            filterPanel.Controls.Add(cmbSemester);
-            filterPanel.Controls.Add(cmbYear);
-            filterPanel.Location = new Point(28, 82);
-            filterPanel.Name = "filterPanel";
-            filterPanel.Size = new Size(1158, 40);
-            filterPanel.TabIndex = 1;
-            // 
-            // cmbYear
-            // 
-            cmbYear.FormattingEnabled = true;
-            cmbYear.Location = new Point(432, 4);
-            cmbYear.Name = "cmbYear";
-            cmbYear.Size = new Size(110, 33);
-            cmbYear.TabIndex = 0;
-            cmbYear.Text = "2026년도";
-            // 
-            // cmbSemester
-            // 
-            cmbSemester.FormattingEnabled = true;
-            cmbSemester.Location = new Point(548, 3);
-            cmbSemester.Name = "cmbSemester";
-            cmbSemester.Size = new Size(110, 33);
-            cmbSemester.TabIndex = 2;
-            cmbSemester.Text = "1 학기";
-            // 
-            // btnSearch
-            // 
-            btnSearch.BackColor = Color.FromArgb(124, 124, 124);
-            btnSearch.FlatStyle = FlatStyle.Flat;
-            btnSearch.ForeColor = Color.White;
-            btnSearch.Location = new Point(674, 1);
-            btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(118, 34);
-            btnSearch.TabIndex = 2;
-            btnSearch.Text = "시간표 조회";
-            btnSearch.UseVisualStyleBackColor = false;
-            // 
             // Timetable
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(242, 242, 242);
-            ClientSize = new Size(1378, 764);
+            ClientSize = new Size(1866, 959);
             Controls.Add(mainPanel);
             Controls.Add(topPanel);
             Name = "Timetable";

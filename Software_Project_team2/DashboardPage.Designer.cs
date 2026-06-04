@@ -76,24 +76,24 @@
             richNotice = new RichTextBox();
             label29 = new Label();
             panelSidebar = new Panel();
+            panel8 = new Panel();
+            label6 = new Label();
+            label30 = new Label();
+            label32 = new Label();
+            pictureBoxKWULogo = new PictureBox();
+            label48 = new Label();
+            label49 = new Label();
             buttonLogOut = new Button();
             buttonLectureManagement = new Button();
             buttonSettings = new Button();
             buttonTimeTable = new Button();
             buttonGrades = new Button();
             buttonDashboard = new Button();
-            label49 = new Label();
-            label48 = new Label();
-            pictureBoxKWULogo = new PictureBox();
             labelUserName = new Label();
             timer1 = new System.Windows.Forms.Timer(components);
             lblTime = new Label();
             labelCurrentData = new Label();
             panel1 = new Panel();
-            panel8 = new Panel();
-            label6 = new Label();
-            label30 = new Label();
-            label32 = new Label();
             panelGPA.SuspendLayout();
             panelGraduate.SuspendLayout();
             panel3.SuspendLayout();
@@ -104,9 +104,9 @@
             panel6.SuspendLayout();
             panelNotice.SuspendLayout();
             panelSidebar.SuspendLayout();
+            panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxKWULogo).BeginInit();
             panel1.SuspendLayout();
-            panel8.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -152,10 +152,10 @@
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Segoe UI", 22F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.FromArgb(45, 45, 45);
-            label3.Location = new Point(118, 82);
+            label3.Location = new Point(100, 82);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(86, 68);
+            label3.Size = new Size(104, 68);
             label3.TabIndex = 1;
             label3.Text = "0.0";
             // 
@@ -710,8 +710,98 @@
             panelSidebar.Location = new Point(0, 0);
             panelSidebar.Margin = new Padding(2);
             panelSidebar.Name = "panelSidebar";
-            panelSidebar.Size = new Size(312, 963);
+            panelSidebar.Size = new Size(312, 926);
             panelSidebar.TabIndex = 3;
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.FromArgb(90, 0, 31);
+            panel8.Controls.Add(label6);
+            panel8.Controls.Add(label30);
+            panel8.Controls.Add(label32);
+            panel8.Controls.Add(pictureBoxKWULogo);
+            panel8.Controls.Add(label48);
+            panel8.Controls.Add(label49);
+            panel8.ForeColor = Color.White;
+            panel8.Location = new Point(0, 0);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(312, 246);
+            panel8.TabIndex = 9;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.BackColor = Color.Transparent;
+            label6.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.ForeColor = Color.FromArgb(160, 165, 180);
+            label6.Location = new Point(1044, 36);
+            label6.Margin = new Padding(2, 0, 2, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(66, 30);
+            label6.TabIndex = 6;
+            label6.Text = "00:00";
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.BackColor = Color.Transparent;
+            label30.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label30.ForeColor = Color.FromArgb(160, 165, 180);
+            label30.Location = new Point(862, 36);
+            label30.Margin = new Padding(2, 0, 2, 0);
+            label30.Name = "label30";
+            label30.Size = new Size(178, 30);
+            label30.TabIndex = 7;
+            label30.Text = "2026.05.02 02:20";
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label32.ForeColor = Color.White;
+            label32.Location = new Point(1154, 36);
+            label32.Margin = new Padding(2, 0, 2, 0);
+            label32.Name = "label32";
+            label32.Size = new Size(239, 30);
+            label32.TabIndex = 5;
+            label32.Text = "안드레이님 환영합니다";
+            // 
+            // pictureBoxKWULogo
+            // 
+            pictureBoxKWULogo.BackColor = Color.Transparent;
+            pictureBoxKWULogo.Image = (Image)resources.GetObject("pictureBoxKWULogo.Image");
+            pictureBoxKWULogo.InitialImage = (Image)resources.GetObject("pictureBoxKWULogo.InitialImage");
+            pictureBoxKWULogo.Location = new Point(106, 36);
+            pictureBoxKWULogo.Margin = new Padding(2);
+            pictureBoxKWULogo.Name = "pictureBoxKWULogo";
+            pictureBoxKWULogo.Size = new Size(90, 90);
+            pictureBoxKWULogo.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxKWULogo.TabIndex = 0;
+            pictureBoxKWULogo.TabStop = false;
+            // 
+            // label48
+            // 
+            label48.AutoSize = true;
+            label48.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label48.ForeColor = Color.White;
+            label48.Location = new Point(63, 133);
+            label48.Margin = new Padding(2, 0, 2, 0);
+            label48.Name = "label48";
+            label48.Size = new Size(180, 45);
+            label48.TabIndex = 1;
+            label48.Text = "광운대학교";
+            // 
+            // label49
+            // 
+            label49.AutoSize = true;
+            label49.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label49.ForeColor = Color.FromArgb(235, 235, 235);
+            label49.Location = new Point(106, 190);
+            label49.Margin = new Padding(2, 0, 2, 0);
+            label49.Name = "label49";
+            label49.Size = new Size(98, 28);
+            label49.TabIndex = 2;
+            label49.Text = "학생 포털";
             // 
             // buttonLogOut
             // 
@@ -813,50 +903,13 @@
             buttonDashboard.Text = "🏠  대시보드";
             buttonDashboard.UseVisualStyleBackColor = false;
             // 
-            // label49
-            // 
-            label49.AutoSize = true;
-            label49.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label49.ForeColor = Color.FromArgb(235, 235, 235);
-            label49.Location = new Point(106, 190);
-            label49.Margin = new Padding(2, 0, 2, 0);
-            label49.Name = "label49";
-            label49.Size = new Size(98, 28);
-            label49.TabIndex = 2;
-            label49.Text = "학생 포털";
-            // 
-            // label48
-            // 
-            label48.AutoSize = true;
-            label48.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label48.ForeColor = Color.White;
-            label48.Location = new Point(63, 133);
-            label48.Margin = new Padding(2, 0, 2, 0);
-            label48.Name = "label48";
-            label48.Size = new Size(180, 45);
-            label48.TabIndex = 1;
-            label48.Text = "광운대학교";
-            // 
-            // pictureBoxKWULogo
-            // 
-            pictureBoxKWULogo.BackColor = Color.Transparent;
-            pictureBoxKWULogo.Image = (Image)resources.GetObject("pictureBoxKWULogo.Image");
-            pictureBoxKWULogo.InitialImage = (Image)resources.GetObject("pictureBoxKWULogo.InitialImage");
-            pictureBoxKWULogo.Location = new Point(106, 36);
-            pictureBoxKWULogo.Margin = new Padding(2);
-            pictureBoxKWULogo.Name = "pictureBoxKWULogo";
-            pictureBoxKWULogo.Size = new Size(90, 90);
-            pictureBoxKWULogo.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBoxKWULogo.TabIndex = 0;
-            pictureBoxKWULogo.TabStop = false;
-            // 
             // labelUserName
             // 
             labelUserName.AutoSize = true;
             labelUserName.BackColor = Color.Transparent;
             labelUserName.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelUserName.ForeColor = Color.White;
-            labelUserName.Location = new Point(1154, 36);
+            labelUserName.Location = new Point(1146, 36);
             labelUserName.Margin = new Padding(2, 0, 2, 0);
             labelUserName.Name = "labelUserName";
             labelUserName.Size = new Size(239, 30);
@@ -873,8 +926,8 @@
             lblTime.AutoSize = true;
             lblTime.BackColor = Color.Transparent;
             lblTime.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTime.ForeColor = Color.FromArgb(160, 165, 180);
-            lblTime.Location = new Point(1044, 36);
+            lblTime.ForeColor = Color.White;
+            lblTime.Location = new Point(1034, 37);
             lblTime.Margin = new Padding(2, 0, 2, 0);
             lblTime.Name = "lblTime";
             lblTime.Size = new Size(66, 30);
@@ -886,14 +939,13 @@
             labelCurrentData.AutoSize = true;
             labelCurrentData.BackColor = Color.Transparent;
             labelCurrentData.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCurrentData.ForeColor = Color.FromArgb(160, 165, 180);
-            labelCurrentData.Location = new Point(862, 36);
+            labelCurrentData.ForeColor = Color.White;
+            labelCurrentData.Location = new Point(857, 37);
             labelCurrentData.Margin = new Padding(2, 0, 2, 0);
             labelCurrentData.Name = "labelCurrentData";
             labelCurrentData.Size = new Size(178, 30);
             labelCurrentData.TabIndex = 7;
             labelCurrentData.Text = "2026.05.02 02:20";
-                
             // 
             // panel1
             // 
@@ -907,59 +959,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1559, 95);
             panel1.TabIndex = 8;
-            // 
-            // panel8
-            // 
-            panel8.BackColor = Color.FromArgb(90, 0, 31);
-            panel8.Controls.Add(label6);
-            panel8.Controls.Add(label30);
-            panel8.Controls.Add(label32);
-            panel8.Controls.Add(pictureBoxKWULogo);
-            panel8.Controls.Add(label48);
-            panel8.Controls.Add(label49);
-            panel8.ForeColor = Color.White;
-            panel8.Location = new Point(0, 0);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(312, 246);
-            panel8.TabIndex = 9;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.BackColor = Color.Transparent;
-            label6.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.ForeColor = Color.FromArgb(160, 165, 180);
-            label6.Location = new Point(1044, 36);
-            label6.Margin = new Padding(2, 0, 2, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(66, 30);
-            label6.TabIndex = 6;
-            label6.Text = "00:00";
-            // 
-            // label30
-            // 
-            label30.AutoSize = true;
-            label30.BackColor = Color.Transparent;
-            label30.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label30.ForeColor = Color.FromArgb(160, 165, 180);
-            label30.Location = new Point(862, 36);
-            label30.Margin = new Padding(2, 0, 2, 0);
-            label30.Name = "label30";
-            label30.Size = new Size(178, 30);
-            label30.TabIndex = 7;
-            label30.Text = "2026.05.02 02:20";
-            // 
-            // label32
-            // 
-            label32.AutoSize = true;
-            label32.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label32.ForeColor = Color.White;
-            label32.Location = new Point(1154, 36);
-            label32.Margin = new Padding(2, 0, 2, 0);
-            label32.Name = "label32";
-            label32.Size = new Size(239, 30);
-            label32.TabIndex = 5;
-            label32.Text = "안드레이님 환영합니다";
             // 
             // DashboardPage
             // 
@@ -995,11 +994,11 @@
             panelNotice.ResumeLayout(false);
             panelNotice.PerformLayout();
             panelSidebar.ResumeLayout(false);
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxKWULogo).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            panel8.ResumeLayout(false);
-            panel8.PerformLayout();
             ResumeLayout(false);
         }
 
