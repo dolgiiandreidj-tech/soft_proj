@@ -29,7 +29,10 @@ namespace Software_Project_team2
 
             klasService = klas;
 
-            buttonSchedule.Click += (_, _) => new SchedulePanel().Show();
+            buttonTimeTable.Click += (_, _) => new Timetable().Show();
+            buttonLectureManagement.Click += (_, _) => new SchedulePanel().Show();
+            btnMore.Click += (_, _) => new NoticeForm().Show();
+
 
             _ = LoadNoticesAsync();
         }
@@ -38,11 +41,7 @@ namespace Software_Project_team2
         {
             var notices = await ParseNoticesAsync();
 
-            panelNotice.Controls.Remove(panelNotice1);
-            panelNotice.Controls.Remove(panel8);
-            panelNotice.Controls.Remove(panel9);
-            panelNotice.Controls.Remove(panel10);
-            panelNotice.Controls.Remove(panel11);
+           
 
             int yPos = 98;
             int count = 0;

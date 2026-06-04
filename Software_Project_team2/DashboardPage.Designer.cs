@@ -72,35 +72,15 @@
             flowLayoutPanel1 = new FlowLayoutPanel();
             label12 = new Label();
             panelNotice = new Panel();
+            richNotice = new RichTextBox();
             label47 = new Label();
             button5 = new Button();
-            panel11 = new Panel();
-            label44 = new Label();
-            label45 = new Label();
-            label46 = new Label();
-            panel10 = new Panel();
-            label41 = new Label();
-            label42 = new Label();
-            label43 = new Label();
-            panel9 = new Panel();
-            label38 = new Label();
-            label39 = new Label();
-            label40 = new Label();
-            panel8 = new Panel();
-            label35 = new Label();
-            label36 = new Label();
-            label37 = new Label();
-            panelNotice1 = new Panel();
-            label34 = new Label();
-            label33 = new Label();
-            label32 = new Label();
-            label30 = new Label();
             label29 = new Label();
             panelSidebar = new Panel();
             buttonLogOut = new Button();
             buttonLectureManagement = new Button();
             buttonSettings = new Button();
-            buttonSchedule = new Button();
+            buttonTimeTable = new Button();
             buttonGrades = new Button();
             buttonDashboard = new Button();
             label49 = new Label();
@@ -110,6 +90,7 @@
             timer1 = new System.Windows.Forms.Timer(components);
             lblTime = new Label();
             labelCurrentData = new Label();
+            btnMore = new Button();
             panelGPA.SuspendLayout();
             panelGraduate.SuspendLayout();
             panel3.SuspendLayout();
@@ -119,11 +100,6 @@
             panel5.SuspendLayout();
             panel6.SuspendLayout();
             panelNotice.SuspendLayout();
-            panel11.SuspendLayout();
-            panel10.SuspendLayout();
-            panel9.SuspendLayout();
-            panel8.SuspendLayout();
-            panelNotice1.SuspendLayout();
             panelSidebar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxKWULogo).BeginInit();
             SuspendLayout();
@@ -654,14 +630,10 @@
             // panelNotice
             // 
             panelNotice.BackColor = Color.FromArgb(24, 27, 38);
+            panelNotice.Controls.Add(btnMore);
+            panelNotice.Controls.Add(richNotice);
             panelNotice.Controls.Add(label47);
             panelNotice.Controls.Add(button5);
-            panelNotice.Controls.Add(panel11);
-            panelNotice.Controls.Add(panel10);
-            panelNotice.Controls.Add(panel9);
-            panelNotice.Controls.Add(panel8);
-            panelNotice.Controls.Add(panelNotice1);
-            panelNotice.Controls.Add(label30);
             panelNotice.Controls.Add(label29);
             panelNotice.Location = new Point(1348, 108);
             panelNotice.Margin = new Padding(2);
@@ -669,12 +641,26 @@
             panelNotice.Size = new Size(412, 818);
             panelNotice.TabIndex = 2;
             // 
+            // richNotice
+            // 
+            richNotice.BackColor = Color.FromArgb(24, 27, 38);
+            richNotice.BorderStyle = BorderStyle.None;
+            richNotice.DetectUrls = false;
+            richNotice.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            richNotice.ForeColor = Color.White;
+            richNotice.Location = new Point(14, 123);
+            richNotice.Name = "richNotice";
+            richNotice.ReadOnly = true;
+            richNotice.Size = new Size(366, 600);
+            richNotice.TabIndex = 8;
+            richNotice.Text = " •2026학년도 1학기 수강신청 공고\n  2026.01.18\n\n\n •2026학년도 1학기 수강신청자료집 안내\n  2026.02.02\n\n\n •수강신청 프로그램 사용 방법 안내\n  2026.02.11\n\n\n• 신입생 학사 및 수강신청 안내\n  2025.02.23";
+            // 
             // label47
             // 
             label47.AutoSize = true;
             label47.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label47.ForeColor = Color.FromArgb(180, 185, 200);
-            label47.Location = new Point(71, 704);
+            label47.Location = new Point(58, 736);
             label47.Margin = new Padding(2, 0, 2, 0);
             label47.Name = "label47";
             label47.Size = new Size(47, 32);
@@ -689,260 +675,13 @@
             button5.FlatStyle = FlatStyle.Flat;
             button5.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button5.ForeColor = Color.FromArgb(180, 185, 200);
-            button5.Location = new Point(50, 696);
+            button5.Location = new Point(48, 728);
             button5.Margin = new Padding(2);
             button5.Name = "button5";
             button5.Size = new Size(320, 50);
             button5.TabIndex = 5;
             button5.Text = "전체 공지사항 보기";
             button5.UseVisualStyleBackColor = false;
-            // 
-            // panel11
-            // 
-            panel11.Controls.Add(label44);
-            panel11.Controls.Add(label45);
-            panel11.Controls.Add(label46);
-            panel11.Location = new Point(15, 576);
-            panel11.Margin = new Padding(2);
-            panel11.Name = "panel11";
-            panel11.Size = new Size(381, 90);
-            panel11.TabIndex = 6;
-            // 
-            // label44
-            // 
-            label44.AutoSize = true;
-            label44.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label44.ForeColor = Color.FromArgb(160, 165, 180);
-            label44.Location = new Point(239, 56);
-            label44.Margin = new Padding(2, 0, 2, 0);
-            label44.Name = "label44";
-            label44.Size = new Size(102, 25);
-            label44.TabIndex = 4;
-            label44.Text = "2024.05.20";
-            // 
-            // label45
-            // 
-            label45.AutoSize = true;
-            label45.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label45.ForeColor = Color.White;
-            label45.Location = new Point(25, 12);
-            label45.Margin = new Padding(2, 0, 2, 0);
-            label45.Name = "label45";
-            label45.Size = new Size(316, 25);
-            label45.TabIndex = 3;
-            label45.Text = "2024학년도 2학기 수강신청 일정 안내";
-            // 
-            // label46
-            // 
-            label46.AutoSize = true;
-            label46.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label46.ForeColor = Color.FromArgb(98, 120, 255);
-            label46.Location = new Point(8, 20);
-            label46.Margin = new Padding(2, 0, 2, 0);
-            label46.Name = "label46";
-            label46.Size = new Size(28, 38);
-            label46.TabIndex = 3;
-            label46.Text = "•";
-            // 
-            // panel10
-            // 
-            panel10.Controls.Add(label41);
-            panel10.Controls.Add(label42);
-            panel10.Controls.Add(label43);
-            panel10.Location = new Point(15, 459);
-            panel10.Margin = new Padding(2);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(381, 90);
-            panel10.TabIndex = 5;
-            // 
-            // label41
-            // 
-            label41.AutoSize = true;
-            label41.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label41.ForeColor = Color.FromArgb(160, 165, 180);
-            label41.Location = new Point(239, 56);
-            label41.Margin = new Padding(2, 0, 2, 0);
-            label41.Name = "label41";
-            label41.Size = new Size(102, 25);
-            label41.TabIndex = 4;
-            label41.Text = "2024.05.20";
-            // 
-            // label42
-            // 
-            label42.AutoSize = true;
-            label42.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label42.ForeColor = Color.White;
-            label42.Location = new Point(25, 12);
-            label42.Margin = new Padding(2, 0, 2, 0);
-            label42.Name = "label42";
-            label42.Size = new Size(316, 25);
-            label42.TabIndex = 3;
-            label42.Text = "2024학년도 2학기 수강신청 일정 안내";
-            // 
-            // label43
-            // 
-            label43.AutoSize = true;
-            label43.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label43.ForeColor = Color.FromArgb(98, 120, 255);
-            label43.Location = new Point(8, 20);
-            label43.Margin = new Padding(2, 0, 2, 0);
-            label43.Name = "label43";
-            label43.Size = new Size(28, 38);
-            label43.TabIndex = 3;
-            label43.Text = "•";
-            // 
-            // panel9
-            // 
-            panel9.Controls.Add(label38);
-            panel9.Controls.Add(label39);
-            panel9.Controls.Add(label40);
-            panel9.Location = new Point(15, 341);
-            panel9.Margin = new Padding(2);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(381, 90);
-            panel9.TabIndex = 4;
-            // 
-            // label38
-            // 
-            label38.AutoSize = true;
-            label38.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label38.ForeColor = Color.FromArgb(160, 165, 180);
-            label38.Location = new Point(239, 56);
-            label38.Margin = new Padding(2, 0, 2, 0);
-            label38.Name = "label38";
-            label38.Size = new Size(102, 25);
-            label38.TabIndex = 4;
-            label38.Text = "2024.05.20";
-            // 
-            // label39
-            // 
-            label39.AutoSize = true;
-            label39.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label39.ForeColor = Color.White;
-            label39.Location = new Point(25, 12);
-            label39.Margin = new Padding(2, 0, 2, 0);
-            label39.Name = "label39";
-            label39.Size = new Size(316, 25);
-            label39.TabIndex = 3;
-            label39.Text = "2024학년도 2학기 수강신청 일정 안내";
-            // 
-            // label40
-            // 
-            label40.AutoSize = true;
-            label40.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label40.ForeColor = Color.FromArgb(98, 120, 255);
-            label40.Location = new Point(8, 20);
-            label40.Margin = new Padding(2, 0, 2, 0);
-            label40.Name = "label40";
-            label40.Size = new Size(28, 38);
-            label40.TabIndex = 3;
-            label40.Text = "•";
-            // 
-            // panel8
-            // 
-            panel8.Controls.Add(label35);
-            panel8.Controls.Add(label36);
-            panel8.Controls.Add(label37);
-            panel8.Location = new Point(15, 230);
-            panel8.Margin = new Padding(2);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(381, 90);
-            panel8.TabIndex = 3;
-            // 
-            // label35
-            // 
-            label35.AutoSize = true;
-            label35.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label35.ForeColor = Color.FromArgb(160, 165, 180);
-            label35.Location = new Point(239, 56);
-            label35.Margin = new Padding(2, 0, 2, 0);
-            label35.Name = "label35";
-            label35.Size = new Size(102, 25);
-            label35.TabIndex = 4;
-            label35.Text = "2024.05.20";
-            // 
-            // label36
-            // 
-            label36.AutoSize = true;
-            label36.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label36.ForeColor = Color.White;
-            label36.Location = new Point(25, 12);
-            label36.Margin = new Padding(2, 0, 2, 0);
-            label36.Name = "label36";
-            label36.Size = new Size(316, 25);
-            label36.TabIndex = 3;
-            label36.Text = "2024학년도 2학기 수강신청 일정 안내";
-            // 
-            // label37
-            // 
-            label37.AutoSize = true;
-            label37.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label37.ForeColor = Color.FromArgb(98, 120, 255);
-            label37.Location = new Point(8, 20);
-            label37.Margin = new Padding(2, 0, 2, 0);
-            label37.Name = "label37";
-            label37.Size = new Size(28, 38);
-            label37.TabIndex = 3;
-            label37.Text = "•";
-            // 
-            // panelNotice1
-            // 
-            panelNotice1.Controls.Add(label34);
-            panelNotice1.Controls.Add(label33);
-            panelNotice1.Controls.Add(label32);
-            panelNotice1.Location = new Point(15, 122);
-            panelNotice1.Margin = new Padding(2);
-            panelNotice1.Name = "panelNotice1";
-            panelNotice1.Size = new Size(381, 90);
-            panelNotice1.TabIndex = 2;
-            // 
-            // label34
-            // 
-            label34.AutoSize = true;
-            label34.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label34.ForeColor = Color.FromArgb(160, 165, 180);
-            label34.Location = new Point(239, 56);
-            label34.Margin = new Padding(2, 0, 2, 0);
-            label34.Name = "label34";
-            label34.Size = new Size(102, 25);
-            label34.TabIndex = 4;
-            label34.Text = "2024.05.20";
-            // 
-            // label33
-            // 
-            label33.AutoSize = true;
-            label33.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label33.ForeColor = Color.White;
-            label33.Location = new Point(25, 12);
-            label33.Margin = new Padding(2, 0, 2, 0);
-            label33.Name = "label33";
-            label33.Size = new Size(316, 25);
-            label33.TabIndex = 3;
-            label33.Text = "2024학년도 2학기 수강신청 일정 안내";
-            // 
-            // label32
-            // 
-            label32.AutoSize = true;
-            label32.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label32.ForeColor = Color.FromArgb(98, 120, 255);
-            label32.Location = new Point(8, 20);
-            label32.Margin = new Padding(2, 0, 2, 0);
-            label32.Name = "label32";
-            label32.Size = new Size(28, 38);
-            label32.TabIndex = 3;
-            label32.Text = "•";
-            // 
-            // label30
-            // 
-            label30.AutoSize = true;
-            label30.Font = new Font("Segoe UI", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label30.ForeColor = Color.FromArgb(98, 120, 255);
-            label30.Location = new Point(279, 75);
-            label30.Margin = new Padding(2, 0, 2, 0);
-            label30.Name = "label30";
-            label30.Size = new Size(101, 30);
-            label30.TabIndex = 1;
-            label30.Text = "더보기 >";
             // 
             // label29
             // 
@@ -962,7 +701,7 @@
             panelSidebar.Controls.Add(buttonLogOut);
             panelSidebar.Controls.Add(buttonLectureManagement);
             panelSidebar.Controls.Add(buttonSettings);
-            panelSidebar.Controls.Add(buttonSchedule);
+            panelSidebar.Controls.Add(buttonTimeTable);
             panelSidebar.Controls.Add(buttonGrades);
             panelSidebar.Controls.Add(buttonDashboard);
             panelSidebar.Controls.Add(label49);
@@ -997,7 +736,7 @@
             buttonLectureManagement.FlatStyle = FlatStyle.Flat;
             buttonLectureManagement.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonLectureManagement.ForeColor = Color.FromArgb(160, 165, 180);
-            buttonLectureManagement.Location = new Point(45, 336);
+            buttonLectureManagement.Location = new Point(45, 474);
             buttonLectureManagement.Margin = new Padding(2);
             buttonLectureManagement.Name = "buttonLectureManagement";
             buttonLectureManagement.Size = new Size(198, 50);
@@ -1019,25 +758,25 @@
             buttonSettings.Name = "buttonSettings";
             buttonSettings.Size = new Size(198, 50);
             buttonSettings.TabIndex = 6;
-            buttonSettings.Text = "⚙  설정";
+            buttonSettings.Text = "🕮 과제 및 자료";
             buttonSettings.UseVisualStyleBackColor = false;
             // 
-            // buttonSchedule
+            // buttonTimeTable
             // 
-            buttonSchedule.BackColor = Color.FromArgb(18, 22, 32);
-            buttonSchedule.Cursor = Cursors.Hand;
-            buttonSchedule.FlatAppearance.BorderSize = 0;
-            buttonSchedule.FlatAppearance.MouseOverBackColor = Color.FromArgb(32, 35, 48);
-            buttonSchedule.FlatStyle = FlatStyle.Flat;
-            buttonSchedule.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            buttonSchedule.ForeColor = Color.FromArgb(160, 165, 180);
-            buttonSchedule.Location = new Point(45, 478);
-            buttonSchedule.Margin = new Padding(2);
-            buttonSchedule.Name = "buttonSchedule";
-            buttonSchedule.Size = new Size(198, 50);
-            buttonSchedule.TabIndex = 5;
-            buttonSchedule.Text = "🗓  시간표";
-            buttonSchedule.UseVisualStyleBackColor = false;
+            buttonTimeTable.BackColor = Color.FromArgb(18, 22, 32);
+            buttonTimeTable.Cursor = Cursors.Hand;
+            buttonTimeTable.FlatAppearance.BorderSize = 0;
+            buttonTimeTable.FlatAppearance.MouseOverBackColor = Color.FromArgb(32, 35, 48);
+            buttonTimeTable.FlatStyle = FlatStyle.Flat;
+            buttonTimeTable.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            buttonTimeTable.ForeColor = Color.FromArgb(160, 165, 180);
+            buttonTimeTable.Location = new Point(45, 336);
+            buttonTimeTable.Margin = new Padding(2);
+            buttonTimeTable.Name = "buttonTimeTable";
+            buttonTimeTable.Size = new Size(198, 50);
+            buttonTimeTable.TabIndex = 5;
+            buttonTimeTable.Text = "🗓  시간표";
+            buttonTimeTable.UseVisualStyleBackColor = false;
             // 
             // buttonGrades
             // 
@@ -1152,11 +891,22 @@
             labelCurrentData.TabIndex = 7;
             labelCurrentData.Text = "2026.05.02 02:20";
             // 
+            // btnMore
+            // 
+            btnMore.BackColor = Color.FromArgb(128, 0, 36);
+            btnMore.ForeColor = Color.White;
+            btnMore.Location = new Point(256, 72);
+            btnMore.Name = "btnMore";
+            btnMore.Size = new Size(112, 34);
+            btnMore.TabIndex = 9;
+            btnMore.Text = "더보기";
+            btnMore.UseVisualStyleBackColor = false;
+            // 
             // DashboardPage
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(20, 22, 28);
+            ClientSize = new Size(1866, 959);
             Controls.Add(labelCurrentData);
             Controls.Add(lblTime);
             Controls.Add(labelUserName);
@@ -1168,7 +918,8 @@
             Controls.Add(label1);
             Margin = new Padding(2);
             Name = "DashboardPage";
-            ClientSize = new Size(1866, 959);
+            StartPosition = FormStartPosition.CenterScreen;
+            WindowState = FormWindowState.Maximized;
             panelGPA.ResumeLayout(false);
             panelGPA.PerformLayout();
             panelGraduate.ResumeLayout(false);
@@ -1186,16 +937,6 @@
             panel6.PerformLayout();
             panelNotice.ResumeLayout(false);
             panelNotice.PerformLayout();
-            panel11.ResumeLayout(false);
-            panel11.PerformLayout();
-            panel10.ResumeLayout(false);
-            panel10.PerformLayout();
-            panel9.ResumeLayout(false);
-            panel9.PerformLayout();
-            panel8.ResumeLayout(false);
-            panel8.PerformLayout();
-            panelNotice1.ResumeLayout(false);
-            panelNotice1.PerformLayout();
             panelSidebar.ResumeLayout(false);
             panelSidebar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxKWULogo).EndInit();
@@ -1246,29 +987,8 @@
         private Label label27;
         private Label label24;
         private Panel panelNotice;
-        private Label label30;
         private Label label29;
         private Label label31;
-        private Panel panelNotice1;
-        private Label label33;
-        private Label label32;
-        private Panel panel11;
-        private Label label44;
-        private Label label45;
-        private Label label46;
-        private Panel panel10;
-        private Label label41;
-        private Label label42;
-        private Label label43;
-        private Panel panel9;
-        private Label label38;
-        private Label label39;
-        private Label label40;
-        private Panel panel8;
-        private Label label35;
-        private Label label36;
-        private Label label37;
-        private Label label34;
         private Button button5;
         private Label label47;
         private Panel panelSidebar;
@@ -1278,12 +998,14 @@
         private Label label48;
         private Button buttonLectureManagement;
         private Button buttonSettings;
-        private Button buttonSchedule;
+        private Button buttonTimeTable;
         private Button buttonGrades;
         private Button buttonLogOut;
         private Label labelUserName;
         private System.Windows.Forms.Timer timer1;
         private Label lblTime;
         private Label labelCurrentData;
+        private RichTextBox richNotice;
+        private Button btnMore;
     }
 }
