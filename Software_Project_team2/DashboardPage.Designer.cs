@@ -140,7 +140,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 16F);
             label4.ForeColor = Color.FromArgb(120, 120, 120);
-            label4.Location = new Point(208, 94);
+            label4.Location = new Point(189, 94);
             label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
             label4.Size = new Size(73, 45);
@@ -152,10 +152,10 @@
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Segoe UI", 22F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.FromArgb(45, 45, 45);
-            label3.Location = new Point(100, 82);
+            label3.Location = new Point(71, 82);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(104, 68);
+            label3.Size = new Size(133, 68);
             label3.TabIndex = 1;
             label3.Text = "0.0";
             // 
@@ -663,7 +663,7 @@
             btnMore.FlatAppearance.BorderSize = 0;
             btnMore.FlatStyle = FlatStyle.Flat;
             btnMore.ForeColor = Color.White;
-            btnMore.Location = new Point(276, 75);
+            btnMore.Location = new Point(300, 36);
             btnMore.Name = "btnMore";
             btnMore.Size = new Size(104, 34);
             btnMore.TabIndex = 9;
@@ -677,7 +677,7 @@
             richNotice.DetectUrls = false;
             richNotice.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             richNotice.ForeColor = Color.FromArgb(60, 60, 60);
-            richNotice.Location = new Point(14, 145);
+            richNotice.Location = new Point(21, 106);
             richNotice.Name = "richNotice";
             richNotice.ReadOnly = true;
             richNotice.Size = new Size(366, 600);
