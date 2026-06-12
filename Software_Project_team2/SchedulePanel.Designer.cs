@@ -43,187 +43,212 @@ namespace Software_Project_team2
 
         private void InitializeComponent()
         {
-            lblHeader = new System.Windows.Forms.Label();
-            lblSearchHint = new System.Windows.Forms.Label();
-            txtSearch = new System.Windows.Forms.TextBox();
-            btnGo = new System.Windows.Forms.Button();
-            rbProf = new System.Windows.Forms.RadioButton();
-            rbClass = new System.Windows.Forms.RadioButton();
-            panelByProf = new System.Windows.Forms.Panel();
-            lblByProf = new System.Windows.Forms.Label();
-            lstByProf = new System.Windows.Forms.ListBox();
-            panelByClass = new System.Windows.Forms.Panel();
-            lblByClass = new System.Windows.Forms.Label();
-            lstByClass = new System.Windows.Forms.ListBox();
-            panelDetail = new System.Windows.Forms.Panel();
-            lblDetailHeader = new System.Windows.Forms.Label();
-            lblDetailName = new System.Windows.Forms.Label();
-            lblDetailProfessor = new System.Windows.Forms.Label();
-            lblDetailCode = new System.Windows.Forms.Label();
-            lblDetailRating = new System.Windows.Forms.Label();
-            lblDetailReviews = new System.Windows.Forms.Label();
-            lblDetailStatus = new System.Windows.Forms.Label();
-            panelSyllabus = new System.Windows.Forms.Panel();
-            lblSyllabusHeader = new System.Windows.Forms.Label();
-            lblSyllabusBody = new System.Windows.Forms.Label();
-            lblStatus = new System.Windows.Forms.Label();
-            panelReviews = new System.Windows.Forms.Panel();
-            lblReviewsHeader = new System.Windows.Forms.Label();
-            flowReviews = new System.Windows.Forms.FlowLayoutPanel();
+            lblHeader = new Label();
+            lblSearchHint = new Label();
+            txtSearch = new TextBox();
+            btnGo = new Button();
+            rbProf = new RadioButton();
+            rbClass = new RadioButton();
+            panelByProf = new Panel();
+            lstByProf = new ListBox();
+            lblByProf = new Label();
+            panelByClass = new Panel();
+            lstByClass = new ListBox();
+            lblByClass = new Label();
+            panelDetail = new Panel();
+            lblDetailStatus = new Label();
+            lblDetailReviews = new Label();
+            lblDetailRating = new Label();
+            lblDetailCode = new Label();
+            lblDetailProfessor = new Label();
+            lblDetailName = new Label();
+            lblDetailHeader = new Label();
+            panelSyllabus = new Panel();
+            lblSyllabusBody = new Label();
+            lblSyllabusHeader = new Label();
+            lblStatus = new Label();
+            panelReviews = new Panel();
+            flowReviews = new FlowLayoutPanel();
+            lblReviewsHeader = new Label();
             panelByProf.SuspendLayout();
             panelByClass.SuspendLayout();
             panelDetail.SuspendLayout();
             panelSyllabus.SuspendLayout();
             panelReviews.SuspendLayout();
             SuspendLayout();
-            //
+            // 
             // lblHeader
-            //
+            // 
             lblHeader.AutoSize = true;
-            lblHeader.BackColor = System.Drawing.Color.Transparent;
-            lblHeader.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
-            lblHeader.ForeColor = System.Drawing.Color.White;
-            lblHeader.Location = new System.Drawing.Point(20, 28);
+            lblHeader.BackColor = Color.Transparent;
+            lblHeader.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblHeader.ForeColor = Color.Black;
+            lblHeader.Location = new Point(25, 35);
+            lblHeader.Margin = new Padding(4, 0, 4, 0);
             lblHeader.Name = "lblHeader";
+            lblHeader.Size = new Size(315, 45);
+            lblHeader.TabIndex = 10;
             lblHeader.Text = "Everytime 강의 검색";
-            //
+            // 
             // lblSearchHint
-            //
+            // 
             lblSearchHint.AutoSize = true;
-            lblSearchHint.BackColor = System.Drawing.Color.Transparent;
-            lblSearchHint.Font = new System.Drawing.Font("Segoe UI", 10F);
-            lblSearchHint.ForeColor = System.Drawing.Color.FromArgb(160, 165, 180);
-            lblSearchHint.Location = new System.Drawing.Point(20, 78);
+            lblSearchHint.BackColor = Color.Transparent;
+            lblSearchHint.Font = new Font("Segoe UI", 10F);
+            lblSearchHint.ForeColor = Color.Black;
+            lblSearchHint.Location = new Point(25, 89);
+            lblSearchHint.Margin = new Padding(4, 0, 4, 0);
             lblSearchHint.Name = "lblSearchHint";
+            lblSearchHint.Size = new Size(396, 28);
+            lblSearchHint.TabIndex = 9;
             lblSearchHint.Text = "search for class from everytime (review, info)";
-            //
+            // 
             // txtSearch
-            //
-            txtSearch.BackColor = System.Drawing.Color.FromArgb(38, 41, 52);
-            txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            txtSearch.Font = new System.Drawing.Font("Segoe UI", 12F);
-            txtSearch.ForeColor = System.Drawing.Color.White;
-            txtSearch.Location = new System.Drawing.Point(20, 110);
+            // 
+            txtSearch.BackColor = Color.FromArgb(224, 224, 224);
+            txtSearch.BorderStyle = BorderStyle.FixedSingle;
+            txtSearch.Font = new Font("Segoe UI", 12F);
+            txtSearch.ForeColor = Color.Black;
+            txtSearch.Location = new Point(25, 138);
+            txtSearch.Margin = new Padding(4);
             txtSearch.Name = "txtSearch";
             txtSearch.PlaceholderText = "type here";
-            txtSearch.Size = new System.Drawing.Size(1080, 34);
+            txtSearch.Size = new Size(1350, 39);
             txtSearch.TabIndex = 0;
-            //
+            // 
             // btnGo
-            //
-            btnGo.BackColor = System.Drawing.Color.FromArgb(98, 120, 255);
-            btnGo.Cursor = System.Windows.Forms.Cursors.Hand;
+            // 
+            btnGo.BackColor = Color.FromArgb(90, 0, 31);
+            btnGo.Cursor = Cursors.Hand;
             btnGo.FlatAppearance.BorderSize = 0;
-            btnGo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(120, 140, 255);
-            btnGo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnGo.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            btnGo.ForeColor = System.Drawing.Color.White;
-            btnGo.Location = new System.Drawing.Point(1115, 108);
+            btnGo.FlatAppearance.MouseOverBackColor = Color.FromArgb(120, 140, 255);
+            btnGo.FlatStyle = FlatStyle.Flat;
+            btnGo.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnGo.ForeColor = Color.White;
+            btnGo.Location = new Point(1394, 138);
+            btnGo.Margin = new Padding(4);
             btnGo.Name = "btnGo";
-            btnGo.Size = new System.Drawing.Size(100, 38);
+            btnGo.Size = new Size(125, 39);
             btnGo.TabIndex = 1;
             btnGo.Text = "GO";
             btnGo.UseVisualStyleBackColor = false;
-            //
+            // 
             // rbProf
-            //
+            // 
             rbProf.AutoSize = true;
-            rbProf.BackColor = System.Drawing.Color.Transparent;
-            rbProf.Font = new System.Drawing.Font("Segoe UI", 11F);
-            rbProf.ForeColor = System.Drawing.Color.FromArgb(220, 222, 230);
-            rbProf.Location = new System.Drawing.Point(20, 162);
+            rbProf.BackColor = Color.Transparent;
+            rbProf.Font = new Font("Segoe UI", 11F);
+            rbProf.ForeColor = Color.Black;
+            rbProf.Location = new Point(25, 202);
+            rbProf.Margin = new Padding(4);
             rbProf.Name = "rbProf";
-            rbProf.Text = "교수 (prof)";
+            rbProf.Size = new Size(143, 34);
             rbProf.TabIndex = 2;
+            rbProf.Text = "교수 (prof)";
             rbProf.UseVisualStyleBackColor = false;
-            //
+            // 
             // rbClass
-            //
+            // 
             rbClass.AutoSize = true;
-            rbClass.BackColor = System.Drawing.Color.Transparent;
+            rbClass.BackColor = Color.Transparent;
             rbClass.Checked = true;
-            rbClass.Font = new System.Drawing.Font("Segoe UI", 11F);
-            rbClass.ForeColor = System.Drawing.Color.FromArgb(220, 222, 230);
-            rbClass.Location = new System.Drawing.Point(170, 162);
+            rbClass.Font = new Font("Segoe UI", 11F);
+            rbClass.ForeColor = Color.Black;
+            rbClass.Location = new Point(212, 202);
+            rbClass.Margin = new Padding(4);
             rbClass.Name = "rbClass";
-            rbClass.Text = "강의명 (class)";
+            rbClass.Size = new Size(168, 34);
             rbClass.TabIndex = 3;
             rbClass.TabStop = true;
+            rbClass.Text = "강의명 (class)";
             rbClass.UseVisualStyleBackColor = false;
-            //
+            // 
             // panelByProf
-            //
-            panelByProf.BackColor = System.Drawing.Color.FromArgb(30, 32, 40);
+            // 
+            panelByProf.BackColor = Color.FromArgb(252, 252, 252);
+            panelByProf.BorderStyle = BorderStyle.FixedSingle;
             panelByProf.Controls.Add(lstByProf);
             panelByProf.Controls.Add(lblByProf);
-            panelByProf.Location = new System.Drawing.Point(20, 200);
+            panelByProf.Location = new Point(25, 250);
+            panelByProf.Margin = new Padding(4);
             panelByProf.Name = "panelByProf";
-            panelByProf.Padding = new System.Windows.Forms.Padding(16);
-            panelByProf.Size = new System.Drawing.Size(320, 510);
+            panelByProf.Padding = new Padding(20);
+            panelByProf.Size = new Size(400, 638);
             panelByProf.TabIndex = 4;
-            //
-            // lblByProf
-            //
-            lblByProf.AutoSize = true;
-            lblByProf.BackColor = System.Drawing.Color.Transparent;
-            lblByProf.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            lblByProf.ForeColor = System.Drawing.Color.White;
-            lblByProf.Location = new System.Drawing.Point(16, 14);
-            lblByProf.Name = "lblByProf";
-            lblByProf.Text = "교수명 결과";
-            //
+            // 
             // lstByProf
-            //
-            lstByProf.BackColor = System.Drawing.Color.FromArgb(38, 41, 52);
-            lstByProf.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            lstByProf.Font = new System.Drawing.Font("Segoe UI", 10F);
-            lstByProf.ForeColor = System.Drawing.Color.White;
+            // 
+            lstByProf.BackColor = Color.FromArgb(252, 252, 252);
+            lstByProf.BorderStyle = BorderStyle.None;
+            lstByProf.Font = new Font("Segoe UI", 10F);
+            lstByProf.ForeColor = Color.White;
             lstByProf.FormattingEnabled = true;
             lstByProf.IntegralHeight = false;
-            lstByProf.ItemHeight = 22;
-            lstByProf.Location = new System.Drawing.Point(16, 50);
+            lstByProf.ItemHeight = 28;
+            lstByProf.Location = new Point(20, 62);
+            lstByProf.Margin = new Padding(4);
             lstByProf.Name = "lstByProf";
-            lstByProf.Size = new System.Drawing.Size(288, 444);
+            lstByProf.Size = new Size(360, 555);
             lstByProf.TabIndex = 0;
-            //
+            // 
+            // lblByProf
+            // 
+            lblByProf.AutoSize = true;
+            lblByProf.BackColor = Color.Transparent;
+            lblByProf.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblByProf.ForeColor = Color.Black;
+            lblByProf.Location = new Point(20, 18);
+            lblByProf.Margin = new Padding(4, 0, 4, 0);
+            lblByProf.Name = "lblByProf";
+            lblByProf.Size = new Size(129, 30);
+            lblByProf.TabIndex = 1;
+            lblByProf.Text = "교수명 결과";
+            // 
             // panelByClass
-            //
-            panelByClass.BackColor = System.Drawing.Color.FromArgb(30, 32, 40);
+            // 
+            panelByClass.BackColor = Color.FromArgb(252, 252, 252);
+            panelByClass.BorderStyle = BorderStyle.FixedSingle;
             panelByClass.Controls.Add(lstByClass);
             panelByClass.Controls.Add(lblByClass);
-            panelByClass.Location = new System.Drawing.Point(350, 200);
+            panelByClass.Location = new Point(438, 250);
+            panelByClass.Margin = new Padding(4);
             panelByClass.Name = "panelByClass";
-            panelByClass.Padding = new System.Windows.Forms.Padding(16);
-            panelByClass.Size = new System.Drawing.Size(320, 510);
+            panelByClass.Padding = new Padding(20);
+            panelByClass.Size = new Size(400, 638);
             panelByClass.TabIndex = 5;
-            //
-            // lblByClass
-            //
-            lblByClass.AutoSize = true;
-            lblByClass.BackColor = System.Drawing.Color.Transparent;
-            lblByClass.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            lblByClass.ForeColor = System.Drawing.Color.White;
-            lblByClass.Location = new System.Drawing.Point(16, 14);
-            lblByClass.Name = "lblByClass";
-            lblByClass.Text = "강의명 결과";
-            //
+            // 
             // lstByClass
-            //
-            lstByClass.BackColor = System.Drawing.Color.FromArgb(38, 41, 52);
-            lstByClass.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            lstByClass.Font = new System.Drawing.Font("Segoe UI", 10F);
-            lstByClass.ForeColor = System.Drawing.Color.White;
+            // 
+            lstByClass.BackColor = Color.FromArgb(252, 252, 252);
+            lstByClass.BorderStyle = BorderStyle.None;
+            lstByClass.Font = new Font("Segoe UI", 10F);
+            lstByClass.ForeColor = Color.White;
             lstByClass.FormattingEnabled = true;
             lstByClass.IntegralHeight = false;
-            lstByClass.ItemHeight = 22;
-            lstByClass.Location = new System.Drawing.Point(16, 50);
+            lstByClass.ItemHeight = 28;
+            lstByClass.Location = new Point(20, 62);
+            lstByClass.Margin = new Padding(4);
             lstByClass.Name = "lstByClass";
-            lstByClass.Size = new System.Drawing.Size(288, 444);
+            lstByClass.Size = new Size(360, 555);
             lstByClass.TabIndex = 0;
-            //
+            // 
+            // lblByClass
+            // 
+            lblByClass.AutoSize = true;
+            lblByClass.BackColor = Color.Transparent;
+            lblByClass.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblByClass.ForeColor = Color.Black;
+            lblByClass.Location = new Point(20, 18);
+            lblByClass.Margin = new Padding(4, 0, 4, 0);
+            lblByClass.Name = "lblByClass";
+            lblByClass.Size = new Size(129, 30);
+            lblByClass.TabIndex = 1;
+            lblByClass.Text = "강의명 결과";
+            // 
             // panelDetail
-            //
-            panelDetail.BackColor = System.Drawing.Color.FromArgb(30, 32, 40);
+            // 
+            panelDetail.BackColor = Color.FromArgb(252, 252, 252);
+            panelDetail.BorderStyle = BorderStyle.FixedSingle;
             panelDetail.Controls.Add(lblDetailStatus);
             panelDetail.Controls.Add(lblDetailReviews);
             panelDetail.Controls.Add(lblDetailRating);
@@ -231,165 +256,196 @@ namespace Software_Project_team2
             panelDetail.Controls.Add(lblDetailProfessor);
             panelDetail.Controls.Add(lblDetailName);
             panelDetail.Controls.Add(lblDetailHeader);
-            panelDetail.Location = new System.Drawing.Point(680, 200);
+            panelDetail.Location = new Point(850, 250);
+            panelDetail.Margin = new Padding(4);
             panelDetail.Name = "panelDetail";
-            panelDetail.Padding = new System.Windows.Forms.Padding(16);
-            panelDetail.Size = new System.Drawing.Size(540, 250);
+            panelDetail.Padding = new Padding(20);
+            panelDetail.Size = new Size(675, 312);
             panelDetail.TabIndex = 6;
-            //
-            // lblDetailHeader
-            //
-            lblDetailHeader.AutoSize = true;
-            lblDetailHeader.BackColor = System.Drawing.Color.Transparent;
-            lblDetailHeader.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            lblDetailHeader.ForeColor = System.Drawing.Color.White;
-            lblDetailHeader.Location = new System.Drawing.Point(16, 14);
-            lblDetailHeader.Name = "lblDetailHeader";
-            lblDetailHeader.Text = "강의 상세";
-            //
-            // lblDetailName
-            //
-            lblDetailName.AutoSize = true;
-            lblDetailName.BackColor = System.Drawing.Color.Transparent;
-            lblDetailName.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            lblDetailName.ForeColor = System.Drawing.Color.White;
-            lblDetailName.Location = new System.Drawing.Point(16, 52);
-            lblDetailName.MaximumSize = new System.Drawing.Size(508, 0);
-            lblDetailName.Name = "lblDetailName";
-            lblDetailName.Text = "";
-            //
-            // lblDetailProfessor
-            //
-            lblDetailProfessor.AutoSize = true;
-            lblDetailProfessor.BackColor = System.Drawing.Color.Transparent;
-            lblDetailProfessor.Font = new System.Drawing.Font("Segoe UI", 11F);
-            lblDetailProfessor.ForeColor = System.Drawing.Color.FromArgb(200, 205, 215);
-            lblDetailProfessor.Location = new System.Drawing.Point(16, 96);
-            lblDetailProfessor.Name = "lblDetailProfessor";
-            lblDetailProfessor.Text = "";
-            //
-            // lblDetailCode
-            //
-            lblDetailCode.AutoSize = true;
-            lblDetailCode.BackColor = System.Drawing.Color.Transparent;
-            lblDetailCode.Font = new System.Drawing.Font("Segoe UI", 11F);
-            lblDetailCode.ForeColor = System.Drawing.Color.FromArgb(160, 165, 180);
-            lblDetailCode.Location = new System.Drawing.Point(16, 128);
-            lblDetailCode.Name = "lblDetailCode";
-            lblDetailCode.Text = "";
-            //
-            // lblDetailRating
-            //
-            lblDetailRating.AutoSize = true;
-            lblDetailRating.BackColor = System.Drawing.Color.Transparent;
-            lblDetailRating.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            lblDetailRating.ForeColor = System.Drawing.Color.FromArgb(255, 200, 90);
-            lblDetailRating.Location = new System.Drawing.Point(16, 162);
-            lblDetailRating.Name = "lblDetailRating";
-            lblDetailRating.Text = "";
-            //
-            // lblDetailReviews
-            //
-            lblDetailReviews.AutoSize = true;
-            lblDetailReviews.BackColor = System.Drawing.Color.Transparent;
-            lblDetailReviews.Font = new System.Drawing.Font("Segoe UI", 11F);
-            lblDetailReviews.ForeColor = System.Drawing.Color.FromArgb(160, 165, 180);
-            lblDetailReviews.Location = new System.Drawing.Point(120, 170);
-            lblDetailReviews.Name = "lblDetailReviews";
-            lblDetailReviews.Text = "";
-            //
+            // 
             // lblDetailStatus
-            //
+            // 
             lblDetailStatus.AutoSize = true;
-            lblDetailStatus.BackColor = System.Drawing.Color.Transparent;
-            lblDetailStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
-            lblDetailStatus.ForeColor = System.Drawing.Color.FromArgb(140, 145, 160);
-            lblDetailStatus.Location = new System.Drawing.Point(16, 215);
+            lblDetailStatus.BackColor = Color.Transparent;
+            lblDetailStatus.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
+            lblDetailStatus.ForeColor = Color.FromArgb(140, 145, 160);
+            lblDetailStatus.Location = new Point(20, 269);
+            lblDetailStatus.Margin = new Padding(4, 0, 4, 0);
             lblDetailStatus.Name = "lblDetailStatus";
-            lblDetailStatus.Text = "";
-            //
+            lblDetailStatus.Size = new Size(0, 25);
+            lblDetailStatus.TabIndex = 0;
+            // 
+            // lblDetailReviews
+            // 
+            lblDetailReviews.AutoSize = true;
+            lblDetailReviews.BackColor = Color.Transparent;
+            lblDetailReviews.Font = new Font("Segoe UI", 11F);
+            lblDetailReviews.ForeColor = Color.FromArgb(160, 165, 180);
+            lblDetailReviews.Location = new Point(150, 212);
+            lblDetailReviews.Margin = new Padding(4, 0, 4, 0);
+            lblDetailReviews.Name = "lblDetailReviews";
+            lblDetailReviews.Size = new Size(0, 30);
+            lblDetailReviews.TabIndex = 1;
+            // 
+            // lblDetailRating
+            // 
+            lblDetailRating.AutoSize = true;
+            lblDetailRating.BackColor = Color.Transparent;
+            lblDetailRating.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblDetailRating.ForeColor = Color.FromArgb(255, 200, 90);
+            lblDetailRating.Location = new Point(20, 202);
+            lblDetailRating.Margin = new Padding(4, 0, 4, 0);
+            lblDetailRating.Name = "lblDetailRating";
+            lblDetailRating.Size = new Size(0, 38);
+            lblDetailRating.TabIndex = 2;
+            // 
+            // lblDetailCode
+            // 
+            lblDetailCode.AutoSize = true;
+            lblDetailCode.BackColor = Color.Transparent;
+            lblDetailCode.Font = new Font("Segoe UI", 11F);
+            lblDetailCode.ForeColor = Color.FromArgb(160, 165, 180);
+            lblDetailCode.Location = new Point(20, 160);
+            lblDetailCode.Margin = new Padding(4, 0, 4, 0);
+            lblDetailCode.Name = "lblDetailCode";
+            lblDetailCode.Size = new Size(0, 30);
+            lblDetailCode.TabIndex = 3;
+            // 
+            // lblDetailProfessor
+            // 
+            lblDetailProfessor.AutoSize = true;
+            lblDetailProfessor.BackColor = Color.Transparent;
+            lblDetailProfessor.Font = new Font("Segoe UI", 11F);
+            lblDetailProfessor.ForeColor = Color.FromArgb(200, 205, 215);
+            lblDetailProfessor.Location = new Point(20, 120);
+            lblDetailProfessor.Margin = new Padding(4, 0, 4, 0);
+            lblDetailProfessor.Name = "lblDetailProfessor";
+            lblDetailProfessor.Size = new Size(0, 30);
+            lblDetailProfessor.TabIndex = 4;
+            // 
+            // lblDetailName
+            // 
+            lblDetailName.AutoSize = true;
+            lblDetailName.BackColor = Color.Transparent;
+            lblDetailName.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblDetailName.ForeColor = Color.White;
+            lblDetailName.Location = new Point(20, 65);
+            lblDetailName.Margin = new Padding(4, 0, 4, 0);
+            lblDetailName.MaximumSize = new Size(635, 0);
+            lblDetailName.Name = "lblDetailName";
+            lblDetailName.Size = new Size(0, 38);
+            lblDetailName.TabIndex = 5;
+            // 
+            // lblDetailHeader
+            // 
+            lblDetailHeader.AutoSize = true;
+            lblDetailHeader.BackColor = Color.Transparent;
+            lblDetailHeader.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblDetailHeader.ForeColor = Color.Black;
+            lblDetailHeader.Location = new Point(20, 18);
+            lblDetailHeader.Margin = new Padding(4, 0, 4, 0);
+            lblDetailHeader.Name = "lblDetailHeader";
+            lblDetailHeader.Size = new Size(107, 30);
+            lblDetailHeader.TabIndex = 6;
+            lblDetailHeader.Text = "강의 상세";
+            // 
             // panelSyllabus
-            //
-            panelSyllabus.BackColor = System.Drawing.Color.FromArgb(30, 32, 40);
+            // 
+            panelSyllabus.BackColor = Color.FromArgb(252, 252, 252);
+            panelSyllabus.BorderStyle = BorderStyle.FixedSingle;
             panelSyllabus.Controls.Add(lblSyllabusBody);
             panelSyllabus.Controls.Add(lblSyllabusHeader);
-            panelSyllabus.Location = new System.Drawing.Point(680, 470);
+            panelSyllabus.Location = new Point(850, 588);
+            panelSyllabus.Margin = new Padding(4);
             panelSyllabus.Name = "panelSyllabus";
-            panelSyllabus.Padding = new System.Windows.Forms.Padding(16);
-            panelSyllabus.Size = new System.Drawing.Size(540, 240);
+            panelSyllabus.Padding = new Padding(20);
+            panelSyllabus.Size = new Size(675, 300);
             panelSyllabus.TabIndex = 7;
-            //
-            // lblSyllabusHeader
-            //
-            lblSyllabusHeader.AutoSize = true;
-            lblSyllabusHeader.BackColor = System.Drawing.Color.Transparent;
-            lblSyllabusHeader.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            lblSyllabusHeader.ForeColor = System.Drawing.Color.White;
-            lblSyllabusHeader.Location = new System.Drawing.Point(16, 14);
-            lblSyllabusHeader.Name = "lblSyllabusHeader";
-            lblSyllabusHeader.Text = "강의계획서 (준비 중)";
-            //
+            // 
             // lblSyllabusBody
-            //
-            lblSyllabusBody.AutoSize = false;
-            lblSyllabusBody.BackColor = System.Drawing.Color.Transparent;
-            lblSyllabusBody.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Italic);
-            lblSyllabusBody.ForeColor = System.Drawing.Color.FromArgb(140, 145, 160);
-            lblSyllabusBody.Location = new System.Drawing.Point(16, 50);
+            // 
+            lblSyllabusBody.BackColor = Color.Transparent;
+            lblSyllabusBody.Font = new Font("Segoe UI", 10F, FontStyle.Italic);
+            lblSyllabusBody.ForeColor = Color.FromArgb(140, 145, 160);
+            lblSyllabusBody.Location = new Point(20, 62);
+            lblSyllabusBody.Margin = new Padding(4, 0, 4, 0);
             lblSyllabusBody.Name = "lblSyllabusBody";
-            lblSyllabusBody.Size = new System.Drawing.Size(508, 170);
+            lblSyllabusBody.Size = new Size(635, 212);
+            lblSyllabusBody.TabIndex = 0;
             lblSyllabusBody.Text = "Coming soon — syllabus will be loaded here.";
-            lblSyllabusBody.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            //
+            lblSyllabusBody.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblSyllabusHeader
+            // 
+            lblSyllabusHeader.AutoSize = true;
+            lblSyllabusHeader.BackColor = Color.Transparent;
+            lblSyllabusHeader.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblSyllabusHeader.ForeColor = Color.Black;
+            lblSyllabusHeader.Location = new Point(20, 18);
+            lblSyllabusHeader.Margin = new Padding(4, 0, 4, 0);
+            lblSyllabusHeader.Name = "lblSyllabusHeader";
+            lblSyllabusHeader.Size = new Size(217, 30);
+            lblSyllabusHeader.TabIndex = 1;
+            lblSyllabusHeader.Text = "강의계획서 (준비 중)";
+            // 
             // lblStatus
-            //
+            // 
             lblStatus.AutoSize = true;
-            lblStatus.BackColor = System.Drawing.Color.Transparent;
-            lblStatus.Font = new System.Drawing.Font("Segoe UI", 10F);
-            lblStatus.ForeColor = System.Drawing.Color.FromArgb(160, 165, 180);
-            lblStatus.Location = new System.Drawing.Point(20, 1080);
+            lblStatus.BackColor = Color.Transparent;
+            lblStatus.Font = new Font("Segoe UI", 10F);
+            lblStatus.ForeColor = Color.FromArgb(160, 165, 180);
+            lblStatus.Location = new Point(25, 1350);
+            lblStatus.Margin = new Padding(4, 0, 4, 0);
             lblStatus.Name = "lblStatus";
-            lblStatus.Text = "";
-            //
+            lblStatus.Size = new Size(0, 28);
+            lblStatus.TabIndex = 0;
+            // 
             // panelReviews
-            //
-            panelReviews.BackColor = System.Drawing.Color.FromArgb(30, 32, 40);
+            // 
+            panelReviews.BackColor = Color.FromArgb(252, 252, 252);
+            panelReviews.BorderStyle = BorderStyle.FixedSingle;
             panelReviews.Controls.Add(flowReviews);
             panelReviews.Controls.Add(lblReviewsHeader);
-            panelReviews.Location = new System.Drawing.Point(20, 730);
+            panelReviews.Location = new Point(25, 912);
+            panelReviews.Margin = new Padding(4);
             panelReviews.Name = "panelReviews";
-            panelReviews.Padding = new System.Windows.Forms.Padding(16);
-            panelReviews.Size = new System.Drawing.Size(1200, 340);
+            panelReviews.Padding = new Padding(20);
+            panelReviews.Size = new Size(1500, 425);
             panelReviews.TabIndex = 8;
-            //
-            // lblReviewsHeader
-            //
-            lblReviewsHeader.AutoSize = true;
-            lblReviewsHeader.BackColor = System.Drawing.Color.Transparent;
-            lblReviewsHeader.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            lblReviewsHeader.ForeColor = System.Drawing.Color.White;
-            lblReviewsHeader.Location = new System.Drawing.Point(16, 14);
-            lblReviewsHeader.Name = "lblReviewsHeader";
-            lblReviewsHeader.Text = "최근 강의평";
-            //
+            // 
             // flowReviews
-            //
+            // 
             flowReviews.AutoScroll = true;
-            flowReviews.BackColor = System.Drawing.Color.FromArgb(30, 32, 40);
-            flowReviews.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            flowReviews.Location = new System.Drawing.Point(16, 46);
+            flowReviews.BackColor = Color.FromArgb(252, 252, 252);
+            flowReviews.BorderStyle = BorderStyle.FixedSingle;
+            flowReviews.FlowDirection = FlowDirection.TopDown;
+            flowReviews.Location = new Point(20, 58);
+            flowReviews.Margin = new Padding(4);
             flowReviews.Name = "flowReviews";
-            flowReviews.Size = new System.Drawing.Size(1168, 278);
+            flowReviews.Size = new Size(1460, 348);
             flowReviews.TabIndex = 0;
             flowReviews.WrapContents = false;
-            //
+            // 
+            // lblReviewsHeader
+            // 
+            lblReviewsHeader.AutoSize = true;
+            lblReviewsHeader.BackColor = Color.Transparent;
+            lblReviewsHeader.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblReviewsHeader.ForeColor = Color.Black;
+            lblReviewsHeader.Location = new Point(20, 18);
+            lblReviewsHeader.Margin = new Padding(4, 0, 4, 0);
+            lblReviewsHeader.Name = "lblReviewsHeader";
+            lblReviewsHeader.Size = new Size(129, 30);
+            lblReviewsHeader.TabIndex = 1;
+            lblReviewsHeader.Text = "최근 강의평";
+            // 
             // SchedulePanel
-            //
-            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            // 
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            BackColor = System.Drawing.Color.FromArgb(20, 22, 28);
-            ClientSize = new System.Drawing.Size(1243, 1120);
+            BackColor = Color.White;
+            ClientSize = new Size(1554, 1400);
             Controls.Add(lblStatus);
             Controls.Add(panelReviews);
             Controls.Add(panelSyllabus);
@@ -402,6 +458,8 @@ namespace Software_Project_team2
             Controls.Add(txtSearch);
             Controls.Add(lblSearchHint);
             Controls.Add(lblHeader);
+            ForeColor = SystemColors.ControlLightLight;
+            Margin = new Padding(4);
             Name = "SchedulePanel";
             Text = "Everytime 강의 검색";
             panelByProf.ResumeLayout(false);

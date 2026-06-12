@@ -129,7 +129,7 @@
             panelGPA.Controls.Add(label4);
             panelGPA.Controls.Add(label3);
             panelGPA.Controls.Add(label2);
-            panelGPA.Location = new Point(335, 108);
+            panelGPA.Location = new Point(342, 112);
             panelGPA.Margin = new Padding(2);
             panelGPA.Name = "panelGPA";
             panelGPA.Size = new Size(480, 240);
@@ -182,7 +182,7 @@
             panelGraduate.Controls.Add(label9);
             panelGraduate.Controls.Add(label10);
             panelGraduate.Controls.Add(label11);
-            panelGraduate.Location = new Point(850, 108);
+            panelGraduate.Location = new Point(876, 112);
             panelGraduate.Margin = new Padding(2);
             panelGraduate.Name = "panelGraduate";
             panelGraduate.Size = new Size(480, 240);
@@ -280,10 +280,10 @@
             panelCourses.Controls.Add(flowLayoutPanel1);
             panelCourses.Controls.Add(label12);
             panelCourses.ForeColor = Color.FromArgb(45, 45, 45);
-            panelCourses.Location = new Point(335, 366);
+            panelCourses.Location = new Point(342, 382);
             panelCourses.Margin = new Padding(2);
             panelCourses.Name = "panelCourses";
-            panelCourses.Size = new Size(995, 558);
+            panelCourses.Size = new Size(1014, 558);
             panelCourses.TabIndex = 0;
             // 
             // label31
@@ -651,10 +651,10 @@
             panelNotice.Controls.Add(btnMore);
             panelNotice.Controls.Add(richNotice);
             panelNotice.Controls.Add(label29);
-            panelNotice.Location = new Point(1348, 108);
+            panelNotice.Location = new Point(1391, 112);
             panelNotice.Margin = new Padding(2);
             panelNotice.Name = "panelNotice";
-            panelNotice.Size = new Size(412, 818);
+            panelNotice.Size = new Size(459, 828);
             panelNotice.TabIndex = 2;
             // 
             // btnMore
@@ -710,7 +710,7 @@
             panelSidebar.Location = new Point(0, 0);
             panelSidebar.Margin = new Padding(2);
             panelSidebar.Name = "panelSidebar";
-            panelSidebar.Size = new Size(312, 926);
+            panelSidebar.Size = new Size(312, 940);
             panelSidebar.TabIndex = 3;
             // 
             // panel8
