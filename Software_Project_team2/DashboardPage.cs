@@ -32,6 +32,7 @@ namespace Software_Project_team2
             buttonTimeTable.Click += (_, _) => new Timetable().Show();
             buttonLectureManagement.Click += (_, _) => new SchedulePanel().Show();
             btnMore.Click += (_, _) => new NoticeForm().Show();
+            buttonGrades.Click += (_, _) => new Grade().Show();
         }
 
         private async Task LoadNoticesAsync()
