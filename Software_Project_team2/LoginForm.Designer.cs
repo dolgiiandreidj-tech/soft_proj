@@ -13,80 +13,55 @@ namespace Software_Project_team2
 
         private void InitializeComponent()
         {
-            panel1 = new Panel();
-            label1 = new Label();
-            labelHint = new Label();
-            textBoxCookies = new TextBox();
-            buttonLogin = new Button();
-            panel1.SuspendLayout();
+            panelHeader = new Panel();
+            labelTitle = new Label();
+            labelStatus = new Label();
+            panelBrowser = new Panel();
+            panelHeader.SuspendLayout();
             SuspendLayout();
 
-            // panel1
-            panel1.BackColor = Color.FromArgb(24, 27, 38);
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(labelHint);
-            panel1.Controls.Add(textBoxCookies);
-            panel1.Controls.Add(buttonLogin);
-            panel1.Location = new Point(217, 113);
-            panel1.Size = new Size(700, 300);
-            panel1.TabIndex = 0;
+            // panelHeader
+            panelHeader.BackColor = Color.FromArgb(24, 27, 38);
+            panelHeader.Controls.Add(labelTitle);
+            panelHeader.Controls.Add(labelStatus);
+            panelHeader.Dock = DockStyle.Top;
+            panelHeader.Height = 56;
 
-            // label1
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(40, 24);
-            label1.Text = "에브리타임 쿠키 설정";
+            // labelTitle
+            labelTitle.AutoSize = true;
+            labelTitle.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
+            labelTitle.ForeColor = Color.White;
+            labelTitle.Location = new Point(20, 14);
+            labelTitle.Text = "에브리타임 로그인";
 
-            // labelHint
-            labelHint.AutoSize = false;
-            labelHint.Font = new Font("Segoe UI", 9F);
-            labelHint.ForeColor = Color.FromArgb(160, 165, 180);
-            labelHint.Location = new Point(40, 70);
-            labelHint.Size = new Size(620, 36);
-            labelHint.Text = "브라우저 DevTools → Storage → Cookies에서 x-et-device와 etsid 값을 복사해 붙여넣으세요";
+            // labelStatus
+            labelStatus.AutoSize = true;
+            labelStatus.Font = new Font("Segoe UI", 9F);
+            labelStatus.ForeColor = Color.FromArgb(160, 165, 180);
+            labelStatus.Location = new Point(220, 18);
+            labelStatus.Text = "";
 
-            // textBoxCookies
-            textBoxCookies.BackColor = Color.FromArgb(32, 35, 48);
-            textBoxCookies.BorderStyle = BorderStyle.None;
-            textBoxCookies.Font = new Font("Segoe UI", 11F);
-            textBoxCookies.ForeColor = Color.FromArgb(220, 222, 230);
-            textBoxCookies.Location = new Point(40, 116);
-            textBoxCookies.Multiline = true;
-            textBoxCookies.Size = new Size(620, 60);
-            textBoxCookies.PlaceholderText = "x-et-device=xxx; etsid=xxx";
-            textBoxCookies.TabIndex = 1;
-
-            // buttonLogin
-            buttonLogin.BackColor = Color.FromArgb(255, 55, 55);
-            buttonLogin.FlatAppearance.BorderSize = 0;
-            buttonLogin.FlatStyle = FlatStyle.Flat;
-            buttonLogin.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            buttonLogin.ForeColor = Color.White;
-            buttonLogin.Location = new Point(40, 196);
-            buttonLogin.Size = new Size(620, 44);
-            buttonLogin.TabIndex = 2;
-            buttonLogin.Text = "저장";
-            buttonLogin.UseVisualStyleBackColor = false;
-            buttonLogin.Click += buttonLogin_Click;
+            // panelBrowser
+            panelBrowser.Dock = DockStyle.Fill;
 
             // LoginForm
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(18, 20, 28);
-            ClientSize = new Size(1134, 530);
-            Controls.Add(panel1);
+            ClientSize = new Size(960, 680);
+            Controls.Add(panelBrowser);
+            Controls.Add(panelHeader);
             Name = "LoginForm";
-            Text = "에브리타임 쿠키 설정";
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            Text = "에브리타임 로그인";
+            StartPosition = FormStartPosition.CenterScreen;
+            panelHeader.ResumeLayout(false);
+            panelHeader.PerformLayout();
             ResumeLayout(false);
         }
 
-        private Panel panel1;
-        private Label label1;
-        private Label labelHint;
-        private TextBox textBoxCookies;
-        private Button buttonLogin;
+        private Panel panelHeader;
+        private Label labelTitle;
+        private Label labelStatus;
+        private Panel panelBrowser;
     }
 }

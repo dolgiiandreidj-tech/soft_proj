@@ -1,51 +1,96 @@
 using Everytime.Sessions;
-using System;
-using System.Linq;
-using System.Windows.Forms;
+using Microsoft.Web.WebView2.Core;
+using Microsoft.Web.WebView2.WinForms;
 
 namespace Software_Project_team2
 {
     public partial class LoginForm : Form
     {
+        private readonly WebView2 _webView = new();
+        private bool _saved;
+
         public LoginForm()
         {
             InitializeComponent();
+            _webView.Dock = DockStyle.Fill;
+            panelBrowser.Controls.Add(_webView);
+            Load += async (_, _) => await InitAsync();
         }
 
-        private async void buttonLogin_Click(object sender, EventArgs e)
+        private async Task InitAsync()
         {
-            var raw = textBoxCookies.Text.Trim();
-            if (string.IsNullOrEmpty(raw))
+            try
             {
-                MessageBox.Show("쿠키를 입력하세요.");
-                return;
+                await _webView.EnsureCoreWebView2Async();
+                _webView.CoreWebView2.NavigationCompleted += OnNavigationCompleted;
+                _webView.CoreWebView2.Navigate("https://everytime.kr/login");
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"WebView2 초기화 실패: {ex.Message}\n\nWebView2 런타임이 설치되어 있는지 확인하세요.",
+                    "오류");
+                DialogResult = DialogResult.Cancel;
+                Close();
+            }
+        }
 
-            var cookies = raw.Split(';', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-                .Select(pair =>
-                {
-                    var idx = pair.IndexOf('=');
-                    if (idx < 0) return null;
-                    return new SessionCookie(pair[..idx].Trim(), pair[(idx + 1)..].Trim(), ".everytime.kr", "/", null);
-                })
-                .Where(c => c != null)
-                .Cast<SessionCookie>()
+        private async void OnNavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e)
+        {
+            if (_saved) return;
+
+            var url = _webView.Source?.ToString() ?? "";
+
+            // Login succeeded when redirected away from the login page back to the main site
+            if (!url.Contains("/login") && url.StartsWith("https://everytime.kr/"))
+            {
+                await TrySaveSessionAsync();
+            }
+        }
+
+        private async Task TrySaveSessionAsync()
+        {
+            var mgr = _webView.CoreWebView2.CookieManager;
+
+            var raw = await mgr.GetCookiesAsync("https://everytime.kr");
+
+            var etsid = raw.FirstOrDefault(c => c.Name == "etsid");
+            if (etsid == null) return; // not logged in yet
+
+            _saved = true;
+
+            // Also grab account-subdomain cookies (x-et-device lives there)
+            var accountRaw = await mgr.GetCookiesAsync("https://account.everytime.kr");
+
+            var all = raw.Concat(accountRaw)
+                .GroupBy(c => c.Name)
+                .Select(g => g.First())
+                .Select(c => new SessionCookie(
+                    c.Name,
+                    c.Value,
+                    string.IsNullOrEmpty(c.Domain) ? ".everytime.kr" : c.Domain,
+                    string.IsNullOrEmpty(c.Path) ? "/" : c.Path,
+                    c.Expires == DateTime.MinValue ? null : (DateTimeOffset?)new DateTimeOffset(c.Expires)))
                 .ToList();
 
             var session = new Session
             {
-                Cookies = cookies,
-                UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0"
+                Cookies = all,
+                UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0"
             };
 
             var store = new SessionStore(
-                System.IO.Path.Combine(
+                Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                     "everytime.session.json"));
 
             await store.SaveAsync(session);
-            DialogResult = DialogResult.OK;
-            Close();
+
+            Invoke(() =>
+            {
+                DialogResult = DialogResult.OK;
+                Close();
+            });
         }
     }
 }
