@@ -46,10 +46,10 @@
             labelKWU.AutoSize = true;
             labelKWU.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelKWU.ForeColor = Color.White;
-            labelKWU.Location = new Point(22, 24);
-            labelKWU.Margin = new Padding(2, 0, 2, 0);
+            labelKWU.Location = new Point(15, 14);
+            labelKWU.Margin = new Padding(1, 0, 1, 0);
             labelKWU.Name = "labelKWU";
-            labelKWU.Size = new Size(467, 48);
+            labelKWU.Size = new Size(307, 32);
             labelKWU.TabIndex = 0;
             labelKWU.Text = "KWANGWOON UNIVERSITY";
             // 
@@ -60,10 +60,10 @@
             panelLoginKwu.Controls.Add(panelKwuId);
             panelLoginKwu.Controls.Add(labelKWU);
             panelLoginKwu.Controls.Add(panelKwuPsw);
-            panelLoginKwu.Location = new Point(482, 146);
-            panelLoginKwu.Margin = new Padding(2);
+            panelLoginKwu.Location = new Point(353, 97);
+            panelLoginKwu.Margin = new Padding(1);
             panelLoginKwu.Name = "panelLoginKwu";
-            panelLoginKwu.Size = new Size(500, 450);
+            panelLoginKwu.Size = new Size(350, 270);
             panelLoginKwu.TabIndex = 1;
             // 
             // buttonLogin
@@ -73,10 +73,10 @@
             buttonLogin.FlatStyle = FlatStyle.Flat;
             buttonLogin.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             buttonLogin.ForeColor = Color.White;
-            buttonLogin.Location = new Point(191, 295);
-            buttonLogin.Margin = new Padding(2);
+            buttonLogin.Location = new Point(134, 177);
+            buttonLogin.Margin = new Padding(1);
             buttonLogin.Name = "buttonLogin";
-            buttonLogin.Size = new Size(120, 48);
+            buttonLogin.Size = new Size(84, 29);
             buttonLogin.TabIndex = 5;
             buttonLogin.Text = "로그인";
             buttonLogin.UseVisualStyleBackColor = false;
@@ -87,10 +87,10 @@
             panelKwuId.BackColor = Color.FromArgb(36, 36, 36);
             panelKwuId.BorderStyle = BorderStyle.FixedSingle;
             panelKwuId.Controls.Add(textBoxId);
-            panelKwuId.Location = new Point(98, 98);
-            panelKwuId.Margin = new Padding(2);
+            panelKwuId.Location = new Point(69, 59);
+            panelKwuId.Margin = new Padding(1);
             panelKwuId.Name = "panelKwuId";
-            panelKwuId.Size = new Size(314, 68);
+            panelKwuId.Size = new Size(220, 42);
             panelKwuId.TabIndex = 6;
             // 
             // textBoxId
@@ -99,11 +99,11 @@
             textBoxId.BorderStyle = BorderStyle.None;
             textBoxId.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBoxId.ForeColor = Color.Transparent;
-            textBoxId.Location = new Point(2, 18);
-            textBoxId.Margin = new Padding(2);
+            textBoxId.Location = new Point(1, 11);
+            textBoxId.Margin = new Padding(1);
             textBoxId.Name = "textBoxId";
             textBoxId.PlaceholderText = "ID(학번 또는 사번)";
-            textBoxId.Size = new Size(311, 32);
+            textBoxId.Size = new Size(218, 22);
             textBoxId.TabIndex = 3;
             // 
             // panelKwuPsw
@@ -111,10 +111,10 @@
             panelKwuPsw.BackColor = Color.FromArgb(36, 36, 36);
             panelKwuPsw.BorderStyle = BorderStyle.FixedSingle;
             panelKwuPsw.Controls.Add(textBoxPassword);
-            panelKwuPsw.Location = new Point(98, 191);
-            panelKwuPsw.Margin = new Padding(2);
+            panelKwuPsw.Location = new Point(69, 115);
+            panelKwuPsw.Margin = new Padding(1);
             panelKwuPsw.Name = "panelKwuPsw";
-            panelKwuPsw.Size = new Size(314, 68);
+            panelKwuPsw.Size = new Size(220, 42);
             panelKwuPsw.TabIndex = 2;
             // 
             // textBoxPassword
@@ -123,27 +123,27 @@
             textBoxPassword.BorderStyle = BorderStyle.None;
             textBoxPassword.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBoxPassword.ForeColor = Color.FromArgb(170, 170, 170);
-            textBoxPassword.Location = new Point(2, 18);
-            textBoxPassword.Margin = new Padding(2);
+            textBoxPassword.Location = new Point(1, 11);
+            textBoxPassword.Margin = new Padding(1);
             textBoxPassword.Name = "textBoxPassword";
             textBoxPassword.PlaceholderText = "PASSWORD";
-            textBoxPassword.Size = new Size(305, 32);
+            textBoxPassword.Size = new Size(214, 22);
             textBoxPassword.TabIndex = 4;
             textBoxPassword.UseSystemPasswordChar = true;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 15, 15);
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1448, 773);
+            ClientSize = new Size(1047, 508);
             Controls.Add(panelLoginKwu);
+            DoubleBuffered = true;
             ForeColor = SystemColors.ActiveCaptionText;
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            ImeMode = ImeMode.NoControl;
-            Margin = new Padding(2);
+            Margin = new Padding(1);
             Name = "Form1";
             Text = "Form1";
             panelLoginKwu.ResumeLayout(false);
