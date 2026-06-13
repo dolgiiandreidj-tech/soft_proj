@@ -70,11 +70,13 @@ namespace Software_Project_team2
             panelReviews = new Panel();
             flowReviews = new FlowLayoutPanel();
             lblReviewsHeader = new Label();
+            topPanel = new Panel();
             panelByProf.SuspendLayout();
             panelByClass.SuspendLayout();
             panelDetail.SuspendLayout();
             panelSyllabus.SuspendLayout();
             panelReviews.SuspendLayout();
+            topPanel.SuspendLayout();
             SuspendLayout();
             // 
             // lblHeader
@@ -82,8 +84,8 @@ namespace Software_Project_team2
             lblHeader.AutoSize = true;
             lblHeader.BackColor = Color.Transparent;
             lblHeader.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            lblHeader.ForeColor = Color.Black;
-            lblHeader.Location = new Point(18, 21);
+            lblHeader.ForeColor = Color.Transparent;
+            lblHeader.Location = new Point(18, 9);
             lblHeader.Name = "lblHeader";
             lblHeader.Size = new Size(218, 30);
             lblHeader.TabIndex = 10;
@@ -94,8 +96,8 @@ namespace Software_Project_team2
             lblSearchHint.AutoSize = true;
             lblSearchHint.BackColor = Color.Transparent;
             lblSearchHint.Font = new Font("Segoe UI", 10F);
-            lblSearchHint.ForeColor = Color.Black;
-            lblSearchHint.Location = new Point(18, 53);
+            lblSearchHint.ForeColor = Color.White;
+            lblSearchHint.Location = new Point(18, 41);
             lblSearchHint.Name = "lblSearchHint";
             lblSearchHint.Size = new Size(279, 19);
             lblSearchHint.TabIndex = 9;
@@ -121,7 +123,7 @@ namespace Software_Project_team2
             btnGo.FlatAppearance.BorderSize = 0;
             btnGo.FlatAppearance.MouseOverBackColor = Color.FromArgb(120, 140, 255);
             btnGo.FlatStyle = FlatStyle.Flat;
-            btnGo.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnGo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnGo.ForeColor = Color.White;
             btnGo.Location = new Point(976, 83);
             btnGo.Margin = new Padding(3, 2, 3, 2);
@@ -135,12 +137,12 @@ namespace Software_Project_team2
             // 
             rbProf.AutoSize = true;
             rbProf.BackColor = Color.Transparent;
-            rbProf.Font = new Font("Segoe UI", 11F);
+            rbProf.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             rbProf.ForeColor = Color.Black;
             rbProf.Location = new Point(18, 121);
             rbProf.Margin = new Padding(3, 2, 3, 2);
             rbProf.Name = "rbProf";
-            rbProf.Size = new Size(99, 24);
+            rbProf.Size = new Size(104, 24);
             rbProf.TabIndex = 2;
             rbProf.Text = "교수 (prof)";
             rbProf.UseVisualStyleBackColor = false;
@@ -150,12 +152,12 @@ namespace Software_Project_team2
             rbClass.AutoSize = true;
             rbClass.BackColor = Color.Transparent;
             rbClass.Checked = true;
-            rbClass.Font = new Font("Segoe UI", 11F);
+            rbClass.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             rbClass.ForeColor = Color.Black;
             rbClass.Location = new Point(148, 121);
             rbClass.Margin = new Padding(3, 2, 3, 2);
             rbClass.Name = "rbClass";
-            rbClass.Size = new Size(117, 24);
+            rbClass.Size = new Size(121, 24);
             rbClass.TabIndex = 3;
             rbClass.TabStop = true;
             rbClass.Text = "강의명 (class)";
@@ -416,13 +418,25 @@ namespace Software_Project_team2
             // 
             lblReviewsHeader.AutoSize = true;
             lblReviewsHeader.BackColor = Color.Transparent;
-            lblReviewsHeader.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblReviewsHeader.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblReviewsHeader.ForeColor = Color.Black;
             lblReviewsHeader.Location = new Point(14, 11);
             lblReviewsHeader.Name = "lblReviewsHeader";
             lblReviewsHeader.Size = new Size(88, 20);
             lblReviewsHeader.TabIndex = 1;
             lblReviewsHeader.Text = "최근 강의평";
+            // 
+            // topPanel
+            // 
+            topPanel.BackColor = Color.FromArgb(90, 0, 31);
+            topPanel.Controls.Add(lblHeader);
+            topPanel.Controls.Add(lblSearchHint);
+            topPanel.Dock = DockStyle.Top;
+            topPanel.Location = new Point(0, 0);
+            topPanel.Margin = new Padding(2);
+            topPanel.Name = "topPanel";
+            topPanel.Size = new Size(1071, 66);
+            topPanel.TabIndex = 11;
             // 
             // SchedulePanel
             // 
@@ -431,6 +445,7 @@ namespace Software_Project_team2
             AutoScroll = true;
             BackColor = Color.White;
             ClientSize = new Size(1088, 762);
+            Controls.Add(topPanel);
             Controls.Add(lblStatus);
             Controls.Add(panelReviews);
             Controls.Add(panelSyllabus);
@@ -441,8 +456,6 @@ namespace Software_Project_team2
             Controls.Add(rbProf);
             Controls.Add(btnGo);
             Controls.Add(txtSearch);
-            Controls.Add(lblSearchHint);
-            Controls.Add(lblHeader);
             ForeColor = SystemColors.ControlLightLight;
             Margin = new Padding(3, 2, 3, 2);
             Name = "SchedulePanel";
@@ -457,8 +470,11 @@ namespace Software_Project_team2
             panelSyllabus.PerformLayout();
             panelReviews.ResumeLayout(false);
             panelReviews.PerformLayout();
+            topPanel.ResumeLayout(false);
+            topPanel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
+        private Panel topPanel;
     }
 }
