@@ -85,7 +85,7 @@
             label49 = new Label();
             buttonLogOut = new Button();
             buttonLectureManagement = new Button();
-            buttonSettings = new Button();
+            buttonAssignment = new Button();
             buttonTimeTable = new Button();
             buttonGrades = new Button();
             buttonDashboard = new Button();
@@ -114,7 +114,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 30F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(4, 9);
+            label1.Location = new Point(7, 23);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
             label1.Size = new Size(183, 54);
@@ -703,7 +703,7 @@
             panelSidebar.Controls.Add(panel8);
             panelSidebar.Controls.Add(buttonLogOut);
             panelSidebar.Controls.Add(buttonLectureManagement);
-            panelSidebar.Controls.Add(buttonSettings);
+            panelSidebar.Controls.Add(buttonAssignment);
             panelSidebar.Controls.Add(buttonTimeTable);
             panelSidebar.Controls.Add(buttonGrades);
             panelSidebar.Controls.Add(buttonDashboard);
@@ -784,7 +784,7 @@
             label48.AutoSize = true;
             label48.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label48.ForeColor = Color.White;
-            label48.Location = new Point(63, 133);
+            label48.Location = new Point(91, 137);
             label48.Margin = new Padding(2, 0, 2, 0);
             label48.Name = "label48";
             label48.Size = new Size(123, 30);
@@ -796,7 +796,7 @@
             label49.AutoSize = true;
             label49.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label49.ForeColor = Color.FromArgb(235, 235, 235);
-            label49.Location = new Point(106, 190);
+            label49.Location = new Point(115, 176);
             label49.Margin = new Padding(2, 0, 2, 0);
             label49.Name = "label49";
             label49.Size = new Size(69, 19);
@@ -836,22 +836,22 @@
             buttonLectureManagement.Text = "📚  수강 관리";
             buttonLectureManagement.UseVisualStyleBackColor = false;
             // 
-            // buttonSettings
+            // buttonAssignment
             // 
-            buttonSettings.BackColor = Color.White;
-            buttonSettings.Cursor = Cursors.Hand;
-            buttonSettings.FlatAppearance.BorderColor = Color.FromArgb(225, 225, 225);
-            buttonSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(32, 35, 48);
-            buttonSettings.FlatStyle = FlatStyle.Flat;
-            buttonSettings.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            buttonSettings.ForeColor = Color.FromArgb(70, 70, 70);
-            buttonSettings.Location = new Point(63, 605);
-            buttonSettings.Margin = new Padding(2);
-            buttonSettings.Name = "buttonSettings";
-            buttonSettings.Size = new Size(198, 50);
-            buttonSettings.TabIndex = 6;
-            buttonSettings.Text = "🕮 과제 및 자료";
-            buttonSettings.UseVisualStyleBackColor = false;
+            buttonAssignment.BackColor = Color.White;
+            buttonAssignment.Cursor = Cursors.Hand;
+            buttonAssignment.FlatAppearance.BorderColor = Color.FromArgb(225, 225, 225);
+            buttonAssignment.FlatAppearance.MouseOverBackColor = Color.FromArgb(32, 35, 48);
+            buttonAssignment.FlatStyle = FlatStyle.Flat;
+            buttonAssignment.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            buttonAssignment.ForeColor = Color.FromArgb(70, 70, 70);
+            buttonAssignment.Location = new Point(63, 605);
+            buttonAssignment.Margin = new Padding(2);
+            buttonAssignment.Name = "buttonAssignment";
+            buttonAssignment.Size = new Size(198, 50);
+            buttonAssignment.TabIndex = 6;
+            buttonAssignment.Text = "🕮 과제 및 자료";
+            buttonAssignment.UseVisualStyleBackColor = false;
             // 
             // buttonTimeTable
             // 
@@ -909,7 +909,7 @@
             labelUserName.BackColor = Color.Transparent;
             labelUserName.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelUserName.ForeColor = Color.White;
-            labelUserName.Location = new Point(1113, 36);
+            labelUserName.Location = new Point(1196, 37);
             labelUserName.Margin = new Padding(2, 0, 2, 0);
             labelUserName.Name = "labelUserName";
             labelUserName.Size = new Size(163, 20);
@@ -927,7 +927,7 @@
             lblTime.BackColor = Color.Transparent;
             lblTime.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTime.ForeColor = Color.White;
-            lblTime.Location = new Point(1034, 37);
+            lblTime.Location = new Point(1128, 37);
             lblTime.Margin = new Padding(2, 0, 2, 0);
             lblTime.Name = "lblTime";
             lblTime.Size = new Size(44, 20);
@@ -940,7 +940,7 @@
             labelCurrentData.BackColor = Color.Transparent;
             labelCurrentData.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelCurrentData.ForeColor = Color.White;
-            labelCurrentData.Location = new Point(894, 36);
+            labelCurrentData.Location = new Point(995, 37);
             labelCurrentData.Margin = new Padding(2, 0, 2, 0);
             labelCurrentData.Name = "labelCurrentData";
             labelCurrentData.Size = new Size(118, 20);
@@ -1053,7 +1053,7 @@
         private Label label49;
         private Label label48;
         private Button buttonLectureManagement;
-        private Button buttonSettings;
+        private Button buttonAssignment;
         private Button buttonTimeTable;
         private Button buttonGrades;
         private Button buttonLogOut;

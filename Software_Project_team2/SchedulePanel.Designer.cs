@@ -83,10 +83,9 @@ namespace Software_Project_team2
             lblHeader.BackColor = Color.Transparent;
             lblHeader.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             lblHeader.ForeColor = Color.Black;
-            lblHeader.Location = new Point(25, 35);
-            lblHeader.Margin = new Padding(4, 0, 4, 0);
+            lblHeader.Location = new Point(18, 21);
             lblHeader.Name = "lblHeader";
-            lblHeader.Size = new Size(315, 45);
+            lblHeader.Size = new Size(218, 30);
             lblHeader.TabIndex = 10;
             lblHeader.Text = "Everytime 강의 검색";
             // 
@@ -96,10 +95,9 @@ namespace Software_Project_team2
             lblSearchHint.BackColor = Color.Transparent;
             lblSearchHint.Font = new Font("Segoe UI", 10F);
             lblSearchHint.ForeColor = Color.Black;
-            lblSearchHint.Location = new Point(25, 89);
-            lblSearchHint.Margin = new Padding(4, 0, 4, 0);
+            lblSearchHint.Location = new Point(18, 53);
             lblSearchHint.Name = "lblSearchHint";
-            lblSearchHint.Size = new Size(396, 28);
+            lblSearchHint.Size = new Size(279, 19);
             lblSearchHint.TabIndex = 9;
             lblSearchHint.Text = "search for class from everytime (review, info)";
             // 
@@ -109,11 +107,11 @@ namespace Software_Project_team2
             txtSearch.BorderStyle = BorderStyle.FixedSingle;
             txtSearch.Font = new Font("Segoe UI", 12F);
             txtSearch.ForeColor = Color.Black;
-            txtSearch.Location = new Point(25, 138);
-            txtSearch.Margin = new Padding(4);
+            txtSearch.Location = new Point(18, 83);
+            txtSearch.Margin = new Padding(3, 2, 3, 2);
             txtSearch.Name = "txtSearch";
             txtSearch.PlaceholderText = "type here";
-            txtSearch.Size = new Size(1350, 39);
+            txtSearch.Size = new Size(946, 29);
             txtSearch.TabIndex = 0;
             // 
             // btnGo
@@ -125,10 +123,10 @@ namespace Software_Project_team2
             btnGo.FlatStyle = FlatStyle.Flat;
             btnGo.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnGo.ForeColor = Color.White;
-            btnGo.Location = new Point(1394, 138);
-            btnGo.Margin = new Padding(4);
+            btnGo.Location = new Point(976, 83);
+            btnGo.Margin = new Padding(3, 2, 3, 2);
             btnGo.Name = "btnGo";
-            btnGo.Size = new Size(125, 39);
+            btnGo.Size = new Size(88, 29);
             btnGo.TabIndex = 1;
             btnGo.Text = "GO";
             btnGo.UseVisualStyleBackColor = false;
@@ -139,10 +137,10 @@ namespace Software_Project_team2
             rbProf.BackColor = Color.Transparent;
             rbProf.Font = new Font("Segoe UI", 11F);
             rbProf.ForeColor = Color.Black;
-            rbProf.Location = new Point(25, 202);
-            rbProf.Margin = new Padding(4);
+            rbProf.Location = new Point(18, 121);
+            rbProf.Margin = new Padding(3, 2, 3, 2);
             rbProf.Name = "rbProf";
-            rbProf.Size = new Size(143, 34);
+            rbProf.Size = new Size(99, 24);
             rbProf.TabIndex = 2;
             rbProf.Text = "교수 (prof)";
             rbProf.UseVisualStyleBackColor = false;
@@ -154,10 +152,10 @@ namespace Software_Project_team2
             rbClass.Checked = true;
             rbClass.Font = new Font("Segoe UI", 11F);
             rbClass.ForeColor = Color.Black;
-            rbClass.Location = new Point(212, 202);
-            rbClass.Margin = new Padding(4);
+            rbClass.Location = new Point(148, 121);
+            rbClass.Margin = new Padding(3, 2, 3, 2);
             rbClass.Name = "rbClass";
-            rbClass.Size = new Size(168, 34);
+            rbClass.Size = new Size(117, 24);
             rbClass.TabIndex = 3;
             rbClass.TabStop = true;
             rbClass.Text = "강의명 (class)";
@@ -169,11 +167,11 @@ namespace Software_Project_team2
             panelByProf.BorderStyle = BorderStyle.FixedSingle;
             panelByProf.Controls.Add(lstByProf);
             panelByProf.Controls.Add(lblByProf);
-            panelByProf.Location = new Point(25, 250);
-            panelByProf.Margin = new Padding(4);
+            panelByProf.Location = new Point(18, 150);
+            panelByProf.Margin = new Padding(3, 2, 3, 2);
             panelByProf.Name = "panelByProf";
-            panelByProf.Padding = new Padding(20);
-            panelByProf.Size = new Size(400, 638);
+            panelByProf.Padding = new Padding(14, 12, 14, 12);
+            panelByProf.Size = new Size(281, 384);
             panelByProf.TabIndex = 4;
             // 
             // lstByProf
@@ -184,11 +182,11 @@ namespace Software_Project_team2
             lstByProf.ForeColor = Color.White;
             lstByProf.FormattingEnabled = true;
             lstByProf.IntegralHeight = false;
-            lstByProf.ItemHeight = 28;
-            lstByProf.Location = new Point(20, 62);
-            lstByProf.Margin = new Padding(4);
+            lstByProf.ItemHeight = 17;
+            lstByProf.Location = new Point(14, 37);
+            lstByProf.Margin = new Padding(3, 2, 3, 2);
             lstByProf.Name = "lstByProf";
-            lstByProf.Size = new Size(360, 555);
+            lstByProf.Size = new Size(252, 333);
             lstByProf.TabIndex = 0;
             // 
             // lblByProf
@@ -197,10 +195,9 @@ namespace Software_Project_team2
             lblByProf.BackColor = Color.Transparent;
             lblByProf.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblByProf.ForeColor = Color.Black;
-            lblByProf.Location = new Point(20, 18);
-            lblByProf.Margin = new Padding(4, 0, 4, 0);
+            lblByProf.Location = new Point(14, 11);
             lblByProf.Name = "lblByProf";
-            lblByProf.Size = new Size(129, 30);
+            lblByProf.Size = new Size(88, 20);
             lblByProf.TabIndex = 1;
             lblByProf.Text = "교수명 결과";
             // 
@@ -210,11 +207,11 @@ namespace Software_Project_team2
             panelByClass.BorderStyle = BorderStyle.FixedSingle;
             panelByClass.Controls.Add(lstByClass);
             panelByClass.Controls.Add(lblByClass);
-            panelByClass.Location = new Point(438, 250);
-            panelByClass.Margin = new Padding(4);
+            panelByClass.Location = new Point(307, 150);
+            panelByClass.Margin = new Padding(3, 2, 3, 2);
             panelByClass.Name = "panelByClass";
-            panelByClass.Padding = new Padding(20);
-            panelByClass.Size = new Size(400, 638);
+            panelByClass.Padding = new Padding(14, 12, 14, 12);
+            panelByClass.Size = new Size(281, 384);
             panelByClass.TabIndex = 5;
             // 
             // lstByClass
@@ -225,11 +222,11 @@ namespace Software_Project_team2
             lstByClass.ForeColor = Color.White;
             lstByClass.FormattingEnabled = true;
             lstByClass.IntegralHeight = false;
-            lstByClass.ItemHeight = 28;
-            lstByClass.Location = new Point(20, 62);
-            lstByClass.Margin = new Padding(4);
+            lstByClass.ItemHeight = 17;
+            lstByClass.Location = new Point(14, 37);
+            lstByClass.Margin = new Padding(3, 2, 3, 2);
             lstByClass.Name = "lstByClass";
-            lstByClass.Size = new Size(360, 555);
+            lstByClass.Size = new Size(252, 333);
             lstByClass.TabIndex = 0;
             // 
             // lblByClass
@@ -238,10 +235,9 @@ namespace Software_Project_team2
             lblByClass.BackColor = Color.Transparent;
             lblByClass.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblByClass.ForeColor = Color.Black;
-            lblByClass.Location = new Point(20, 18);
-            lblByClass.Margin = new Padding(4, 0, 4, 0);
+            lblByClass.Location = new Point(14, 11);
             lblByClass.Name = "lblByClass";
-            lblByClass.Size = new Size(129, 30);
+            lblByClass.Size = new Size(88, 20);
             lblByClass.TabIndex = 1;
             lblByClass.Text = "강의명 결과";
             // 
@@ -256,11 +252,11 @@ namespace Software_Project_team2
             panelDetail.Controls.Add(lblDetailProfessor);
             panelDetail.Controls.Add(lblDetailName);
             panelDetail.Controls.Add(lblDetailHeader);
-            panelDetail.Location = new Point(850, 250);
-            panelDetail.Margin = new Padding(4);
+            panelDetail.Location = new Point(595, 150);
+            panelDetail.Margin = new Padding(3, 2, 3, 2);
             panelDetail.Name = "panelDetail";
-            panelDetail.Padding = new Padding(20);
-            panelDetail.Size = new Size(675, 312);
+            panelDetail.Padding = new Padding(14, 12, 14, 12);
+            panelDetail.Size = new Size(473, 188);
             panelDetail.TabIndex = 6;
             // 
             // lblDetailStatus
@@ -269,10 +265,9 @@ namespace Software_Project_team2
             lblDetailStatus.BackColor = Color.Transparent;
             lblDetailStatus.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
             lblDetailStatus.ForeColor = Color.FromArgb(140, 145, 160);
-            lblDetailStatus.Location = new Point(20, 269);
-            lblDetailStatus.Margin = new Padding(4, 0, 4, 0);
+            lblDetailStatus.Location = new Point(14, 161);
             lblDetailStatus.Name = "lblDetailStatus";
-            lblDetailStatus.Size = new Size(0, 25);
+            lblDetailStatus.Size = new Size(0, 15);
             lblDetailStatus.TabIndex = 0;
             // 
             // lblDetailReviews
@@ -281,10 +276,9 @@ namespace Software_Project_team2
             lblDetailReviews.BackColor = Color.Transparent;
             lblDetailReviews.Font = new Font("Segoe UI", 11F);
             lblDetailReviews.ForeColor = Color.FromArgb(160, 165, 180);
-            lblDetailReviews.Location = new Point(150, 212);
-            lblDetailReviews.Margin = new Padding(4, 0, 4, 0);
+            lblDetailReviews.Location = new Point(105, 127);
             lblDetailReviews.Name = "lblDetailReviews";
-            lblDetailReviews.Size = new Size(0, 30);
+            lblDetailReviews.Size = new Size(0, 20);
             lblDetailReviews.TabIndex = 1;
             // 
             // lblDetailRating
@@ -293,10 +287,9 @@ namespace Software_Project_team2
             lblDetailRating.BackColor = Color.Transparent;
             lblDetailRating.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblDetailRating.ForeColor = Color.FromArgb(255, 200, 90);
-            lblDetailRating.Location = new Point(20, 202);
-            lblDetailRating.Margin = new Padding(4, 0, 4, 0);
+            lblDetailRating.Location = new Point(14, 121);
             lblDetailRating.Name = "lblDetailRating";
-            lblDetailRating.Size = new Size(0, 38);
+            lblDetailRating.Size = new Size(0, 25);
             lblDetailRating.TabIndex = 2;
             // 
             // lblDetailCode
@@ -305,10 +298,9 @@ namespace Software_Project_team2
             lblDetailCode.BackColor = Color.Transparent;
             lblDetailCode.Font = new Font("Segoe UI", 11F);
             lblDetailCode.ForeColor = Color.FromArgb(160, 165, 180);
-            lblDetailCode.Location = new Point(20, 160);
-            lblDetailCode.Margin = new Padding(4, 0, 4, 0);
+            lblDetailCode.Location = new Point(14, 96);
             lblDetailCode.Name = "lblDetailCode";
-            lblDetailCode.Size = new Size(0, 30);
+            lblDetailCode.Size = new Size(0, 20);
             lblDetailCode.TabIndex = 3;
             // 
             // lblDetailProfessor
@@ -317,10 +309,9 @@ namespace Software_Project_team2
             lblDetailProfessor.BackColor = Color.Transparent;
             lblDetailProfessor.Font = new Font("Segoe UI", 11F);
             lblDetailProfessor.ForeColor = Color.FromArgb(200, 205, 215);
-            lblDetailProfessor.Location = new Point(20, 120);
-            lblDetailProfessor.Margin = new Padding(4, 0, 4, 0);
+            lblDetailProfessor.Location = new Point(14, 72);
             lblDetailProfessor.Name = "lblDetailProfessor";
-            lblDetailProfessor.Size = new Size(0, 30);
+            lblDetailProfessor.Size = new Size(0, 20);
             lblDetailProfessor.TabIndex = 4;
             // 
             // lblDetailName
@@ -329,11 +320,10 @@ namespace Software_Project_team2
             lblDetailName.BackColor = Color.Transparent;
             lblDetailName.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblDetailName.ForeColor = Color.White;
-            lblDetailName.Location = new Point(20, 65);
-            lblDetailName.Margin = new Padding(4, 0, 4, 0);
-            lblDetailName.MaximumSize = new Size(635, 0);
+            lblDetailName.Location = new Point(14, 39);
+            lblDetailName.MaximumSize = new Size(444, 0);
             lblDetailName.Name = "lblDetailName";
-            lblDetailName.Size = new Size(0, 38);
+            lblDetailName.Size = new Size(0, 25);
             lblDetailName.TabIndex = 5;
             // 
             // lblDetailHeader
@@ -342,10 +332,9 @@ namespace Software_Project_team2
             lblDetailHeader.BackColor = Color.Transparent;
             lblDetailHeader.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblDetailHeader.ForeColor = Color.Black;
-            lblDetailHeader.Location = new Point(20, 18);
-            lblDetailHeader.Margin = new Padding(4, 0, 4, 0);
+            lblDetailHeader.Location = new Point(14, 11);
             lblDetailHeader.Name = "lblDetailHeader";
-            lblDetailHeader.Size = new Size(107, 30);
+            lblDetailHeader.Size = new Size(73, 20);
             lblDetailHeader.TabIndex = 6;
             lblDetailHeader.Text = "강의 상세";
             // 
@@ -355,11 +344,11 @@ namespace Software_Project_team2
             panelSyllabus.BorderStyle = BorderStyle.FixedSingle;
             panelSyllabus.Controls.Add(lblSyllabusBody);
             panelSyllabus.Controls.Add(lblSyllabusHeader);
-            panelSyllabus.Location = new Point(850, 588);
-            panelSyllabus.Margin = new Padding(4);
+            panelSyllabus.Location = new Point(595, 353);
+            panelSyllabus.Margin = new Padding(3, 2, 3, 2);
             panelSyllabus.Name = "panelSyllabus";
-            panelSyllabus.Padding = new Padding(20);
-            panelSyllabus.Size = new Size(675, 300);
+            panelSyllabus.Padding = new Padding(14, 12, 14, 12);
+            panelSyllabus.Size = new Size(473, 181);
             panelSyllabus.TabIndex = 7;
             // 
             // lblSyllabusBody
@@ -367,10 +356,9 @@ namespace Software_Project_team2
             lblSyllabusBody.BackColor = Color.Transparent;
             lblSyllabusBody.Font = new Font("Segoe UI", 10F, FontStyle.Italic);
             lblSyllabusBody.ForeColor = Color.FromArgb(140, 145, 160);
-            lblSyllabusBody.Location = new Point(20, 62);
-            lblSyllabusBody.Margin = new Padding(4, 0, 4, 0);
+            lblSyllabusBody.Location = new Point(14, 37);
             lblSyllabusBody.Name = "lblSyllabusBody";
-            lblSyllabusBody.Size = new Size(635, 212);
+            lblSyllabusBody.Size = new Size(444, 127);
             lblSyllabusBody.TabIndex = 0;
             lblSyllabusBody.Text = "Coming soon — syllabus will be loaded here.";
             lblSyllabusBody.TextAlign = ContentAlignment.MiddleCenter;
@@ -381,10 +369,9 @@ namespace Software_Project_team2
             lblSyllabusHeader.BackColor = Color.Transparent;
             lblSyllabusHeader.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblSyllabusHeader.ForeColor = Color.Black;
-            lblSyllabusHeader.Location = new Point(20, 18);
-            lblSyllabusHeader.Margin = new Padding(4, 0, 4, 0);
+            lblSyllabusHeader.Location = new Point(14, 11);
             lblSyllabusHeader.Name = "lblSyllabusHeader";
-            lblSyllabusHeader.Size = new Size(217, 30);
+            lblSyllabusHeader.Size = new Size(149, 20);
             lblSyllabusHeader.TabIndex = 1;
             lblSyllabusHeader.Text = "강의계획서 (준비 중)";
             // 
@@ -394,10 +381,9 @@ namespace Software_Project_team2
             lblStatus.BackColor = Color.Transparent;
             lblStatus.Font = new Font("Segoe UI", 10F);
             lblStatus.ForeColor = Color.FromArgb(160, 165, 180);
-            lblStatus.Location = new Point(25, 1350);
-            lblStatus.Margin = new Padding(4, 0, 4, 0);
+            lblStatus.Location = new Point(18, 810);
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(0, 28);
+            lblStatus.Size = new Size(0, 19);
             lblStatus.TabIndex = 0;
             // 
             // panelReviews
@@ -406,11 +392,11 @@ namespace Software_Project_team2
             panelReviews.BorderStyle = BorderStyle.FixedSingle;
             panelReviews.Controls.Add(flowReviews);
             panelReviews.Controls.Add(lblReviewsHeader);
-            panelReviews.Location = new Point(25, 912);
-            panelReviews.Margin = new Padding(4);
+            panelReviews.Location = new Point(18, 547);
+            panelReviews.Margin = new Padding(3, 2, 3, 2);
             panelReviews.Name = "panelReviews";
-            panelReviews.Padding = new Padding(20);
-            panelReviews.Size = new Size(1500, 425);
+            panelReviews.Padding = new Padding(14, 12, 14, 12);
+            panelReviews.Size = new Size(1051, 256);
             panelReviews.TabIndex = 8;
             // 
             // flowReviews
@@ -419,10 +405,10 @@ namespace Software_Project_team2
             flowReviews.BackColor = Color.FromArgb(252, 252, 252);
             flowReviews.BorderStyle = BorderStyle.FixedSingle;
             flowReviews.FlowDirection = FlowDirection.TopDown;
-            flowReviews.Location = new Point(20, 58);
-            flowReviews.Margin = new Padding(4);
+            flowReviews.Location = new Point(14, 35);
+            flowReviews.Margin = new Padding(3, 2, 3, 2);
             flowReviews.Name = "flowReviews";
-            flowReviews.Size = new Size(1460, 348);
+            flowReviews.Size = new Size(1023, 210);
             flowReviews.TabIndex = 0;
             flowReviews.WrapContents = false;
             // 
@@ -432,20 +418,19 @@ namespace Software_Project_team2
             lblReviewsHeader.BackColor = Color.Transparent;
             lblReviewsHeader.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             lblReviewsHeader.ForeColor = Color.Black;
-            lblReviewsHeader.Location = new Point(20, 18);
-            lblReviewsHeader.Margin = new Padding(4, 0, 4, 0);
+            lblReviewsHeader.Location = new Point(14, 11);
             lblReviewsHeader.Name = "lblReviewsHeader";
-            lblReviewsHeader.Size = new Size(129, 30);
+            lblReviewsHeader.Size = new Size(88, 20);
             lblReviewsHeader.TabIndex = 1;
             lblReviewsHeader.Text = "최근 강의평";
             // 
             // SchedulePanel
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.White;
-            ClientSize = new Size(1554, 1400);
+            ClientSize = new Size(1088, 762);
             Controls.Add(lblStatus);
             Controls.Add(panelReviews);
             Controls.Add(panelSyllabus);
@@ -459,7 +444,7 @@ namespace Software_Project_team2
             Controls.Add(lblSearchHint);
             Controls.Add(lblHeader);
             ForeColor = SystemColors.ControlLightLight;
-            Margin = new Padding(4);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "SchedulePanel";
             Text = "Everytime 강의 검색";
             panelByProf.ResumeLayout(false);
