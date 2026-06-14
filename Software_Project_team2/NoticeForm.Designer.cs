@@ -55,12 +55,12 @@
             // 
             // pnlHeader
             // 
-            pnlHeader.BackColor = Color.FromArgb(128, 0, 36);
+            pnlHeader.BackColor = Color.FromArgb(90, 0, 31);
             pnlHeader.Controls.Add(kw_label);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(1378, 100);
+            pnlHeader.Size = new Size(1866, 100);
             pnlHeader.TabIndex = 2;
             // 
             // txtSearch
@@ -68,7 +68,7 @@
             txtSearch.BackColor = Color.WhiteSmoke;
             txtSearch.BorderStyle = BorderStyle.FixedSingle;
             txtSearch.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSearch.ForeColor = Color.White;
+            txtSearch.ForeColor = Color.Black;
             txtSearch.Location = new Point(30, 120);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(250, 37);
@@ -76,7 +76,7 @@
             // 
             // btnSearch
             // 
-            btnSearch.BackColor = Color.FromArgb(128, 0, 32);
+            btnSearch.BackColor = Color.FromArgb(90, 0, 31);
             btnSearch.FlatStyle = FlatStyle.Flat;
             btnSearch.ForeColor = Color.White;
             btnSearch.Location = new Point(290, 120);
@@ -95,13 +95,13 @@
             richNotice.Location = new Point(12, 214);
             richNotice.Name = "richNotice";
             richNotice.ReadOnly = true;
-            richNotice.Size = new Size(1354, 518);
+            richNotice.Size = new Size(1888, 1015);
             richNotice.TabIndex = 4;
             richNotice.Text = resources.GetString("richNotice.Text");
             // 
             // btn_all
             // 
-            btn_all.BackColor = Color.FromArgb(143, 0, 38);
+            btn_all.BackColor = Color.FromArgb(90, 0, 31);
             btn_all.FlatStyle = FlatStyle.Flat;
             btn_all.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btn_all.ForeColor = Color.White;
@@ -114,7 +114,7 @@
             // 
             // btn_study
             // 
-            btn_study.BackColor = Color.FromArgb(143, 0, 38);
+            btn_study.BackColor = Color.FromArgb(90, 0, 31);
             btn_study.FlatStyle = FlatStyle.Flat;
             btn_study.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btn_study.ForeColor = Color.White;
@@ -128,7 +128,7 @@
             // 
             // btn_scholarship
             // 
-            btn_scholarship.BackColor = Color.FromArgb(143, 0, 38);
+            btn_scholarship.BackColor = Color.FromArgb(90, 0, 31);
             btn_scholarship.FlatStyle = FlatStyle.Flat;
             btn_scholarship.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btn_scholarship.ForeColor = Color.White;
@@ -141,7 +141,7 @@
             // 
             // btn_employment
             // 
-            btn_employment.BackColor = Color.FromArgb(143, 0, 38);
+            btn_employment.BackColor = Color.FromArgb(90, 0, 31);
             btn_employment.FlatStyle = FlatStyle.Flat;
             btn_employment.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btn_employment.ForeColor = Color.White;
@@ -154,7 +154,7 @@
             // 
             // btn_inernat
             // 
-            btn_inernat.BackColor = Color.FromArgb(143, 0, 38);
+            btn_inernat.BackColor = Color.FromArgb(90, 0, 31);
             btn_inernat.FlatStyle = FlatStyle.Flat;
             btn_inernat.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btn_inernat.ForeColor = Color.White;
@@ -170,7 +170,7 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(1378, 744);
+            ClientSize = new Size(1866, 959);
             Controls.Add(btn_inernat);
             Controls.Add(btn_employment);
             Controls.Add(btn_scholarship);

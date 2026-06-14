@@ -29,20 +29,17 @@ namespace Software_Project_team2
 
             klasService = klas;
 
-            buttonSchedule.Click += (_, _) => new SchedulePanel().Show();
-
-            _ = LoadNoticesAsync();
+            buttonTimeTable.Click += (_, _) => new Timetable().Show();
+            buttonLectureManagement.Click += (_, _) => new SchedulePanel().Show();
+            btnMore.Click += (_, _) => new NoticeForm().Show();
+            buttonGrades.Click += (_, _) => new Grade().Show();
+            buttonAssignment.Click += (_, _) => new Assignment().Show();
+            buttonMoreClaass.Click += (_, _) => new RecommendedCoursesForm().Show();
         }
 
         private async Task LoadNoticesAsync()
         {
             var notices = await ParseNoticesAsync();
-
-            panelNotice.Controls.Remove(panelNotice1);
-            panelNotice.Controls.Remove(panel8);
-            panelNotice.Controls.Remove(panel9);
-            panelNotice.Controls.Remove(panel10);
-            panelNotice.Controls.Remove(panel11);
 
             int yPos = 98;
             int count = 0;
@@ -118,6 +115,7 @@ namespace Software_Project_team2
             {
                 if (!_httpClient.DefaultRequestHeaders.Contains("User-Agent"))
                     _httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0");
+
                 var html = await _httpClient.GetStringAsync(
                     "https://www.kw.ac.kr/ko/life/notice.jsp?BoardMode=list&tpage=1&searchKey=1&searchVal=&srCategoryId=");
 
@@ -170,6 +168,14 @@ namespace Software_Project_team2
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+
+            UpdateDateTime();
+
+            timer1.Tick -= timer1_Tick;
+            timer1.Tick += timer1_Tick;
+            timer1.Start();
+
+            _ = LoadNoticesAsync();
             _ = LoadProgressionDataAsync();
         }
 
@@ -233,5 +239,15 @@ namespace Software_Project_team2
             panel2.Width = (int)((percentage / 100.0) * maxProgressBarWidth);
         }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            UpdateDateTime();
+        }
+
+        private void UpdateDateTime()
+        {
+            labelCurrentData.Text = DateTime.Now.ToString("yyyy.MM.dd");
+            lblTime.Text = DateTime.Now.ToString("HH:mm:ss");
+        }
     }
 }
