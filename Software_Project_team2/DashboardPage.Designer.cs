@@ -44,7 +44,7 @@
             label10 = new Label();
             label11 = new Label();
             panelCourses = new Panel();
-            label31 = new Label();
+            buttonMoreClaass = new Button();
             panel4 = new Panel();
             button1 = new Button();
             label16 = new Label();
@@ -114,10 +114,10 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 30F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(7, 23);
+            label1.Location = new Point(7, 9);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(183, 54);
+            label1.Size = new Size(275, 81);
             label1.TabIndex = 0;
             label1.Text = "대시보드";
             // 
@@ -143,7 +143,7 @@
             label4.Location = new Point(189, 94);
             label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
-            label4.Size = new Size(51, 30);
+            label4.Size = new Size(73, 45);
             label4.TabIndex = 2;
             label4.Text = "/4.5";
             // 
@@ -167,7 +167,7 @@
             label2.Location = new Point(49, 30);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(116, 25);
+            label2.Size = new Size(178, 38);
             label2.TabIndex = 0;
             label2.Text = " 🎓현재 GPA";
             // 
@@ -215,7 +215,7 @@
             label7.Location = new Point(376, 182);
             label7.Margin = new Padding(2, 0, 2, 0);
             label7.Name = "label7";
-            label7.Size = new Size(40, 20);
+            label7.Size = new Size(60, 30);
             label7.TabIndex = 2;
             label7.Text = "0.0%";
             // 
@@ -227,7 +227,7 @@
             label8.Location = new Point(30, 145);
             label8.Margin = new Padding(2, 0, 2, 0);
             label8.Name = "label8";
-            label8.Size = new Size(78, 21);
+            label8.Size = new Size(117, 32);
             label8.TabIndex = 3;
             label8.Text = "이수 현황";
             // 
@@ -239,7 +239,7 @@
             label9.Location = new Point(106, 81);
             label9.Margin = new Padding(2, 0, 2, 0);
             label9.Name = "label9";
-            label9.Size = new Size(58, 30);
+            label9.Size = new Size(83, 45);
             label9.TabIndex = 2;
             label9.Text = "/133";
             // 
@@ -252,7 +252,7 @@
             label10.Location = new Point(56, 74);
             label10.Margin = new Padding(2, 0, 2, 0);
             label10.Name = "label10";
-            label10.Size = new Size(32, 37);
+            label10.Size = new Size(45, 54);
             label10.TabIndex = 1;
             label10.Text = "0";
             // 
@@ -264,7 +264,7 @@
             label11.Location = new Point(30, 30);
             label11.Margin = new Padding(2, 0, 2, 0);
             label11.Name = "label11";
-            label11.Size = new Size(133, 25);
+            label11.Size = new Size(203, 38);
             label11.TabIndex = 0;
             label11.Text = "📈졸업 진행률";
             // 
@@ -272,7 +272,7 @@
             // 
             panelCourses.BackColor = Color.White;
             panelCourses.BorderStyle = BorderStyle.FixedSingle;
-            panelCourses.Controls.Add(label31);
+            panelCourses.Controls.Add(buttonMoreClaass);
             panelCourses.Controls.Add(panel4);
             panelCourses.Controls.Add(panel7);
             panelCourses.Controls.Add(panel5);
@@ -286,17 +286,17 @@
             panelCourses.Size = new Size(1014, 558);
             panelCourses.TabIndex = 0;
             // 
-            // label31
+            // buttonMoreClaass
             // 
-            label31.AutoSize = true;
-            label31.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label31.ForeColor = Color.FromArgb(90, 90, 90);
-            label31.Location = new Point(432, 505);
-            label31.Margin = new Padding(2, 0, 2, 0);
-            label31.Name = "label31";
-            label31.Size = new Size(73, 21);
-            label31.TabIndex = 2;
-            label31.Text = "더보기 >";
+            buttonMoreClaass.AutoSize = true;
+            buttonMoreClaass.BackColor = Color.Transparent;
+            buttonMoreClaass.ForeColor = Color.Black;
+            buttonMoreClaass.Location = new Point(463, 504);
+            buttonMoreClaass.Name = "buttonMoreClaass";
+            buttonMoreClaass.Size = new Size(112, 35);
+            buttonMoreClaass.TabIndex = 8;
+            buttonMoreClaass.Text = "더보기";
+            buttonMoreClaass.UseVisualStyleBackColor = false;
             // 
             // panel4
             // 
@@ -338,7 +338,7 @@
             label16.Location = new Point(692, 29);
             label16.Margin = new Padding(2, 0, 2, 0);
             label16.Name = "label16";
-            label16.Size = new Size(48, 21);
+            label16.Size = new Size(72, 32);
             label16.TabIndex = 6;
             label16.Text = "★ 0.0";
             // 
@@ -350,7 +350,7 @@
             label15.Location = new Point(139, 41);
             label15.Margin = new Padding(2, 0, 2, 0);
             label15.Name = "label15";
-            label15.Size = new Size(40, 15);
+            label15.Size = new Size(63, 25);
             label15.TabIndex = 5;
             label15.Text = "3 학점";
             // 
@@ -362,7 +362,7 @@
             label14.Location = new Point(136, 10);
             label14.Margin = new Padding(2, 0, 2, 0);
             label14.Name = "label14";
-            label14.Size = new Size(43, 15);
+            label14.Size = new Size(66, 25);
             label14.TabIndex = 4;
             label14.Text = "강의명";
             // 
@@ -374,7 +374,7 @@
             label13.Location = new Point(30, 26);
             label13.Margin = new Padding(2, 0, 2, 0);
             label13.Name = "label13";
-            label13.Size = new Size(60, 21);
+            label13.Size = new Size(88, 32);
             label13.TabIndex = 3;
             label13.Text = "CS 000";
             // 
@@ -401,7 +401,7 @@
             label28.Location = new Point(139, 40);
             label28.Margin = new Padding(2, 0, 2, 0);
             label28.Name = "label28";
-            label28.Size = new Size(40, 15);
+            label28.Size = new Size(63, 25);
             label28.TabIndex = 14;
             label28.Text = "3 학점";
             // 
@@ -413,7 +413,7 @@
             label25.Location = new Point(136, 15);
             label25.Margin = new Padding(2, 0, 2, 0);
             label25.Name = "label25";
-            label25.Size = new Size(43, 15);
+            label25.Size = new Size(66, 25);
             label25.TabIndex = 11;
             label25.Text = "강의명";
             // 
@@ -425,7 +425,7 @@
             label22.Location = new Point(30, 22);
             label22.Margin = new Padding(2, 0, 2, 0);
             label22.Name = "label22";
-            label22.Size = new Size(60, 21);
+            label22.Size = new Size(88, 32);
             label22.TabIndex = 10;
             label22.Text = "CS 000";
             // 
@@ -437,7 +437,7 @@
             label19.Location = new Point(692, 22);
             label19.Margin = new Padding(2, 0, 2, 0);
             label19.Name = "label19";
-            label19.Size = new Size(48, 21);
+            label19.Size = new Size(72, 32);
             label19.TabIndex = 9;
             label19.Text = "★ 0.0";
             // 
@@ -480,7 +480,7 @@
             label26.Location = new Point(139, 41);
             label26.Margin = new Padding(2, 0, 2, 0);
             label26.Name = "label26";
-            label26.Size = new Size(40, 15);
+            label26.Size = new Size(63, 25);
             label26.TabIndex = 12;
             label26.Text = "3 학점";
             // 
@@ -492,7 +492,7 @@
             label23.Location = new Point(136, 12);
             label23.Margin = new Padding(2, 0, 2, 0);
             label23.Name = "label23";
-            label23.Size = new Size(43, 15);
+            label23.Size = new Size(66, 25);
             label23.TabIndex = 11;
             label23.Text = "강의명";
             // 
@@ -504,7 +504,7 @@
             label20.Location = new Point(30, 26);
             label20.Margin = new Padding(2, 0, 2, 0);
             label20.Name = "label20";
-            label20.Size = new Size(60, 21);
+            label20.Size = new Size(88, 32);
             label20.TabIndex = 10;
             label20.Text = "CS 000";
             // 
@@ -516,7 +516,7 @@
             label17.Location = new Point(692, 26);
             label17.Margin = new Padding(2, 0, 2, 0);
             label17.Name = "label17";
-            label17.Size = new Size(48, 21);
+            label17.Size = new Size(72, 32);
             label17.TabIndex = 9;
             label17.Text = "★ 0.0";
             // 
@@ -560,7 +560,7 @@
             label27.Location = new Point(139, 44);
             label27.Margin = new Padding(2, 0, 2, 0);
             label27.Name = "label27";
-            label27.Size = new Size(40, 15);
+            label27.Size = new Size(63, 25);
             label27.TabIndex = 13;
             label27.Text = "3 학점";
             // 
@@ -572,7 +572,7 @@
             label24.Location = new Point(136, 19);
             label24.Margin = new Padding(2, 0, 2, 0);
             label24.Name = "label24";
-            label24.Size = new Size(43, 15);
+            label24.Size = new Size(66, 25);
             label24.TabIndex = 12;
             label24.Text = "강의명";
             // 
@@ -584,7 +584,7 @@
             label21.Location = new Point(30, 28);
             label21.Margin = new Padding(2, 0, 2, 0);
             label21.Name = "label21";
-            label21.Size = new Size(60, 21);
+            label21.Size = new Size(88, 32);
             label21.TabIndex = 11;
             label21.Text = "CS 000";
             // 
@@ -596,7 +596,7 @@
             label18.Location = new Point(692, 28);
             label18.Margin = new Padding(2, 0, 2, 0);
             label18.Name = "label18";
-            label18.Size = new Size(48, 21);
+            label18.Size = new Size(72, 32);
             label18.TabIndex = 10;
             label18.Text = "★ 0.0";
             // 
@@ -640,7 +640,7 @@
             label12.Location = new Point(30, 16);
             label12.Margin = new Padding(2, 0, 2, 0);
             label12.Name = "label12";
-            label12.Size = new Size(117, 32);
+            label12.Size = new Size(174, 48);
             label12.TabIndex = 0;
             label12.Text = "추천 강의";
             // 
@@ -692,7 +692,7 @@
             label29.Location = new Point(30, 30);
             label29.Margin = new Padding(2, 0, 2, 0);
             label29.Name = "label29";
-            label29.Size = new Size(110, 32);
+            label29.Size = new Size(164, 48);
             label29.TabIndex = 0;
             label29.Text = "공지사항";
             // 
@@ -737,7 +737,7 @@
             label6.Location = new Point(1044, 36);
             label6.Margin = new Padding(2, 0, 2, 0);
             label6.Name = "label6";
-            label6.Size = new Size(44, 20);
+            label6.Size = new Size(66, 30);
             label6.TabIndex = 6;
             label6.Text = "00:00";
             // 
@@ -750,7 +750,7 @@
             label30.Location = new Point(862, 36);
             label30.Margin = new Padding(2, 0, 2, 0);
             label30.Name = "label30";
-            label30.Size = new Size(118, 20);
+            label30.Size = new Size(178, 30);
             label30.TabIndex = 7;
             label30.Text = "2026.05.02 02:20";
             // 
@@ -762,7 +762,7 @@
             label32.Location = new Point(1154, 36);
             label32.Margin = new Padding(2, 0, 2, 0);
             label32.Name = "label32";
-            label32.Size = new Size(163, 20);
+            label32.Size = new Size(239, 30);
             label32.TabIndex = 5;
             label32.Text = "안드레이님 환영합니다";
             // 
@@ -784,10 +784,10 @@
             label48.AutoSize = true;
             label48.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label48.ForeColor = Color.White;
-            label48.Location = new Point(91, 137);
+            label48.Location = new Point(63, 135);
             label48.Margin = new Padding(2, 0, 2, 0);
             label48.Name = "label48";
-            label48.Size = new Size(123, 30);
+            label48.Size = new Size(180, 45);
             label48.TabIndex = 1;
             label48.Text = "광운대학교";
             // 
@@ -796,10 +796,10 @@
             label49.AutoSize = true;
             label49.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label49.ForeColor = Color.FromArgb(235, 235, 235);
-            label49.Location = new Point(115, 176);
+            label49.Location = new Point(106, 180);
             label49.Margin = new Padding(2, 0, 2, 0);
             label49.Name = "label49";
-            label49.Size = new Size(69, 19);
+            label49.Size = new Size(98, 28);
             label49.TabIndex = 2;
             label49.Text = "학생 포털";
             // 
@@ -909,10 +909,10 @@
             labelUserName.BackColor = Color.Transparent;
             labelUserName.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelUserName.ForeColor = Color.White;
-            labelUserName.Location = new Point(1196, 37);
+            labelUserName.Location = new Point(1248, 37);
             labelUserName.Margin = new Padding(2, 0, 2, 0);
             labelUserName.Name = "labelUserName";
-            labelUserName.Size = new Size(163, 20);
+            labelUserName.Size = new Size(239, 30);
             labelUserName.TabIndex = 5;
             labelUserName.Text = "안드레이님 환영합니다";
             // 
@@ -927,10 +927,10 @@
             lblTime.BackColor = Color.Transparent;
             lblTime.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTime.ForeColor = Color.White;
-            lblTime.Location = new Point(1128, 37);
+            lblTime.Location = new Point(1144, 37);
             lblTime.Margin = new Padding(2, 0, 2, 0);
             lblTime.Name = "lblTime";
-            lblTime.Size = new Size(44, 20);
+            lblTime.Size = new Size(66, 30);
             lblTime.TabIndex = 6;
             lblTime.Text = "00:00";
             // 
@@ -940,10 +940,10 @@
             labelCurrentData.BackColor = Color.Transparent;
             labelCurrentData.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelCurrentData.ForeColor = Color.White;
-            labelCurrentData.Location = new Point(995, 37);
+            labelCurrentData.Location = new Point(934, 37);
             labelCurrentData.Margin = new Padding(2, 0, 2, 0);
             labelCurrentData.Name = "labelCurrentData";
-            labelCurrentData.Size = new Size(118, 20);
+            labelCurrentData.Size = new Size(178, 30);
             labelCurrentData.TabIndex = 7;
             labelCurrentData.Text = "2026.05.02 02:20";
             // 
@@ -1046,7 +1046,6 @@
         private Label label24;
         private Panel panelNotice;
         private Label label29;
-        private Label label31;
         private Panel panelSidebar;
         private PictureBox pictureBoxKWULogo;
         private Button buttonDashboard;
@@ -1068,5 +1067,6 @@
         private Label label6;
         private Label label30;
         private Label label32;
+        private Button buttonMoreClaass;
     }
 }
