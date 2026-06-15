@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
+using System.Drawing.Drawing2D;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Software_Project_team2.Services;
@@ -12,174 +12,300 @@ namespace Software_Project_team2
     {
         private readonly KlasService _klasService;
 
-        // Tracks lesson panels we added so we can clear them on re-render
-        private readonly List<Control> _lessonControls = new();
-        private bool _placeholdersRemoved;
-
-        // Color palette for distinguishing different courses
-        private static readonly Color[] Palette = new[]
+        private static readonly Color[] Palette =
         {
-            Color.FromArgb(242, 178, 84),
-            Color.FromArgb(122, 201, 150),
-            Color.FromArgb(184, 126, 238),
-            Color.FromArgb(119, 199, 199),
-            Color.FromArgb(244, 154, 211)
+            Color.FromArgb(90,   0,  31),   // KW dark red
+            Color.FromArgb( 0, 102, 153),   // steel blue
+            Color.FromArgb(34, 120,  50),   // forest green
+            Color.FromArgb(150,  70,   0),  // amber
+            Color.FromArgb(80,   40, 130),  // purple
         };
 
         public Timetable(KlasService klasService)
         {
-            _klasService = klasService ?? throw new ArgumentNullException(nameof(klasService));
+            _klasService = klasService;
             InitializeComponent();
-            btnSearch.Click += async (_, __) => await LoadAndRenderTimetableAsync();
         }
 
-        private async Task LoadAndRenderTimetableAsync()
+        protected override void OnLoad(EventArgs e)
         {
-            btnSearch.Enabled = false;
+            base.OnLoad(e);
+            _ = LoadAsync();
+        }
+
+        private async Task LoadAsync()
+        {
             try
             {
-                var lessons = await _klasService.GetTimetableAsync();
-                RenderSchedule(lessons);
+                var result = await _klasService.GetCourseListAsync();
+                if (InvokeRequired) Invoke(() => Render(result));
+                else Render(result);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("시간표 로드 중 오류가 발생했습니다: " + ex.Message, "오류",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                btnSearch.Enabled = true;
+                System.Diagnostics.Debug.WriteLine($"[Timetable] {ex.Message}");
             }
         }
 
-        private void RemovePlaceholders()
+        private void Render(CourseListResult data)
         {
-            if (_placeholdersRemoved) return;
-            // Remove the designer's hardcoded example lesson labels so cells are free for real data
-            foreach (var lbl in new[] { label1, label2, label3, label4, label5, label6, label7, label8 })
-                tableLayoutPanel1.Controls.Remove(lbl);
-            _placeholdersRemoved = true;
-        }
+            panelContent.SuspendLayout();
+            panelContent.Controls.Clear();
 
-        private void RenderSchedule(List<LessonModel> lessons)
-        {
-            RemovePlaceholders();
+            int y    = 24;
+            int left = 30;
 
-            // Remove lesson controls from the previous render
-            foreach (var ctrl in _lessonControls)
-                tableLayoutPanel1.Controls.Remove(ctrl);
-            _lessonControls.Clear();
-
-            if (lessons == null || lessons.Count == 0)
+            // ── Title + semester label ────────────────────────────────────
+            var lblTitle = new Label
             {
-                var noData = new Label
+                Text      = "수강과목",
+                Font      = new Font("Segoe UI", 22F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(25, 25, 25),
+                AutoSize  = true,
+                Location  = new Point(left, y),
+            };
+            panelContent.Controls.Add(lblTitle);
+
+            var lblSem = new Label
+            {
+                Text      = $"( {data.Yearhakgi} )",
+                Font      = new Font("Segoe UI", 13F),
+                ForeColor = Color.FromArgb(145, 145, 145),
+                AutoSize  = true,
+                Location  = new Point(left + lblTitle.PreferredWidth + 14, y + 9),
+            };
+            panelContent.Controls.Add(lblSem);
+            y += 56;
+
+            // ── Day activity dots ─────────────────────────────────────────
+            var weekStrip = BuildWeekStrip(data.Subjects);
+            weekStrip.Location = new Point(left, y);
+            panelContent.Controls.Add(weekStrip);
+            y += 64;
+
+            // ── Horizontal rule ───────────────────────────────────────────
+            var rule = new Panel
+            {
+                BackColor = Color.FromArgb(210, 210, 210),
+                Size      = new Size(panelContent.ClientSize.Width - left * 2, 1),
+                Location  = new Point(left, y),
+                Anchor    = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top,
+            };
+            panelContent.Controls.Add(rule);
+            y += 20;
+
+            // ── Course cards ──────────────────────────────────────────────
+            if (data.Subjects.Count == 0)
+            {
+                panelContent.Controls.Add(new Label
                 {
-                    Text = "시간표가 없습니다.",
-                    AutoSize = false,
-                    Dock = DockStyle.Fill,
-                    TextAlign = ContentAlignment.MiddleCenter,
+                    Text      = "수강 과목이 없습니다.",
+                    Font      = new Font("Segoe UI", 12F),
                     ForeColor = Color.Gray,
-                    Font = new Font("Segoe UI", 10F)
-                };
-                tableLayoutPanel1.Controls.Add(noData, 1, 1);
-                tableLayoutPanel1.SetColumnSpan(noData, 5);
-                tableLayoutPanel1.SetRowSpan(noData, 8);
-                _lessonControls.Add(noData);
-                return;
+                    AutoSize  = true,
+                    Location  = new Point(left, y),
+                });
+            }
+            else
+            {
+                int cardW = Math.Max(300, panelContent.ClientSize.Width - left * 2 - 18);
+                for (int i = 0; i < data.Subjects.Count; i++)
+                {
+                    var card = BuildCourseCard(data.Subjects[i], i);
+                    card.Location = new Point(left, y);
+                    card.Width    = cardW;
+                    card.Anchor   = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+                    panelContent.Controls.Add(card);
+                    y += card.Height + 20;
+                }
             }
 
-            // Assign consistent colors per course title
-            var colorMap = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-            int colorIdx = 0;
+            panelContent.ResumeLayout(true);
+        }
 
-            foreach (var lesson in lessons)
-            {
-                // Day 0=Mon→col1, 1=Tue→col2, ..., 4=Fri→col5; Saturday (col 6) is outside the grid
-                int col = lesson.Day + 1;
-                if (col < 1 || col > 5) continue;
-
-                // StartSlot 1–8 maps directly to rows 1–8 in tableLayoutPanel1
-                int row = lesson.StartSlot;
-                if (row < 1 || row > 8) continue;
-
-                // Clamp duration so the lesson doesn't overflow past row 8
-                int dur = Math.Max(1, Math.Min(lesson.Duration, 9 - row));
-
-                if (!colorMap.TryGetValue(lesson.Title, out int paletteIdx))
+        // Draws coloured circles for each weekday; filled = has class that day
+        private static Panel BuildWeekStrip(List<CourseInfo> subjects)
+        {
+            var activeDays    = new HashSet<string>();
+            foreach (var s in subjects)
+                foreach (var seg in s.LctrumSchdulInfo.Split(','))
                 {
-                    paletteIdx = colorIdx % Palette.Length;
-                    colorMap[lesson.Title] = paletteIdx;
-                    colorIdx++;
+                    var t = seg.Trim();
+                    if (t.Length > 0) activeDays.Add(t[0].ToString());
                 }
 
-                var panel = BuildLessonPanel(lesson, paletteIdx);
-                tableLayoutPanel1.Controls.Add(panel, col, row);
-                if (dur > 1)
-                    tableLayoutPanel1.SetRowSpan(panel, dur);
+            const string days      = "월화수목금토";
+            var          activeClr = Color.FromArgb(90, 0, 31);
+            var          idleClr   = Color.FromArgb(232, 232, 232);
 
-                _lessonControls.Add(panel);
-            }
+            var strip = new Panel { Width = days.Length * 54, Height = 52, BackColor = Color.Transparent };
+
+            strip.Paint += (_, e) =>
+            {
+                var g = e.Graphics;
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+                using var font = new Font("Segoe UI", 10F, FontStyle.Bold);
+                using var sf   = new StringFormat
+                    { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+
+                for (int i = 0; i < days.Length; i++)
+                {
+                    string d      = days[i].ToString();
+                    bool   active = activeDays.Contains(d);
+                    int    x      = i * 54;
+                    using var fill = new SolidBrush(active ? activeClr : idleClr);
+                    using var fore = new SolidBrush(active ? Color.White : Color.FromArgb(185, 185, 185));
+                    g.FillEllipse(fill, x, 4, 44, 44);
+                    g.DrawString(d, font, fore, new RectangleF(x, 4, 44, 44), sf);
+                }
+            };
+
+            return strip;
         }
 
-        private Panel BuildLessonPanel(LessonModel lesson, int paletteIdx)
+        // Builds one horizontal course card
+        private Panel BuildCourseCard(CourseInfo course, int index)
         {
-            var panel = new Panel
+            var accent = Palette[index % Palette.Length];
+            var tagBg  = Color.FromArgb(
+                Math.Min(255, accent.R + 200),
+                Math.Min(255, accent.G + 210),
+                Math.Min(255, accent.B + 210));
+
+            var card = new Panel { Height = 148, BackColor = Color.White };
+            card.Paint += (s, e) =>
             {
-                BackColor = Palette[paletteIdx],
-                Dock = DockStyle.Fill,
-                Cursor = Cursors.Hand,
-                Margin = new Padding(2),
-                Tag = lesson
+                var rc = ((Panel)s!).ClientRectangle;
+                using var pen = new Pen(Color.FromArgb(222, 222, 222));
+                e.Graphics.DrawRectangle(pen, 0, 0, rc.Width - 1, rc.Height - 1);
             };
 
-            var titleLabel = new Label
+            // Left colour bar
+            card.Controls.Add(new Panel { Width = 6, Dock = DockStyle.Left, BackColor = accent });
+
+            // Content laid out in a 4-row TableLayoutPanel
+            var tbl = new TableLayoutPanel
             {
-                Text = lesson.Title,
-                Dock = DockStyle.Top,
-                Font = new Font("Segoe UI", 8.5F, FontStyle.Bold),
-                ForeColor = Color.Black,
+                Dock        = DockStyle.Fill,
+                ColumnCount = 1,
+                RowCount    = 4,
+                Padding     = new Padding(16, 10, 16, 8),
+                BackColor   = Color.Transparent,
+            };
+            tbl.RowStyles.Add(new RowStyle(SizeType.AutoSize));      // course name
+            tbl.RowStyles.Add(new RowStyle(SizeType.AutoSize));      // course code
+            tbl.RowStyles.Add(new RowStyle(SizeType.AutoSize));      // professor
+            tbl.RowStyles.Add(new RowStyle(SizeType.Percent, 100F)); // schedule tags
+            card.Controls.Add(tbl);
+
+            // Row 0 — course name (ellipsis for long names)
+            tbl.Controls.Add(new Label
+            {
+                Text         = course.SubjNm,
+                Font         = new Font("Segoe UI", 12F, FontStyle.Bold),
+                ForeColor    = Color.FromArgb(25, 25, 25),
+                AutoSize     = false,
                 AutoEllipsis = true,
-                Padding = new Padding(4, 4, 4, 0),
-                AutoSize = false,
-                Height = 32
-            };
+                Dock         = DockStyle.Fill,
+                TextAlign    = ContentAlignment.MiddleLeft,
+            }, 0, 0);
 
-            var infoText = string.Join(" / ",
-                new[] { lesson.Location, lesson.Instructor }.Where(s => !string.IsNullOrEmpty(s)));
-            var infoLabel = new Label
+            // Row 1 — course code (small, muted)
+            tbl.Controls.Add(new Label
             {
-                Text = infoText,
-                Dock = DockStyle.Fill,
-                Font = new Font("Segoe UI", 7.5F),
-                ForeColor = Color.Black,
-                AutoEllipsis = true,
-                Padding = new Padding(4, 2, 4, 2),
-                AutoSize = false
+                Text      = course.Hakjungno,
+                Font      = new Font("Segoe UI", 8.5F),
+                ForeColor = Color.FromArgb(160, 160, 160),
+                AutoSize  = false,
+                Dock      = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleLeft,
+            }, 0, 1);
+
+            // Row 2 — professor name
+            tbl.Controls.Add(new Label
+            {
+                Text      = course.ProfNm,
+                Font      = new Font("Segoe UI", 9.5F),
+                ForeColor = Color.FromArgb(115, 115, 115),
+                AutoSize  = false,
+                Dock      = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleLeft,
+            }, 0, 2);
+
+            // Row 3 — schedule pill tags with resolved time range
+            var flow = new FlowLayoutPanel
+            {
+                Dock          = DockStyle.Fill,
+                FlowDirection = FlowDirection.LeftToRight,
+                WrapContents  = true,
+                BackColor     = Color.Transparent,
+                Padding       = new Padding(0, 2, 0, 0),
             };
+            foreach (var seg in course.LctrumSchdulInfo.Split(new[] { ',' },
+                StringSplitOptions.RemoveEmptyEntries))
+            {
+                flow.Controls.Add(new Label
+                {
+                    Text        = FormatScheduleTag(seg.Trim()),
+                    Font        = new Font("Segoe UI", 8.5F),
+                    ForeColor   = accent,
+                    BackColor   = tagBg,
+                    AutoSize    = true,
+                    Padding     = new Padding(8, 4, 8, 4),
+                    Margin      = new Padding(0, 0, 8, 4),
+                    BorderStyle = BorderStyle.FixedSingle,
+                });
+            }
+            tbl.Controls.Add(flow, 0, 3);
 
-            // Add info first so DockStyle.Fill works under the Top-docked title
-            panel.Controls.Add(infoLabel);
-            panel.Controls.Add(titleLabel);
-
-            panel.Click += ShowLessonDetail;
-            titleLabel.Click += ShowLessonDetail;
-            infoLabel.Click += ShowLessonDetail;
-
-            return panel;
+            return card;
         }
 
-        private void ShowLessonDetail(object? sender, EventArgs e)
+        private static readonly Dictionary<int, (string Start, string End)> PeriodTimes = new()
         {
-            var ctrl = sender as Control;
-            // Walk up to find the panel that holds the LessonModel in its Tag
-            while (ctrl != null && ctrl.Tag is not LessonModel)
-                ctrl = ctrl.Parent;
-            if (ctrl?.Tag is LessonModel l)
-            {
-                MessageBox.Show(
-                    $"{l.Title}\n{l.Location} / {l.Instructor}\n시작 교시: {l.StartSlot}, 지속: {l.Duration}교시",
-                    "강의 정보", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            {  0, ("08:00", "08:50") },
+            {  1, ("09:00", "10:15") },
+            {  2, ("10:30", "11:45") },
+            {  3, ("12:00", "13:15") },
+            {  4, ("13:30", "14:45") },
+            {  5, ("15:00", "16:15") },
+            {  6, ("16:30", "17:45") },
+            {  7, ("18:00", "18:45") },
+            {  8, ("18:50", "19:35") },
+            {  9, ("19:40", "20:25") },
+            { 10, ("20:30", "21:15") },
+            { 11, ("21:20", "22:05") },
+        };
+
+        // "화 5교시/참B101"  →  "화  5교시  15:00~16:15  참B101"
+        // "수 0,1,2교시/새빛301"  →  "수  0,1,2교시  08:00~11:45  새빛301"
+        private static string FormatScheduleTag(string raw)
+        {
+            int slash = raw.IndexOf('/');
+            if (slash < 0) return raw;
+
+            string dayPeriod = raw[..slash].Trim();
+            string room      = raw[(slash + 1)..].Trim();
+            int    sp        = dayPeriod.IndexOf(' ');
+            if (sp < 0) return raw.Replace("/", "  ");
+
+            string day        = dayPeriod[..sp];
+            string periodPart = dayPeriod[(sp + 1)..];              // "5교시" or "0,1,2교시"
+            string nums       = periodPart.Replace("교시", "").Trim();
+
+            int min = int.MaxValue, max = int.MinValue;
+            foreach (var p in nums.Split(','))
+                if (int.TryParse(p.Trim(), out int n))
+                { if (n < min) min = n; if (n > max) max = n; }
+
+            string time = "";
+            if (min != int.MaxValue
+                && PeriodTimes.TryGetValue(min, out var ts)
+                && PeriodTimes.TryGetValue(max, out var te))
+                time = $"  {ts.Start}~{te.End}";
+
+            return $"{day}  {periodPart}{time}  {room}";
         }
     }
 }
+

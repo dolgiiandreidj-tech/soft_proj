@@ -1,16 +1,21 @@
 using Everytime.Sessions;
-using HtmlAgilityPack;
 using System.Globalization;
-using System.Text.RegularExpressions;
-using HtmlDoc = HtmlAgilityPack.HtmlDocument;
+using System.Text;
+using System.Text.Json;
 
 namespace Software_Project_team2.Services
 {
     public class KlasService
     {
         private const string BaseUrl = "https://klas.kw.ac.kr";
-        private const string ProgressionUrl = BaseUrl + "/std/cps/inqire/AtnlcScreStdPage.do";
-        private const string FrameUrl = BaseUrl + "/std/cmn/frame/Frame.do";
+        private const string FrameUrl   = BaseUrl + "/std/cmn/frame/Frame.do";
+        private const string StdHomeUrl = BaseUrl + "/std/cmn/frame/StdHome.do";
+
+        // JSON API endpoints (all accept empty-body POST, return JSON)
+        private const string SungjukTotUrl      = BaseUrl + "/std/cps/inqire/AtnlcScreSungjukTot.do";
+        private const string HakjukInfoUrl      = BaseUrl + "/std/cps/inqire/AtnlcScreHakjukInfo.do";
+        private const string ProgramGubunUrl    = BaseUrl + "/std/cps/inqire/AtnlcScreProgramGubun.do";
+        private const string ProgressionReferer = BaseUrl + "/std/cps/inqire/AtnlcScreStdPage.do";
 
         private readonly HttpClient _client;
 
@@ -20,130 +25,133 @@ namespace Software_Project_team2.Services
         }
 
         // ──────────────────────────────────────────────────────────────────
-        // Progression credits
+        // Progression credits  (majorChidukHakjum / cultureChidukHakjum / etcChidukHakjum)
         // ──────────────────────────────────────────────────────────────────
 
         public async Task<(int Major, int General, int Other)> GetProgressionCreditsAsync()
         {
-            var doc = await GetDocAsync(ProgressionUrl);
-            var table = FindTableWithHeader(doc, "신청학점");
-            if (table == null) return (0, 0, 0);
-
-            var tds = table.SelectNodes(".//tbody/tr/td");
-            if (tds == null || tds.Count < 3) return (0, 0, 0);
-
-            return (ParseCredit(tds[0].InnerText),
-                    ParseCredit(tds[1].InnerText),
-                    ParseCredit(tds[2].InnerText));
-        }
-
-        public async Task<string> GetGpaAsync()
-        {
-            var doc = await GetDocAsync(ProgressionUrl);
-            var table = FindTableWithHeader(doc, "신청학점");
-            if (table == null) return "0.00";
-
-            var tds = table.SelectNodes(".//tbody/tr/td");
-            if (tds == null || tds.Count == 0) return "0.00";
-
-            var parsed = new List<double>();
-            foreach (var td in tds)
-            {
-                var raw = Regex.Replace(td.InnerText, @"\s+", "").Replace(',', '.');
-                // Strip trailing parenthesized parts like "26(0)"
-                var token = raw.Split('(')[0];
-                if (double.TryParse(token, NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign,
-                        CultureInfo.InvariantCulture, out double v))
-                    parsed.Add(v);
-            }
-
-            return parsed.Count == 0 ? "0.00" : parsed.Last().ToString("F2", CultureInfo.InvariantCulture);
+            var root = await PostApiJsonAsync(SungjukTotUrl);
+            int major   = root.GetProperty("majorChidukHakjum").GetInt32();
+            int culture = root.GetProperty("cultureChidukHakjum").GetInt32();
+            int etc     = root.GetProperty("etcChidukHakjum").GetInt32();
+            return (major, culture, etc);
         }
 
         // ──────────────────────────────────────────────────────────────────
-        // User name from top navigation
+        // GPA  (hwakinScoresum)
+        // ──────────────────────────────────────────────────────────────────
+
+        public async Task<string> GetGpaAsync()
+        {
+            var root = await PostApiJsonAsync(SungjukTotUrl);
+            double gpa = root.GetProperty("hwakinScoresum").GetDouble();
+            return gpa.ToString("F2", CultureInfo.InvariantCulture);
+        }
+
+        // ──────────────────────────────────────────────────────────────────
+        // User name  (kname from AtnlcScreHakjukInfo)
         // ──────────────────────────────────────────────────────────────────
 
         public async Task<string> GetUserNameAsync()
         {
-            var doc = await GetDocAsync(BaseUrl);
-            var anchor = doc.DocumentNode.SelectSingleNode(
-                "//div[contains(@class,'navtxt')]//a[contains(@href,'MyInfoStdPage')]");
-            if (anchor == null) return string.Empty;
-
-            var text = HtmlEntity.DeEntitize(anchor.InnerText)
-                .Replace("\r", "").Replace("\n", "").Trim();
-            var idx = text.IndexOf('(');
-            return idx > 0 ? text[..idx].Trim() : text;
+            var root = await PostApiJsonAsync(HakjukInfoUrl);
+            return root.TryGetProperty("kname", out var kname)
+                ? kname.GetString() ?? string.Empty
+                : string.Empty;
         }
 
         // ──────────────────────────────────────────────────────────────────
-        // Timetable
+        // Full student / hakjuk info  (AtnlcScreHakjukInfo.do)
         // ──────────────────────────────────────────────────────────────────
 
-        public async Task<List<LessonModel>> GetTimetableAsync()
+        public async Task<HakjukInfo> GetHakjukInfoAsync()
         {
-            var doc = await GetDocAsync(FrameUrl);
-
-            var table = doc.DocumentNode.SelectSingleNode(
-                "//div[contains(@class,'schedule')]//table[contains(@class,'scheduletb')]");
-
-            var result = new List<LessonModel>();
-            if (table == null) return result;
-
-            var rows = table.SelectNodes(".//tbody/tr");
-            if (rows == null) return result;
-
-            foreach (var row in rows)
+            var root = await PostApiJsonAsync(HakjukInfoUrl);
+            string Str(string key) => root.TryGetProperty(key, out var v) ? v.GetString() ?? "" : "";
+            return new HakjukInfo
             {
-                // First td with class "time" holds the period number
-                var timeCell = row.SelectSingleNode(".//td[contains(@class,'time')]");
-                if (timeCell == null) continue;
-                if (!int.TryParse(timeCell.InnerText.Trim(), out int slot)) continue;
+                KName       = Str("kname"),
+                Hakgwa      = Str("hakgwa"),
+                Hakbun      = Str("hakbun"),
+                HakjukStatu = Str("hakjukStatu"),
+                JidoName    = Str("jidoName"),
+                Email       = Str("email"),
+            };
+        }
 
-                var cells = row.SelectNodes("td");
-                if (cells == null) continue;
+        // ──────────────────────────────────────────────────────────────────
+        // Full credit / GPA totals  (AtnlcScreSungjukTot.do)
+        // ──────────────────────────────────────────────────────────────────
 
-                // cells[0] = time, cells[1..] = Mon,Tue,Wed,Thu,Fri,Sat
-                for (int c = 1; c < cells.Count; c++)
+        public async Task<SungjukTot> GetSungjukTotAsync()
+        {
+            var root = await PostApiJsonAsync(SungjukTotUrl);
+            int    GetInt(string key) => root.TryGetProperty(key, out var v) ? v.GetInt32()    : 0;
+            double GetDbl(string key) => root.TryGetProperty(key, out var v) ? v.GetDouble()   : 0;
+            return new SungjukTot
+            {
+                ApplyHakjum         = GetInt("applyHakjum"),
+                MajorApplyHakjum    = GetInt("majorApplyHakjum"),
+                CultureApplyHakjum  = GetInt("cultureApplyHakjum"),
+                EtcApplyHakjum      = GetInt("etcApplyHakjum"),
+                ChidukHakjum        = GetInt("chidukHakjum"),
+                MajorChidukHakjum   = GetInt("majorChidukHakjum"),
+                CultureChidukHakjum = GetInt("cultureChidukHakjum"),
+                EtcChidukHakjum     = GetInt("etcChidukHakjum"),
+                DelHakjum           = GetInt("delHakjum"),
+                MajorDelHakjum      = GetInt("majorDelHakjum"),
+                CultureDelHakjum    = GetInt("cultureDelHakjum"),
+                EtcDelHakjum        = GetInt("etcDelHakjum"),
+                HwakinScoresum      = GetDbl("hwakinScoresum"),
+                JaechulScoresum     = GetDbl("jaechulScoresum"),
+            };
+        }
+
+        // ──────────────────────────────────────────────────────────────────
+        // Program (degree track) info  (AtnlcScreProgramGubun.do)
+        // ──────────────────────────────────────────────────────────────────
+
+        public async Task<(string PgmName, string CertOpt)> GetProgramGubunAsync()
+        {
+            var root = await PostApiJsonAsync(ProgramGubunUrl);
+            string Str(string key) => root.TryGetProperty(key, out var v) ? v.GetString() ?? "" : "";
+            return (Str("pgmName"), Str("certOpt"));
+        }
+
+        // ──────────────────────────────────────────────────────────────────
+        // Course list for current semester  (StdHome.do)
+        // ──────────────────────────────────────────────────────────────────
+
+        public async Task<CourseListResult> GetCourseListAsync()
+        {
+            using var req = new HttpRequestMessage(HttpMethod.Post, StdHomeUrl);
+            req.Headers.TryAddWithoutValidation("Accept", "application/json, text/plain, */*");
+            req.Headers.Referrer = new Uri(FrameUrl);
+            req.Content = new StringContent("{\"searchYearhakgi\":null}", Encoding.UTF8, "application/json");
+
+            var resp = await _client.SendAsync(req);
+            resp.EnsureSuccessStatusCode();
+            var json = await resp.Content.ReadAsStringAsync();
+
+            var result = new CourseListResult();
+            using var doc = JsonDocument.Parse(json);
+            var root = doc.RootElement;
+
+            if (root.TryGetProperty("yearhakgi", out var yp))
+                result.Yearhakgi = yp.GetString() ?? "";
+
+            if (root.TryGetProperty("atnlcSbjectList", out var list))
+            {
+                foreach (var item in list.EnumerateArray())
                 {
-                    var cell = cells[c];
-                    var div = cell.SelectSingleNode("div");
-                    if (div == null) continue;
-
-                    var divClass = div.GetAttributeValue("class", "");
-                    var m = Regex.Match(divClass, @"lessontime(\d+)");
-                    int duration = m.Success ? int.Parse(m.Groups[1].Value) : 1;
-
-                    var pNode = div.SelectSingleNode("p");
-                    string ptext = pNode != null
-                        ? HtmlEntity.DeEntitize(pNode.InnerText)
-                        : HtmlEntity.DeEntitize(div.InnerText);
-
-                    ptext = Regex.Replace(ptext, @"\r|\n|\t", " ").Trim();
-                    ptext = Regex.Replace(ptext, @"\s{2,}", " ");
-
-                    string title = ptext, location = "", instructor = "";
-
-                    var parenMatch = Regex.Match(ptext, @"^(.*?)\s*\((.*?)\)$");
-                    if (parenMatch.Success)
+                    string Str(string key) => item.TryGetProperty(key, out var v) ? v.GetString() ?? "" : "";
+                    result.Subjects.Add(new CourseInfo
                     {
-                        title = parenMatch.Groups[1].Value.Trim();
-                        var parts = parenMatch.Groups[2].Value
-                            .Split('/', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-                        if (parts.Length >= 1) location = parts[0];
-                        if (parts.Length >= 2) instructor = parts[1];
-                    }
-
-                    result.Add(new LessonModel
-                    {
-                        Day = c - 1,        // 0=Mon … 5=Sat
-                        StartSlot = slot,
-                        Duration = duration,
-                        Title = title,
-                        Location = location,
-                        Instructor = instructor,
-                        CssClass = divClass
+                        SubjNm           = Str("subjNm"),
+                        Hakjungno        = Str("hakjungno"),
+                        ProfNm           = Str("profNm"),
+                        LctrumSchdulInfo = Str("lctrumSchdulInfo"),
+                        OpenOrganCodeNm  = Str("openOrganCodeNm"),
                     });
                 }
             }
@@ -155,41 +163,62 @@ namespace Software_Project_team2.Services
         // Helpers
         // ──────────────────────────────────────────────────────────────────
 
-        private async Task<HtmlDoc> GetDocAsync(string url)
+        private async Task<JsonElement> PostApiJsonAsync(string url)
         {
-            var html = await _client.GetStringAsync(url);
-            var doc = new HtmlDoc();
-            doc.LoadHtml(html);
-            return doc;
-        }
+            using var req = new HttpRequestMessage(HttpMethod.Post, url);
+            req.Headers.TryAddWithoutValidation("Accept", "application/json");
+            req.Headers.Referrer = new Uri(ProgressionReferer);
+            req.Content = new ByteArrayContent(Array.Empty<byte>());
+            req.Content.Headers.ContentLength = 0;
 
-        private static HtmlNode? FindTableWithHeader(HtmlDoc doc, string headerText)
-        {
-            var tables = doc.DocumentNode.SelectNodes("//table[contains(@class,'tablegw')]");
-            if (tables == null) return null;
-            return tables.FirstOrDefault(t => t.InnerText.Contains(headerText));
-        }
-
-        private static int ParseCredit(string text)
-        {
-            var clean = Regex.Replace(text, @"\s+", "");
-            if (int.TryParse(clean.Split('\n', '\r')[0], out int v)) return v;
-            return 0;
+            var resp = await _client.SendAsync(req);
+            resp.EnsureSuccessStatusCode();
+            var json = await resp.Content.ReadAsStringAsync();
+            using var doc = JsonDocument.Parse(json);
+            return doc.RootElement.Clone();
         }
     }
 
-    // ──────────────────────────────────────────────────────────────────
-    // Data model (shared with Timetable.cs)
-    // ──────────────────────────────────────────────────────────────────
-
-    public class LessonModel
+    public class CourseInfo
     {
-        public int Day { get; set; }          // 0=Mon … 5=Sat
-        public int StartSlot { get; set; }
-        public int Duration { get; set; } = 1;
-        public string Title { get; set; } = "";
-        public string Location { get; set; } = "";
-        public string Instructor { get; set; } = "";
-        public string CssClass { get; set; } = "";
+        public string SubjNm { get; set; } = "";
+        public string Hakjungno { get; set; } = "";
+        public string ProfNm { get; set; } = "";
+        public string LctrumSchdulInfo { get; set; } = "";
+        public string OpenOrganCodeNm { get; set; } = "";
+    }
+
+    public class CourseListResult
+    {
+        public string Yearhakgi { get; set; } = "";
+        public List<CourseInfo> Subjects { get; set; } = new();
+    }
+
+    public class HakjukInfo
+    {
+        public string KName { get; set; } = "";
+        public string Hakgwa { get; set; } = "";
+        public string Hakbun { get; set; } = "";
+        public string HakjukStatu { get; set; } = "";
+        public string JidoName { get; set; } = "";
+        public string Email { get; set; } = "";
+    }
+
+    public class SungjukTot
+    {
+        public int ApplyHakjum { get; set; }
+        public int MajorApplyHakjum { get; set; }
+        public int CultureApplyHakjum { get; set; }
+        public int EtcApplyHakjum { get; set; }
+        public int ChidukHakjum { get; set; }
+        public int MajorChidukHakjum { get; set; }
+        public int CultureChidukHakjum { get; set; }
+        public int EtcChidukHakjum { get; set; }
+        public int DelHakjum { get; set; }
+        public int MajorDelHakjum { get; set; }
+        public int CultureDelHakjum { get; set; }
+        public int EtcDelHakjum { get; set; }
+        public double HwakinScoresum { get; set; }
+        public double JaechulScoresum { get; set; }
     }
 }
