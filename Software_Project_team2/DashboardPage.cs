@@ -185,14 +185,40 @@ namespace Software_Project_team2
                 // Fetch GPA (new)
                 string gpa = await klasService.GetGpaAsync();
 
+                // Fetch username and current date string
+                string userName = string.Empty;
+                try
+                {
+                    userName = await klasService.GetUserNameAsync();
+                }
+                catch
+                {
+                    // ignore errors fetching user name
+                }
+
+                string currentDate = DateTime.Now.ToString("yyyy.MM.dd HH:mm");
+
                 // Update UI Labels safely inside the UI Thread
                 if (InvokeRequired)
                 {
-                    Invoke(new Action(() => UpdateUI(totalAcquiredCredits, gpa)));
+                    Invoke(new Action(() =>
+                    {
+                        UpdateUI(totalAcquiredCredits, gpa);
+
+                        if (!string.IsNullOrWhiteSpace(userName))
+                            labelUserName.Text = $"{userName}님 환영합니다";
+
+                        labelCurrentData.Text = currentDate;
+                    }));
                 }
                 else
                 {
                     UpdateUI(totalAcquiredCredits, gpa);
+
+                    if (!string.IsNullOrWhiteSpace(userName))
+                        labelUserName.Text = $"{userName}님 환영합니다";
+
+                    labelCurrentData.Text = currentDate;
                 }
             }
             catch (Exception ex)
