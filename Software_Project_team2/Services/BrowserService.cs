@@ -1,45 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Playwright;
+using Everytime.Sessions;
+using System.Net;
 
 namespace Software_Project_team2.Services
 {
-    public class BrowserService
+    // Builds an HttpClient pre-loaded with KLAS session cookies saved by the WebView2 login form.
+    public static class KlasHttpClientFactory
     {
-        public static BrowserService? Instance { get; private set; }
-
-        private IPlaywright? _playwright;
-        protected IBrowser browser = null!;
-        protected IBrowserContext context = null!;
-        protected IPage page = null!;
-
-        public async Task InitAsync()
+        public static HttpClient FromSession(Session session)
         {
-            // Dispose previous browser if retrying after a failed login
-            await DisposeAsync();
-
-            _playwright = await Playwright.CreateAsync();
-
-            browser = await _playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+            var jar = new CookieContainer();
+            foreach (var c in session.Cookies)
             {
-                Headless = false
-            });
+                var cookie = new Cookie(c.Name, c.Value, c.Path ?? "/") { Domain = c.Domain };
+                jar.Add(new Uri($"https://{c.Domain.TrimStart('.')}/"), cookie);
+            }
 
-            context = await browser.NewContextAsync();
-            page = await context.NewPageAsync();
-            Instance = this;
+            var handler = new HttpClientHandler
+            {
+                CookieContainer = jar,
+                UseCookies = true,
+                AutomaticDecompression = DecompressionMethods.All,
+                AllowAutoRedirect = true
+            };
+
+            var client = new HttpClient(handler);
+            client.DefaultRequestHeaders.UserAgent.ParseAdd(session.UserAgent);
+            client.DefaultRequestHeaders.Add("Referer", "https://klas.kw.ac.kr/");
+            return client;
         }
-
-        public async Task DisposeAsync()
-        {
-            if (browser != null) { await browser.CloseAsync(); browser = null!; }
-            _playwright?.Dispose();
-            _playwright = null;
-        }
-
-        public async Task<IPage> NewPageAsync() => await context.NewPageAsync();
     }
 }

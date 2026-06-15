@@ -29,7 +29,7 @@ namespace Software_Project_team2
 
             klasService = klas;
 
-            buttonTimeTable.Click += (_, _) => new Timetable().Show();
+            buttonTimeTable.Click += (_, _) => new Timetable(klasService).Show();
             buttonLectureManagement.Click += (_, _) => new SchedulePanel().Show();
             btnMore.Click += (_, _) => new NoticeForm().Show();
             buttonGrades.Click += (_, _) => new Grade().Show();
