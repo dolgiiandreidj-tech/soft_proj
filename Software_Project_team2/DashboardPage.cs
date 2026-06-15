@@ -35,6 +35,30 @@ namespace Software_Project_team2
             buttonGrades.Click += (_, _) => new Grade().Show();
             buttonAssignment.Click += (_, _) => new Assignment().Show();
             buttonMoreClaass.Click += (_, _) => new RecommendedCoursesForm().Show();
+            buttonLogOut.Click += OnLogOut;
+        }
+
+        private void OnLogOut(object? sender, EventArgs e)
+        {
+            var result = MessageBox.Show(
+                "KLAS와 에브리타임에서 로그아웃하시겠습니까?",
+                "로그아웃",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2);
+
+            if (result != DialogResult.Yes) return;
+
+            var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            DeleteFile(Path.Combine(appData, "klas.session.json"));
+            DeleteFile(Path.Combine(appData, "everytime.session.json"));
+
+            Application.Restart();
+        }
+
+        private static void DeleteFile(string path)
+        {
+            try { if (File.Exists(path)) File.Delete(path); } catch { }
         }
 
         private async Task LoadNoticesAsync()
