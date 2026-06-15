@@ -5,9 +5,21 @@ namespace Software_Project_team2
     public partial class Form1 : Form
     {
         private KlasService klasService = new KlasService();
+
         public Form1()
         {
             InitializeComponent();
+            this.Shown += Form1_Shown;
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            textBoxId.TabIndex = 0;
+            textBoxPassword.TabIndex = 1;
+            buttonLogin.TabIndex = 2;
+
+            this.ActiveControl = textBoxId;
+            textBoxId.Focus();
         }
 
         private async void buttonLogin_Click(object sender, EventArgs e)
