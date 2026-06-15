@@ -71,21 +71,27 @@ public sealed class EverytimeClient(HttpClient client)
             .ToList();
     }
 
-    public async Task<List<Subject>> GetAllSubjectsAsync(int campusId, int year, string semester, CancellationToken ct = default)
+    public async Task<List<Subject>> GetAllSubjectsAsync(
+        int campusId, int year, string semester,
+        string keyword = "", string condition = "name",
+        CancellationToken ct = default)
     {
         var all = new List<Subject>();
         const int limit = 50;
         var start = 0;
         while (true)
         {
-            using var body = new FormUrlEncodedContent(new Dictionary<string, string>
+            var fields = new Dictionary<string, string>
             {
                 ["campusId"] = campusId.ToString(),
                 ["year"] = year.ToString(),
                 ["semester"] = semester,
+                ["keyword"] = keyword,
+                ["condition"] = condition,
                 ["limitNum"] = limit.ToString(),
                 ["startNum"] = start.ToString()
-            });
+            };
+            using var body = new FormUrlEncodedContent(fields);
             using var resp = await client.PostAsync(
                 "https://api.everytime.kr/find/timetable/subject/list", body, ct);
             EnsureNotExpired(resp);

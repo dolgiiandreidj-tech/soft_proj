@@ -65,12 +65,17 @@ namespace Software_Project_team2
             var all = raw.Concat(accountRaw)
                 .GroupBy(c => c.Name)
                 .Select(g => g.First())
-                .Select(c => new SessionCookie(
-                    c.Name,
-                    c.Value,
-                    string.IsNullOrEmpty(c.Domain) ? ".everytime.kr" : c.Domain,
-                    string.IsNullOrEmpty(c.Path) ? "/" : c.Path,
-                    c.Expires == DateTime.MinValue ? null : (DateTimeOffset?)new DateTimeOffset(c.Expires)))
+                .Select(c =>
+                {
+                    // WebView2/Chrome strips leading dots from Set-Cookie Domain attributes.
+                    // Restore it so cookies reach api.everytime.kr (not just the exact host).
+                    var dom = string.IsNullOrEmpty(c.Domain) ? ".everytime.kr" : c.Domain;
+                    if (!dom.StartsWith('.')) dom = "." + dom;
+                    return new SessionCookie(
+                        c.Name, c.Value, dom,
+                        string.IsNullOrEmpty(c.Path) ? "/" : c.Path,
+                        c.Expires == DateTime.MinValue ? null : (DateTimeOffset?)new DateTimeOffset(c.Expires));
+                })
                 .ToList();
 
             var session = new Session

@@ -2,10 +2,13 @@ using Everytime.Api;
 using Everytime.Models;
 using Everytime.Sessions;
 using EvertimeScraper.Models;
+using Software_Project_team2.Services;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,11 +24,16 @@ namespace Software_Project_team2
         private List<LectureInfo> _byClass = new();
         private List<ReviewInfo> _lastReviews = new();
 
-        // API client — initialised lazily on first search
+        // Everytime API client — initialised lazily on first search
         private EverytimeClient? _client;
         private HttpClient? _httpClient;
-        private List<Subject> _cachedSubjects = new();
         private const int CampusId = 11;
+
+        // KLAS API client for syllabus — reuses the saved KLAS session
+        private HttpClient? _klasHttpClient;
+
+        // Syllabus grid — built in constructor and added to panelSyllabus
+        private readonly DataGridView _syllabusGrid;
 
         private static (int year, string semester) CurrentSemester()
         {
@@ -36,6 +44,52 @@ namespace Software_Project_team2
         public SchedulePanel()
         {
             InitializeComponent();
+
+            // Build syllabus DataGridView and attach it to panelSyllabus
+            int gridW = panelSyllabus.Width - 42;
+            int gridH = panelSyllabus.Height - 55;
+            _syllabusGrid = new DataGridView
+            {
+                Location  = new Point(20, 52),
+                Size      = new Size(gridW, gridH),
+                Anchor    = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
+                ReadOnly  = true,
+                AllowUserToAddRows     = false,
+                AllowUserToDeleteRows  = false,
+                AllowUserToResizeRows  = false,
+                ColumnHeadersVisible   = false,   // no header row — saves ~25 px
+                RowHeadersVisible      = false,
+                BackgroundColor        = Color.FromArgb(252, 252, 252),
+                BorderStyle            = BorderStyle.None,
+                GridColor              = Color.FromArgb(230, 232, 238),
+                Font                   = new Font("Segoe UI", 9F),
+                AutoSizeColumnsMode    = DataGridViewAutoSizeColumnsMode.None,
+                SelectionMode          = DataGridViewSelectionMode.FullRowSelect,
+            };
+            _syllabusGrid.DefaultCellStyle.BackColor          = Color.FromArgb(252, 252, 252);
+            _syllabusGrid.DefaultCellStyle.ForeColor          = Color.FromArgb(30, 35, 45);
+            _syllabusGrid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(210, 218, 240);
+            _syllabusGrid.DefaultCellStyle.SelectionForeColor = Color.FromArgb(30, 35, 45);
+            _syllabusGrid.DefaultCellStyle.Padding            = new Padding(2, 0, 2, 0);
+
+            _syllabusGrid.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Width = 38,
+                DefaultCellStyle =
+                {
+                    Alignment = DataGridViewContentAlignment.MiddleCenter,
+                    ForeColor = Color.FromArgb(130, 80, 180),
+                    Font      = new Font("Segoe UI", 8.5F, FontStyle.Bold)
+                }
+            });
+            _syllabusGrid.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Width = gridW - 38 - 2
+            });
+            _syllabusGrid.RowTemplate.Height = 18;   // compact — 15 rows ≈ 270 px
+
+            panelSyllabus.Controls.Add(_syllabusGrid);
+
             btnGo.Click += async (_, _) => await RunSearchAsync();
             txtSearch.KeyDown += async (s, e) =>
             {
@@ -70,22 +124,21 @@ namespace Software_Project_team2
             {
                 if (!await EnsureClientAsync()) return;
 
-                // Fetch subjects once per session; reuse cache on subsequent searches
-                if (_cachedSubjects.Count == 0)
-                {
-                    lblStatus.Text = "강의 목록 불러오는 중...";
-                    var (year, sem) = CurrentSemester();
-                    _cachedSubjects = await _client!.GetAllSubjectsAsync(CampusId, year, sem);
-                }
+                lblStatus.Text = "검색 중...";
+                var (year, sem) = CurrentSemester();
 
-                _byClass = _cachedSubjects
+                var byNameTask = _client!.GetAllSubjectsAsync(CampusId, year, sem, keyword, "name");
+                var byProfTask = _client!.GetAllSubjectsAsync(CampusId, year, sem, keyword, "professor");
+                await Task.WhenAll(byNameTask, byProfTask);
+
+                _byClass = byNameTask.Result
                     .Where(s => s.Name?.Contains(keyword, StringComparison.OrdinalIgnoreCase) ?? false)
-                    .Select(s => new LectureInfo(s.Name ?? "", s.Professor ?? "", "", int.TryParse(s.LectureId, out var id) ? id : 0, s.Code ?? ""))
+                    .Select(s => new LectureInfo(s.Name ?? "", s.Professor ?? "", "", int.TryParse(s.LectureId, out var id) ? id : 0, s.Code ?? "", s.Id ?? ""))
                     .ToList();
 
-                _byProf = _cachedSubjects
+                _byProf = byProfTask.Result
                     .Where(s => s.Professor?.Contains(keyword, StringComparison.OrdinalIgnoreCase) ?? false)
-                    .Select(s => new LectureInfo(s.Name ?? "", s.Professor ?? "", "", int.TryParse(s.LectureId, out var id) ? id : 0, s.Code ?? ""))
+                    .Select(s => new LectureInfo(s.Name ?? "", s.Professor ?? "", "", int.TryParse(s.LectureId, out var id) ? id : 0, s.Code ?? "", s.Id ?? ""))
                     .ToList();
 
                 foreach (var l in _byProf)
@@ -119,7 +172,6 @@ namespace Software_Project_team2
             _client = null;
             _httpClient?.Dispose();
             _httpClient = null;
-            _cachedSubjects.Clear();
         }
 
         private async Task<bool> EnsureClientAsync()
@@ -200,6 +252,9 @@ namespace Software_Project_team2
 
                 _lastReviews = reviews;
                 ShowReviews(reviews);
+
+                // Load syllabus in parallel (independent from reviews)
+                _ = LoadSyllabusAsync(info, myRequest);
             }
             catch (SessionExpiredException)
             {
@@ -214,6 +269,147 @@ namespace Software_Project_team2
                 if (myRequest != Volatile.Read(ref _detailRequest)) return;
                 lblDetailStatus.Text = $"오류: {ex.Message}";
             }
+        }
+
+        private async Task LoadSyllabusAsync(LectureInfo info, int requestToken)
+        {
+            lblSyllabusHeader.Text = "강의계획서 불러오는 중...";
+            _syllabusGrid.Rows.Clear();
+
+            var selectSubj = info.SubjectId;
+            if (string.IsNullOrEmpty(selectSubj))
+            {
+                lblSyllabusHeader.Text = "강의계획서 — ID 없음";
+                return;
+            }
+
+            try
+            {
+                if (!await EnsureKlasClientAsync())
+                {
+                    lblSyllabusHeader.Text = "강의계획서 — KLAS 세션 없음";
+                    return;
+                }
+
+                var json   = await PostSyllabusAsync(selectSubj);
+                var weeks  = ParseSyllabus(json);
+
+                if (requestToken != Volatile.Read(ref _detailRequest)) return;
+
+                foreach (var (week, topic) in weeks)
+                    _syllabusGrid.Rows.Add($"W{week}", topic);
+
+                lblSyllabusHeader.Text = weeks.Count > 0
+                    ? $"강의계획서 ({weeks.Count}주)"
+                    : "강의계획서 — 내용 없음";
+            }
+            catch (Exception ex)
+            {
+                if (requestToken != Volatile.Read(ref _detailRequest)) return;
+                lblSyllabusHeader.Text = $"강의계획서 오류: {ex.Message}";
+            }
+        }
+
+        private async Task<bool> EnsureKlasClientAsync()
+        {
+            if (_klasHttpClient != null) return true;
+            var store = new SessionStore(Form1.SessionPath);
+            var session = await store.LoadAsync();
+            if (session == null) return false;
+            _klasHttpClient = KlasHttpClientFactory.FromSession(session);
+            return true;
+        }
+
+        private async Task<string> PostSyllabusAsync(string selectSubj)
+        {
+            const string url = "https://klas.kw.ac.kr/std/cps/atnlc/LectrePlanData.do";
+            var referer = $"https://klas.kw.ac.kr/std/cps/atnlc/popup/LectrePlanStdView.do?selectSubj={selectSubj}";
+
+            var body = BuildSyllabusBody(selectSubj);
+            using var req = new HttpRequestMessage(HttpMethod.Post, url);
+            req.Headers.TryAddWithoutValidation("Accept", "application/json, text/plain, */*");
+            req.Headers.TryAddWithoutValidation("Referer", referer);
+            req.Content = new StringContent(body, Encoding.UTF8, "application/json");
+
+            var resp = await _klasHttpClient!.SendAsync(req);
+            resp.EnsureSuccessStatusCode();
+            return await resp.Content.ReadAsStringAsync();
+        }
+
+        private static string BuildSyllabusBody(string selectSubj) =>
+            JsonSerializer.Serialize(new
+            {
+                info = "", selectSubj, selectGrcode = "N000003",
+                selectYear = "", selecthakgi = "", selectRadio = "",
+                selectText = "", selectProfsr = "", gwamokKname = "",
+                openCode = "", incLc = "popup",
+                times = (string?)null, teamName = (string?)null,
+                teamEmail = (string?)null, astntName = (string?)null,
+                astntEmail = (string?)null,
+                perCheck = 0, gitaDetail = "",
+                engOptCheck = "", frnOptCheck = "", foreignOpt = "",
+                recOptCheck = "", engOpt = "", beforData = "",
+                LrnRsltList = "", experimentPlan = "",
+                experimentPlanList = Array.Empty<object>(),
+                getScore1 = "", getScore2 = "", getScore3 = "",
+                exmPlan = "", target = "", analysis = "",
+                manufacture = "", test = "", evaluation = "",
+                composition = "", compositionEtc = "",
+                economic = "", environment = "", social = "",
+                ethics = "", esthetic = "", safety = "",
+                production = "", durability = "", standard = "",
+                actualEtc = "",
+                pa1 = "", pa2 = "", pa3 = "", pa4 = "",
+                pa5 = "", pa6 = "", pa7 = "",
+                attendBiyul = "", middleBiyul = "", lastBiyul = "",
+                reportBiyul = "", learnBiyul = "", quizBiyul = "", gitaBiyul = "",
+                attendExpect = "", middleExpect = "", lastExpect = "",
+                reportExpect = "", learnExpect = "", quizExpect = "", gitaExpect = "",
+                tblOpt = "", pblOpt = "", seminarOpt = "", onlineOpt = "",
+                typeSmall = "", typeWork = "", typeTeam = "", typeFusion = "",
+                typeElearn = "", typeBlended = "", typeForeigner = "",
+                typeExperiment = "", typeJibjung = "", typeFlipped = "",
+                lectureOpt = "", discussionOpt = "", reportOpt = "",
+                testOpt = "", practiceOpt = "", computerOpt = "",
+                projectOpt = "", vtrOpt = "",
+                face100Opt = "", faceliveOpt = "", live100Opt = "",
+                facerecOpt = "", recliveOpt = "", rec100Opt = "",
+                faceliverecOpt = "",
+                recVideo = "", recReport = "", recQuiz = "",
+                recQna = "", recEtc = "", recEtcDetail = "",
+                jointLectureOpt = "", fieldTripOpt = "",
+                internshipOpt = "", invitationSeminarOpt = "",
+                outsideEvaluationOpt = "", etcOpt = "", evaluationOpt = "",
+                weekLecture = Array.Empty<object>(),
+                weekSubs    = Array.Empty<object>(),
+                weekBigo    = Array.Empty<object>(),
+                stopFlag = ""
+            });
+
+        private static List<(int Week, string Topic)> ParseSyllabus(string json)
+        {
+            using var doc = JsonDocument.Parse(json);
+            var root = doc.RootElement;
+
+            // KLAS wraps the response in a JSON array — unwrap first element
+            var obj = root.ValueKind == JsonValueKind.Array
+                ? root.EnumerateArray().FirstOrDefault()
+                : root;
+
+            if (obj.ValueKind != JsonValueKind.Object)
+                return new();
+
+            var result = new List<(int, string)>();
+            for (int i = 1; i <= 15; i++)
+            {
+                if (obj.TryGetProperty($"week{i}Lecture", out var val))
+                {
+                    var text = val.GetString()?.Trim() ?? "";
+                    if (!string.IsNullOrEmpty(text))
+                        result.Add((i, text));
+                }
+            }
+            return result;
         }
 
         private void ShowReviews(List<ReviewInfo> reviews)
@@ -291,6 +487,8 @@ namespace Software_Project_team2
             flowReviews.Controls.Clear();
             lblReviewsHeader.Text = "최근 강의평";
             _lastReviews.Clear();
+            _syllabusGrid.Rows.Clear();
+            lblSyllabusHeader.Text = "강의계획서";
         }
     }
 }

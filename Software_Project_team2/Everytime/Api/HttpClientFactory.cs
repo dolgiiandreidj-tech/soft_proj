@@ -10,10 +10,13 @@ public static class HttpClientFactory
         var cookies = new CookieContainer();
         foreach (var c in session.Cookies)
         {
-            // Use Uri-based Add so the container respects leading-dot domains
-            // (.everytime.kr must match api.everytime.kr, not just everytime.kr)
-            var cookie = new Cookie(c.Name, c.Value, c.Path ?? "/") { Domain = c.Domain };
-            cookies.Add(new Uri($"https://{c.Domain.TrimStart('.')}/"), cookie);
+            // WebView2 strips the leading dot from cookie domains (Chrome internals).
+            // Without the dot, CookieContainer treats the cookie as host-only and won't
+            // send it to api.everytime.kr — only to the exact host it was set for.
+            // Restore the leading dot so the cookie is scoped to all subdomains.
+            var domain = c.Domain.StartsWith('.') ? c.Domain : "." + c.Domain;
+            var cookie = new Cookie(c.Name, c.Value, c.Path ?? "/") { Domain = domain };
+            cookies.Add(new Uri($"https://{domain.TrimStart('.')}/"), cookie);
         }
 
         var handler = new HttpClientHandler
