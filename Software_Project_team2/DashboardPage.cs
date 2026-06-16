@@ -1,10 +1,13 @@
-﻿using System;
+using Everytime.Sessions;
+using Software_Project_team2.Models;
+using Software_Project_team2.Services;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Software_Project_team2.Services;
 
 namespace Software_Project_team2
 {
@@ -12,13 +15,29 @@ namespace Software_Project_team2
     {
         private KlasService klasService;
         private readonly Services.NoticeService _noticeService = new();
+        private List<RecommendedCourse> _recommendations = new();
 
-        // Ensure 133 matches the maximum credits defined in the UI
         private const int TotalRequiredCredits = 133;
 
         public DashboardPage(KlasService klas)
         {
             InitializeComponent();
+
+            // Hide placeholder card panels (flowLayoutPanel1 covers them, but remove from tab order)
+            panel4.Visible = false;
+            panel5.Visible = false;
+            panel6.Visible = false;
+            panel7.Visible = false;
+
+            // Show loading state immediately
+            flowLayoutPanel1.Controls.Add(new Label
+            {
+                Text = "추천 강의 로딩 중...",
+                Font = new Font("Segoe UI", 12F),
+                ForeColor = Color.Gray,
+                AutoSize = true,
+                Margin = new Padding(20, 20, 0, 0)
+            });
 
             WindowState = FormWindowState.Maximized;
             FormBorderStyle = FormBorderStyle.Sizable;
@@ -32,7 +51,7 @@ namespace Software_Project_team2
             btnMore.Click += (_, _) => new NoticeForm().Show();
             buttonGrades.Click += (_, _) => new Grade(klasService).Show();
             buttonAssignment.Click += (_, _) => new Assignment(klasService).Show();
-            buttonMoreClaass.Click += (_, _) => new RecommendedCoursesForm().Show();
+            buttonMoreClaass.Click += (_, _) => new RecommendedCoursesForm(_recommendations).Show();
             buttonLogOut.Click += OnLogOut;
         }
 
@@ -99,6 +118,7 @@ namespace Software_Project_team2
 
             _ = LoadNoticesAsync();
             _ = LoadProgressionDataAsync();
+            _ = LoadRecommendationsAsync();
         }
 
         private async Task LoadProgressionDataAsync()
@@ -107,26 +127,19 @@ namespace Software_Project_team2
             {
                 var credits = await klasService.GetProgressionCreditsAsync();
 
-                // Calculate the sum of all parsing sections
                 int totalAcquiredCredits = credits.Major + credits.General + credits.Other;
 
-                // Fetch GPA (new)
                 string gpa = await klasService.GetGpaAsync();
 
-                // Fetch username and current date string
                 string userName = string.Empty;
                 try
                 {
                     userName = await klasService.GetUserNameAsync();
                 }
-                catch
-                {
-                    // ignore errors fetching user name
-                }
+                catch { }
 
                 string currentDate = DateTime.Now.ToString("yyyy.MM.dd HH:mm");
 
-                // Update UI Labels safely inside the UI Thread
                 if (InvokeRequired)
                 {
                     Invoke(new Action(() =>
@@ -167,21 +180,69 @@ namespace Software_Project_team2
             }
         }
 
+        private async Task LoadRecommendationsAsync()
+        {
+            try
+            {
+                var etSession = await LoadEverytimeSessionAsync();
+                if (etSession == null) return;
+
+                var service = new CourseRecommendationService(klasService, etSession);
+                _recommendations = await service.GetRecommendationsAsync();
+
+                var top4 = _recommendations.Take(4).ToList();
+
+                void updateUI() => ShowCourseCards(top4);
+                if (InvokeRequired) Invoke(updateUI);
+                else updateUI();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[Recommendations] Failed: {ex.Message}");
+            }
+        }
+
+        private static async Task<Session?> LoadEverytimeSessionAsync()
+        {
+            try
+            {
+                var path = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    "everytime.session.json");
+                return await new SessionStore(path).LoadAsync();
+            }
+            catch { return null; }
+        }
+
+        private void ShowCourseCards(List<RecommendedCourse> courses)
+        {
+            flowLayoutPanel1.Controls.Clear();
+
+            if (courses.Count == 0)
+            {
+                flowLayoutPanel1.Controls.Add(new Label
+                {
+                    Text = "추천 강의를 불러올 수 없습니다.",
+                    Font = new Font("Segoe UI", 12F),
+                    ForeColor = Color.Gray,
+                    AutoSize = true,
+                    Margin = new Padding(20, 20, 0, 0)
+                });
+                return;
+            }
+
+            int cardWidth = Math.Max(200, flowLayoutPanel1.Width - 20);
+            foreach (var course in courses)
+                flowLayoutPanel1.Controls.Add(RecommendedCoursesForm.CreateCourseCard(course, cardWidth));
+        }
+
         private void UpdateUI(int totalAcquiredCredits, string gpa)
         {
-            // 0. Update GPA label
             label3.Text = string.IsNullOrWhiteSpace(gpa) ? "0.0" : gpa;
-
-            // 1. Set the aggregated main value
             label10.Text = totalAcquiredCredits.ToString();
+            label9.Left = label10.Right + 3;
 
-            // 2. IMPORTANT: Adjust position of the target text ("/133") so it doesn't overlap
-            label9.Left = label10.Right + 3; // +3 is a small padding gap
-
-            // 3. Calculate progress ratio
             double percentage = Math.Min(100.0, ((double)totalAcquiredCredits / TotalRequiredCredits) * 100);
-
-            // 4. Update texts and bar width visually
             label7.Text = $"{percentage:F1}%";
             int maxProgressBarWidth = panel3.Width;
             panel2.Width = (int)((percentage / 100.0) * maxProgressBarWidth);

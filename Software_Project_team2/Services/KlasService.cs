@@ -13,6 +13,7 @@ namespace Software_Project_team2.Services
 
         // JSON API endpoints (all accept empty-body POST, return JSON)
         private const string SungjukTotUrl      = BaseUrl + "/std/cps/inqire/AtnlcScreSungjukTot.do";
+        private const string SungjukInfoUrl     = BaseUrl + "/std/cps/inqire/AtnlcScreSungjukInfo.do";
         private const string HakjukInfoUrl      = BaseUrl + "/std/cps/inqire/AtnlcScreHakjukInfo.do";
         private const string ProgramGubunUrl    = BaseUrl + "/std/cps/inqire/AtnlcScreProgramGubun.do";
         private const string ProgressionReferer = BaseUrl + "/std/cps/inqire/AtnlcScreStdPage.do";
@@ -122,6 +123,34 @@ namespace Software_Project_team2.Services
             var root = await PostApiJsonAsync(ProgramGubunUrl);
             string Str(string key) => root.TryGetProperty(key, out var v) ? v.GetString() ?? "" : "";
             return (Str("pgmName"), Str("certOpt"));
+        }
+
+        // ──────────────────────────────────────────────────────────────────
+        // All taken course names across every semester  (AtnlcScreSungjukInfo.do)
+        // ──────────────────────────────────────────────────────────────────
+
+        public async Task<HashSet<string>> GetAllTakenCourseNamesAsync()
+        {
+            var root = await PostApiJsonAsync(SungjukInfoUrl);
+            var result = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            if (root.ValueKind != JsonValueKind.Array) return result;
+
+            foreach (var semester in root.EnumerateArray())
+            {
+                if (!semester.TryGetProperty("sungjukList", out var list)) continue;
+                foreach (var course in list.EnumerateArray())
+                {
+                    if (course.TryGetProperty("gwamokKname", out var name))
+                    {
+                        var n = name.GetString();
+                        if (!string.IsNullOrEmpty(n))
+                            result.Add(n.Replace(" ", ""));
+                    }
+                }
+            }
+
+            return result;
         }
 
         // ──────────────────────────────────────────────────────────────────
