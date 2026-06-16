@@ -276,13 +276,6 @@ namespace Software_Project_team2
             lblSyllabusHeader.Text = "강의계획서 불러오는 중...";
             _syllabusGrid.Rows.Clear();
 
-            var selectSubj = info.SubjectId;
-            if (string.IsNullOrEmpty(selectSubj))
-            {
-                lblSyllabusHeader.Text = "강의계획서 — ID 없음";
-                return;
-            }
-
             try
             {
                 if (!await EnsureKlasClientAsync())
@@ -291,8 +284,19 @@ namespace Software_Project_team2
                     return;
                 }
 
-                var json   = await PostSyllabusAsync(selectSubj);
-                var weeks  = ParseSyllabus(json);
+                var (year, sem) = CurrentSemester();
+                var selectSubj = await FindKlasSubjectIdAsync(info.Name, info.Professor, year, sem);
+
+                if (requestToken != Volatile.Read(ref _detailRequest)) return;
+
+                if (string.IsNullOrEmpty(selectSubj))
+                {
+                    lblSyllabusHeader.Text = "강의계획서 — KLAS에서 강의를 찾을 수 없음";
+                    return;
+                }
+
+                var json  = await PostSyllabusAsync(selectSubj, year, sem);
+                var weeks = ParseSyllabus(json);
 
                 if (requestToken != Volatile.Read(ref _detailRequest)) return;
 
@@ -310,6 +314,144 @@ namespace Software_Project_team2
             }
         }
 
+        private async Task<string?> FindKlasSubjectIdAsync(string subjectName, string professor, int year, string semester)
+        {
+            // Pass 1: search by subject name, match professor locally.
+            var byName = await SearchKlasLectrePlanAsync(subjectName, "", year, semester);
+            var id = PickBestKlasSubjectId(byName, subjectName, professor);
+            if (!string.IsNullOrEmpty(id)) return id;
+
+            // Pass 2: name search found nothing usable — retry by professor.
+            if (!string.IsNullOrEmpty(professor))
+            {
+                var byProf = await SearchKlasLectrePlanAsync("", professor, year, semester);
+                id = PickBestKlasSubjectId(byProf, subjectName, professor);
+                if (!string.IsNullOrEmpty(id)) return id;
+            }
+
+            return null;
+        }
+
+        private async Task<string> SearchKlasLectrePlanAsync(string selectText, string selectProfsr, int year, string semester)
+        {
+            const string listUrl = "https://klas.kw.ac.kr/std/cps/atnlc/LectrePlanStdList.do";
+
+            var body = JsonSerializer.Serialize(new
+            {
+                list          = Array.Empty<object>(),
+                selectSubj    = "",
+                selectYear    = year.ToString(),
+                selecthakgi   = semester,
+                isSearch      = "Y",
+                randomNum     = new Random().Next(1000, 9999),
+                numText       = "",
+                selectYearList = new[] { new { value = year, text = $"{year}년" } },
+                selectRadio   = "all",
+                selectText    = selectText,
+                selectProfsr  = selectProfsr,
+                cmmnGamok     = "",
+                selectCmGamokList  = Array.Empty<object>(),
+                selecthakgwa  = "",
+                selectHwaGwakList  = Array.Empty<object>(),
+                selectMajor   = "",
+                selectMajorList    = Array.Empty<object>(),
+                stopFlag      = "N",
+            });
+
+            using var req = new HttpRequestMessage(HttpMethod.Post, listUrl);
+            req.Headers.TryAddWithoutValidation("Accept", "application/json, text/plain, */*");
+            req.Headers.TryAddWithoutValidation("Referer", "https://klas.kw.ac.kr/std/cps/atnlc/LectrePlanStdPage.do");
+            req.Content = new StringContent(body, Encoding.UTF8, "application/json");
+
+            var resp = await _klasHttpClient!.SendAsync(req);
+            resp.EnsureSuccessStatusCode();
+            return await resp.Content.ReadAsStringAsync();
+        }
+
+        // The LectrePlanStdList.do response has NO selectSubj field — the id is
+        // built from component fields:
+        //   "U" + thisYear + hakgi + openGwamokNo + openMajorCode + bunbanNo + openGrade
+        // e.g. "U"+"2026"+"1"+"4969"+"0000"+"01"+"2" = "U2026149690000012".
+        private static string? PickBestKlasSubjectId(string json, string subjectName, string professor)
+        {
+            using var doc = JsonDocument.Parse(json);
+            var root = doc.RootElement;
+
+            // Response is a bare array; also tolerate an object wrapping a "list".
+            IEnumerable<JsonElement> items;
+            if (root.ValueKind == JsonValueKind.Array)
+                items = root.EnumerateArray();
+            else if (root.TryGetProperty("list", out var listEl) && listEl.ValueKind == JsonValueKind.Array)
+                items = listEl.EnumerateArray();
+            else
+                return null;
+
+            var rows = items.ToList();
+            if (rows.Count == 0) return null;
+
+            string wantName = Normalize(subjectName);
+            string wantProf = Normalize(professor);
+
+            string? bestByName = null;
+            string? bestByProf = null;
+            string? firstAny   = null;
+
+            foreach (var row in rows)
+            {
+                var id = BuildSelectSubj(row);
+                if (string.IsNullOrEmpty(id)) continue;
+
+                firstAny ??= id;
+
+                string kname  = Normalize(Field(row, "gwamokKname"));
+                string member = Normalize(Field(row, "memberName"));
+
+                bool nameOk = wantName.Length > 0 && kname.Length > 0
+                           && (kname.Contains(wantName) || wantName.Contains(kname));
+                bool profOk = wantProf.Length > 0 && member.Length > 0
+                           && (member.Contains(wantProf) || wantProf.Contains(member));
+
+                if (nameOk && profOk) return id;   // exact match — stop immediately
+                if (nameOk) bestByName ??= id;
+                if (profOk) bestByProf ??= id;
+            }
+
+            // name-only → professor-only → first row with a valid id
+            return bestByName ?? bestByProf ?? firstAny;
+        }
+
+        // Concatenate the KLAS subject id from a list row's component fields.
+        private static string BuildSelectSubj(JsonElement row)
+        {
+            string thisYear     = Field(row, "thisYear");
+            string hakgi        = Field(row, "hakgi");
+            string openGwamokNo = Field(row, "openGwamokNo");
+            string openMajorCd  = Field(row, "openMajorCode");
+            string bunbanNo     = Field(row, "bunbanNo");
+            string openGrade    = Field(row, "openGrade");
+
+            if (thisYear.Length == 0 || hakgi.Length == 0 || openGwamokNo.Length == 0
+                || openMajorCd.Length == 0 || bunbanNo.Length == 0 || openGrade.Length == 0)
+                return "";
+
+            return "U" + thisYear + hakgi + openGwamokNo + openMajorCd + bunbanNo + openGrade;
+        }
+
+        // Read a row field as a string whether KLAS returns it as a JSON string or number.
+        private static string Field(JsonElement row, string key)
+        {
+            if (!row.TryGetProperty(key, out var v)) return "";
+            return v.ValueKind switch
+            {
+                JsonValueKind.String => v.GetString() ?? "",
+                JsonValueKind.Number => v.ToString(),
+                _ => ""
+            };
+        }
+
+        private static string Normalize(string s) =>
+            string.IsNullOrEmpty(s) ? "" : s.Replace(" ", "").Trim();
+
         private async Task<bool> EnsureKlasClientAsync()
         {
             if (_klasHttpClient != null) return true;
@@ -320,12 +462,12 @@ namespace Software_Project_team2
             return true;
         }
 
-        private async Task<string> PostSyllabusAsync(string selectSubj)
+        private async Task<string> PostSyllabusAsync(string selectSubj, int year, string semester)
         {
             const string url = "https://klas.kw.ac.kr/std/cps/atnlc/LectrePlanData.do";
             var referer = $"https://klas.kw.ac.kr/std/cps/atnlc/popup/LectrePlanStdView.do?selectSubj={selectSubj}";
 
-            var body = BuildSyllabusBody(selectSubj);
+            var body = BuildSyllabusBody(selectSubj, year, semester);
             using var req = new HttpRequestMessage(HttpMethod.Post, url);
             req.Headers.TryAddWithoutValidation("Accept", "application/json, text/plain, */*");
             req.Headers.TryAddWithoutValidation("Referer", referer);
@@ -336,11 +478,11 @@ namespace Software_Project_team2
             return await resp.Content.ReadAsStringAsync();
         }
 
-        private static string BuildSyllabusBody(string selectSubj) =>
+        private static string BuildSyllabusBody(string selectSubj, int year, string semester) =>
             JsonSerializer.Serialize(new
             {
                 info = "", selectSubj, selectGrcode = "N000003",
-                selectYear = "", selecthakgi = "", selectRadio = "",
+                selectYear = year.ToString(), selecthakgi = semester, selectRadio = "",
                 selectText = "", selectProfsr = "", gwamokKname = "",
                 openCode = "", incLc = "popup",
                 times = (string?)null, teamName = (string?)null,
