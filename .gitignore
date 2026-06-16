@@ -16,6 +16,7 @@ UpgradeLog.htm
 # Claude Code (local only)
 .claude/
 CLAUDE.md
+docs/superpowers/
 
 # Everytime session cookies (generated at runtime)
 session.json
