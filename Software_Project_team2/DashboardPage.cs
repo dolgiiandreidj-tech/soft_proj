@@ -33,7 +33,7 @@ namespace Software_Project_team2
             buttonLectureManagement.Click += (_, _) => new SchedulePanel().Show();
             btnMore.Click += (_, _) => new NoticeForm().Show();
             buttonGrades.Click += (_, _) => new Grade(klasService).Show();
-            buttonAssignment.Click += (_, _) => new Assignment().Show();
+            buttonAssignment.Click += (_, _) => new Assignment(klasService).Show();
             buttonMoreClaass.Click += (_, _) => new RecommendedCoursesForm().Show();
             buttonLogOut.Click += OnLogOut;
         }
