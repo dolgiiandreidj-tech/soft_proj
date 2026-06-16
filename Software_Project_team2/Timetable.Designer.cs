@@ -38,7 +38,7 @@ namespace Software_Project_team2
 
             // panelContent — scrollable fill area, all course cards live here
             panelContent.Dock       = DockStyle.Fill;
-            panelContent.BackColor  = Color.WhiteSmoke;
+            panelContent.BackColor  = Color.White;
             panelContent.AutoScroll = true;
             panelContent.Name       = "panelContent";
             panelContent.TabIndex   = 1;
@@ -46,7 +46,7 @@ namespace Software_Project_team2
             // Form
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode       = AutoScaleMode.Font;
-            BackColor           = Color.WhiteSmoke;
+            BackColor           = Color.White;
             ClientSize          = new Size(1050, 640);
             Controls.Add(panelContent);
             Controls.Add(topPanel);

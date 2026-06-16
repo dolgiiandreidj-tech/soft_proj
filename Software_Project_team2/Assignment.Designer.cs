@@ -156,7 +156,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.WhiteSmoke;
+            BackColor = Color.White;
             ClientSize = new Size(1253, 596);
             Controls.Add(labelNotice);
             Controls.Add(listBoxNotice);
@@ -167,7 +167,7 @@
             Controls.Add(lblTitleGrade);
             Controls.Add(topPanel);
             Name = "Assignment";
-            Text = "Assignment";
+            Text = "과제 및 자료";
             topPanel.ResumeLayout(false);
             topPanel.PerformLayout();
             ResumeLayout(false);

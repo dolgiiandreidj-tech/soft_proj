@@ -803,7 +803,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.WhiteSmoke;
+            BackColor = Color.White;
             ClientSize = new Size(1047, 508);
             Controls.Add(tableCredit);
             Controls.Add(tableProgram);
@@ -812,7 +812,7 @@
             Controls.Add(topPanel);
             Name = "Grade";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Grade";
+            Text = "수강/성적조회";
             topPanel.ResumeLayout(false);
             topPanel.PerformLayout();
             tableStudent.ResumeLayout(false);

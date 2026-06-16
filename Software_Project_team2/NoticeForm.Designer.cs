@@ -84,7 +84,7 @@ namespace Software_Project_team2
             //
             // richNotice
             //
-            richNotice.BackColor = Color.WhiteSmoke;
+            richNotice.BackColor = Color.White;
             richNotice.BorderStyle = BorderStyle.None;
             richNotice.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             richNotice.ForeColor = Color.Black;
@@ -106,9 +106,9 @@ namespace Software_Project_team2
             //
             // NoticeForm
             //
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.WhiteSmoke;
+            BackColor = Color.White;
             ClientSize = new Size(1866, 959);
             Controls.Add(flpCategories);
             Controls.Add(richNotice);
@@ -117,7 +117,7 @@ namespace Software_Project_team2
             Controls.Add(pnlHeader);
             Name = "NoticeForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "NoticeForm";
+            Text = "공지사항";
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();
             ResumeLayout(false);

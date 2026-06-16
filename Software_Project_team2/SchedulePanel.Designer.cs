@@ -82,7 +82,7 @@ namespace Software_Project_team2
             lblHeader.AutoSize = true;
             lblHeader.BackColor = Color.Transparent;
             lblHeader.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            lblHeader.ForeColor = Color.Transparent;
+            lblHeader.ForeColor = Color.White;
             lblHeader.Location = new Point(26, 15);
             lblHeader.Margin = new Padding(4, 0, 4, 0);
             lblHeader.Name = "lblHeader";
@@ -121,7 +121,7 @@ namespace Software_Project_team2
             btnGo.BackColor = Color.FromArgb(90, 0, 31);
             btnGo.Cursor = Cursors.Hand;
             btnGo.FlatAppearance.BorderSize = 0;
-            btnGo.FlatAppearance.MouseOverBackColor = Color.FromArgb(120, 140, 255);
+            btnGo.FlatAppearance.MouseOverBackColor = Color.FromArgb(120, 20, 55);
             btnGo.FlatStyle = FlatStyle.Flat;
             btnGo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnGo.ForeColor = Color.White;

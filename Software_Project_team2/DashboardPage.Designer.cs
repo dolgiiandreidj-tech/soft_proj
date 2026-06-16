@@ -318,7 +318,7 @@
             button1.BackColor = Color.FromArgb(90, 0, 31);
             button1.Cursor = Cursors.Hand;
             button1.FlatAppearance.BorderSize = 0;
-            button1.FlatAppearance.MouseOverBackColor = Color.FromArgb(120, 140, 255);
+            button1.FlatAppearance.MouseOverBackColor = Color.FromArgb(120, 20, 55);
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
@@ -525,7 +525,7 @@
             button2.BackColor = Color.FromArgb(90, 0, 31);
             button2.Cursor = Cursors.Hand;
             button2.FlatAppearance.BorderSize = 0;
-            button2.FlatAppearance.MouseOverBackColor = Color.FromArgb(120, 140, 255);
+            button2.FlatAppearance.MouseOverBackColor = Color.FromArgb(120, 20, 55);
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button2.ForeColor = Color.White;
@@ -605,7 +605,7 @@
             button3.BackColor = Color.FromArgb(90, 0, 31);
             button3.Cursor = Cursors.Hand;
             button3.FlatAppearance.BorderSize = 0;
-            button3.FlatAppearance.MouseOverBackColor = Color.FromArgb(120, 140, 255);
+            button3.FlatAppearance.MouseOverBackColor = Color.FromArgb(120, 20, 55);
             button3.FlatStyle = FlatStyle.Flat;
             button3.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button3.ForeColor = Color.White;
@@ -824,7 +824,7 @@
             buttonLectureManagement.BackColor = Color.White;
             buttonLectureManagement.Cursor = Cursors.Hand;
             buttonLectureManagement.FlatAppearance.BorderColor = Color.FromArgb(225, 225, 225);
-            buttonLectureManagement.FlatAppearance.MouseOverBackColor = Color.FromArgb(32, 35, 48);
+            buttonLectureManagement.FlatAppearance.MouseOverBackColor = Color.FromArgb(243, 232, 236);
             buttonLectureManagement.FlatStyle = FlatStyle.Flat;
             buttonLectureManagement.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonLectureManagement.ForeColor = Color.FromArgb(70, 70, 70);
@@ -841,7 +841,7 @@
             buttonAssignment.BackColor = Color.White;
             buttonAssignment.Cursor = Cursors.Hand;
             buttonAssignment.FlatAppearance.BorderColor = Color.FromArgb(225, 225, 225);
-            buttonAssignment.FlatAppearance.MouseOverBackColor = Color.FromArgb(32, 35, 48);
+            buttonAssignment.FlatAppearance.MouseOverBackColor = Color.FromArgb(243, 232, 236);
             buttonAssignment.FlatStyle = FlatStyle.Flat;
             buttonAssignment.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonAssignment.ForeColor = Color.FromArgb(70, 70, 70);
@@ -858,7 +858,7 @@
             buttonTimeTable.BackColor = Color.White;
             buttonTimeTable.Cursor = Cursors.Hand;
             buttonTimeTable.FlatAppearance.BorderColor = Color.FromArgb(225, 225, 225);
-            buttonTimeTable.FlatAppearance.MouseOverBackColor = Color.FromArgb(32, 35, 48);
+            buttonTimeTable.FlatAppearance.MouseOverBackColor = Color.FromArgb(243, 232, 236);
             buttonTimeTable.FlatStyle = FlatStyle.Flat;
             buttonTimeTable.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonTimeTable.ForeColor = Color.FromArgb(70, 70, 70);
@@ -875,7 +875,7 @@
             buttonGrades.BackColor = Color.White;
             buttonGrades.Cursor = Cursors.Hand;
             buttonGrades.FlatAppearance.BorderColor = Color.FromArgb(225, 225, 225);
-            buttonGrades.FlatAppearance.MouseOverBackColor = Color.FromArgb(32, 35, 48);
+            buttonGrades.FlatAppearance.MouseOverBackColor = Color.FromArgb(243, 232, 236);
             buttonGrades.FlatStyle = FlatStyle.Flat;
             buttonGrades.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             buttonGrades.ForeColor = Color.FromArgb(70, 70, 70);
